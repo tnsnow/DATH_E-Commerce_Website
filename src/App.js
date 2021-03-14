@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          do an tong hop
+          Đồ án tổng hợp.
         </a>
       </header>
     </div>
