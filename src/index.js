@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import '../public/assets/css/styles.css';
-import App from './App';
+import FormCustomer from './Features/customer/form_customer';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <FormCustomer />
   </React.StrictMode>,
   document.getElementById('root')
 );
