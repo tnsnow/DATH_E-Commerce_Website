@@ -1,54 +1,73 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Form, Input, Button } from 'antd';
-import LoginImage from '../../assets/images/form_customer/login_img.jpg';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { Form, Input, Button, Checkbox } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import "antd/dist/antd.css";
+import LoginImage from "../../assets/images/form_customer/login_img.jpg";
 
-index.propTypes = {
+// const changeResgister = () => {
+//     var addClass = document.getElementById("registerForm");
+//     addClass.classList.add("active");
 
+//     var deleteClass = document.getElementById("loginForm");
+//     deleteClass.classList.remove("active");
+// }
+
+const onFinish = (values) => {
+  console.log("Received values of form: ", values);
 };
 
-const changeResgister = () => {
-    var addClass = document.getElementById("registerForm");
-    addClass.classList.add("active");
+function index() {
+  return (
+    <div className="form">
+      <Form
+        name="login"
+        className="login-form"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+      >
+        <Form.Item
+          name="username"
+          rules={[{ required: true, message: "Please input your Username!" }]}
+        >
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Username"
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: "Please input your Password!" }]}
+        >
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
 
-    var deleteClass = document.getElementById("loginForm");
-    deleteClass.classList.remove("active");
-}
+          <a className="login-form-forgot" href="">
+            Forgot password
+          </a>
+        </Form.Item>
 
-function index(props) {
-
-    return (
-        <div id="loginForm" className="form-page__item form-page__login active">
-            <div className="block-item">
-                <div className="block-item__img">
-                    <img className="img-fluid" src={LoginImage} />
-                </div>
-
-                <div className="block-item__form">
-                    <div className="title">
-                        <h1>Login</h1>
-                    </div>
-                    <Form className="form">
-                        <Form.Item className="form__input">
-                            <Input placeholder="User Name" />
-                        </Form.Item>
-                        <Form.Item className="form__input">
-                            <Input type="password" placeholder="Password" />
-                        </Form.Item>
-                        <Form.Item className="form__notion">
-                            <a href="#">Forgot your password?</a>
-                        </Form.Item>
-                        <Form.Item className="form__btn">
-                            <Button>Login</Button>
-                        </Form.Item>
-                        <Form.Item className="form__btn form__change">
-                            <Button onClick={() => changeResgister()}>Register</Button>
-                        </Form.Item>
-                    </Form>
-                </div>
-            </div>
-        </div>
-    );
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+          >
+            Log in
+          </Button>
+          Or <a href="">register now!</a>
+        </Form.Item>
+      </Form>
+    </div>
+  );
 }
 
 export default index;
