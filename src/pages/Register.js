@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
-import FormRegister from "../Components/form_register/index";
+import FormRegister from "../Components/FormRegister/FormRegister";
 
 Register.propTypes = {};
 export default function Register() {

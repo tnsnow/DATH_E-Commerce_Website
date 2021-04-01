@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
-import FormLogin from "../Components/form_login/index";
+import FormLogin from "../Components/FormLogin/FormLogin";
 // import FormRegister from "../../../Components/form_register";
 
 Login.propTypes = {};
