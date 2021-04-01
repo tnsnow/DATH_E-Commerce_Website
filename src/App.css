@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.background{
+  overflow-x: hidden;
+
+  /* position: relative;s */
+}
+.title_background{
+  position: absolute;
+  top: 0;
+  left : 0;
+
+}
