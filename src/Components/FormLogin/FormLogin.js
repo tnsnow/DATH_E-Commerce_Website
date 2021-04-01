@@ -1,0 +1,131 @@
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { useMutation } from "react-query";
+import { Form, Input, Button, Checkbox, Space, notification } from "antd";
+import {
+  LoadingOutlined,
+  CheckCircleOutlined,
+  WarningOutlined,
+  UserOutlined,
+  LockOutlined,
+} from "@ant-design/icons";
+import "antd/dist/antd.css";
+import LoginImage from "../../assets/images/form_customer/login_img.jpg";
+
+//api fetching
+const postLoginUser = (data) => {
+  return axios.post("http://localhost:4001/users/login/", data);
+};
+
+//noti
+const openNotification = ({ ...props }) => {
+  notification.open({
+    ...props,
+  });
+};
+
+export default function FormLogin(props) {
+  const history = useHistory();
+  const { mutate, isLoading } = useMutation((data) => postLoginUser(data), {
+    onError: (err) => {
+      openNotification({
+        message: "Error",
+        description: err,
+        icon: <WarningOutlined style={{ color: "#fa3939" }} />,
+      });
+    },
+    onSuccess: ({ data }) => {
+      if (data.success) {
+        openNotification({
+          message: "Success",
+          description: data.success,
+          icon: <CheckCircleOutlined style={{ color: "#36e379" }} />,
+        });
+
+        //handle tokens here
+        // console.log(data);
+        history.push("/");
+      }
+
+      if (data.error) {
+        //error notification
+        openNotification({
+          message: "Error",
+          description: data.error,
+          icon: <WarningOutlined style={{ color: "#fa3939" }} />,
+        });
+      }
+    },
+  });
+  const onFinish = ({ email, password }) => {
+    // console.log("Received values of form: ", { email, password });
+    mutate({
+      email,
+      password,
+    });
+  };
+
+  return (
+    <div
+      className="mt-3 d-flex justify-content-center"
+      style={{ width: props.width }}
+    >
+      <Form
+        name="login"
+        className="login-form"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+      >
+        <Form.Item
+          name="email"
+          rules={[
+            {
+              required: true,
+              type: "email",
+              message: "Please input your Email!",
+            },
+          ]}
+        >
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Email"
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: "Please input your Password!" }]}
+        >
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+
+          <a className="login-form-forgot" href="">
+            Forgot password
+          </a>
+        </Form.Item>
+
+        <Form.Item>
+          <Space size="middle">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              {isLoading ? <LoadingOutlined /> : "Sign in"}
+            </Button>
+            Or <a href="/register">register now!</a>
+          </Space>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+}

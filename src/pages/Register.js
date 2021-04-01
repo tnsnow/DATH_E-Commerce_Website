@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
-import FormLogin from "../Components/form_login/index";
-// import FormRegister from "../../../Components/form_register";
+import FormRegister from "../Components/form_register/index";
 
-Login.propTypes = {};
-export default function Login() {
+Register.propTypes = {};
+export default function Register() {
   return (
     <div>
       <Row>
@@ -15,8 +14,8 @@ export default function Login() {
             className="container mt-5 center-custom"
             style={{ textAlign: "center" }}
           >
-            <h1>Login</h1>
-            <FormLogin width="100%" />
+            <h1>Register</h1>
+            <FormRegister width="100%" />
           </div>
         </Col>
       </Row>

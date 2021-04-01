@@ -5,13 +5,15 @@ import "./App.css";
 //Pages import
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+import {} from "";
 
 function App() {
   return (
     <Router>
       <div>
         {/* Sample nav - redesign later 👌 */}
-        <nav>
+        {/* <nav>
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -20,7 +22,7 @@ function App() {
               <Link to="/login">Login</Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
 
         {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
@@ -30,6 +32,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
           </Route>
         </Switch>
       </div>
