@@ -1,9 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import FormLogin from "../Components/FormLogin/FormLogin";
 import '../assets/scss/styles.scss';
-// import FormRegister from "../../../Components/form_register";
 
 Login.propTypes = {};
 export default function Login() {
