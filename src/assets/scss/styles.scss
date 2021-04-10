@@ -1,4 +1,5 @@
-@import "./helpers/variables";
-@import "./helpers/mixins";
-@import "./helpers/global";
-@import "./helpers/ultilities";
+@import "./abstracts/mixins";
+@import "./abstracts/variables";
+
+@import "./bases/font";
+@import "./bases/base";

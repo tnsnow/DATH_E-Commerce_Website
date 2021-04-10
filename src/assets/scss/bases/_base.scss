@@ -1,0 +1,95 @@
+*,
+*:after,
+*:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    font: {
+        size: 1.7rem;
+        weight: 400;
+        family: "Montserrat";
+    }
+    // color: $color-04;
+    // background-color: $color-01;
+    overflow-x: hidden;
+}
+section,
+header,
+footer {
+    max-width: 192rem;
+    margin: 0 auto;
+}
+
+// .container {
+//   @include for-size(1200) {
+//     padding-left: 0;
+//     padding-right: 0;
+//   }
+// }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+dl,
+dt,
+dd,
+table,
+tr,
+td,
+figure,
+figcaption,
+label {
+    padding: 0;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    // line-height: 1;
+    font-size: inherit;
+    font-weight: inherit;
+}
+a {
+    color: inherit;
+    display: inline-block;
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+    &:focus,
+    &:active,
+    &:hover,
+    &:visited,
+    &:link {
+        outline: none;
+        border: none;
+        border-radius: 0px;
+    }
+}
+
+ul {
+    list-style: none;
+}
+
+.h-100vh {
+    height: 100vh;
+}

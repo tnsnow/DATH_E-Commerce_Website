@@ -164,6 +164,9 @@ export default function RegisterForm(props) {
           <Checkbox>
             I have read the <a href="">agreement</a>
           </Checkbox>
+          <div className="">
+            <a href="/Login">Login</a>
+          </div>
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">

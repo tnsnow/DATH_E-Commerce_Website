@@ -44,10 +44,12 @@ export default function Home() {
           </a>
         </Menu.Item>
         <Search placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
-        <Space size="middle">
-          <Button type="primary">Login</Button>
-          <Button>Register</Button>
-        </Space>
+        <Menu.Item key="login">
+          <a href="/Login">Login</a>
+        </Menu.Item>
+        <Menu.Item>
+          <a href="/Register">Register</a>
+        </Menu.Item>
         <Menu.Item key="iconBell">
           <BellOutlined />
         </Menu.Item>
