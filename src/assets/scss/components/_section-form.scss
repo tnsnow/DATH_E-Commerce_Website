@@ -1,0 +1,27 @@
+.section-form {
+    background-image: url("../../images/background_image/bg-01.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    &__content {
+        text-align: center;
+        margin: 0 auto;
+        width: 500px;
+
+        border-radius: 1.5rem;
+        overflow: hidden;
+        background-color: $color-white;
+        &--title {
+            background-color: $color-black;
+            padding: 2rem 0;
+            h1 {
+                text-transform: uppercase;
+                color: $color-white;
+            }
+        }
+        &--form {
+            .login-form {
+                width: 80%;
+            }
+        }
+    }
+}

@@ -8,16 +8,18 @@ import '../assets/scss/styles.scss';
 Login.propTypes = {};
 export default function Login() {
   return (
-    <div id="loginPage" class="section-login">
+    <div id="loginPage" class="section-form section-login">
       <Row justify="center" align="center">
         <Col span={8} className="d-flex align-items-center h-100vh">
           <div
-            className="container mt-5 center-custom"
-            style={{ textAlign: "center" }}
+            className="section-form__content"
             value={100}
           >
-            <h1>Login</h1>
-            <FormLogin width="100%" />
+            <div className="section-form__content--title">
+              <h1>Login</h1>
+            </div>
+
+            <FormLogin />
           </div>
         </Col>
       </Row>

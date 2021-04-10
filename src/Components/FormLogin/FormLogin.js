@@ -68,10 +68,7 @@ export default function FormLogin(props) {
   };
 
   return (
-    <div
-      className="mt-3 d-flex justify-content-center"
-      style={{ width: props.width }}
-    >
+    <div className="mt-5 d-flex justify-content-center section-form__content--form" >
       <Form
         name="login"
         className="login-form"
