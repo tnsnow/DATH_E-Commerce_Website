@@ -1,21 +1,23 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import FormRegister from "../Components/FormRegister/FormRegister";
+import '../assets/scss/styles.scss';
 
-Register.propTypes = {};
 export default function Register() {
+  console.log('Loading register page!');
   return (
-    <div>
-      <Row>
-        <Col span={12}>Background here</Col>
-        <Col span={12}>
+    <div id="registerPahe" className="section-form section-register">
+      <Row justify="center" align="center">
+        <Col span={8} className="d-flex align-items-center h-100vh">
           <div
-            className="container mt-5 center-custom"
-            style={{ textAlign: "center" }}
+            className="section-form__content"
+            value={100}
           >
-            <h1>Register</h1>
-            <FormRegister width="100%" />
+            <div className="section-form__content--title">
+              <h1>Register</h1>
+            </div>
+
+            <FormRegister />
           </div>
         </Col>
       </Row>

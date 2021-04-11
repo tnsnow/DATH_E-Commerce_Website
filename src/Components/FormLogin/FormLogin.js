@@ -12,7 +12,6 @@ import {
   LockOutlined,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
-import LoginImage from "../../assets/images/form_customer/login_img.jpg";
 
 //api fetching
 const postLoginUser = (data) => {
@@ -45,7 +44,6 @@ export default function FormLogin(props) {
         });
 
         //handle tokens here
-        // console.log(data);
         history.push("/");
       }
 
@@ -60,7 +58,6 @@ export default function FormLogin(props) {
     },
   });
   const onFinish = ({ email, password }) => {
-    // console.log("Received values of form: ", { email, password });
     mutate({
       email,
       password,
@@ -68,10 +65,7 @@ export default function FormLogin(props) {
   };
 
   return (
-    <div
-      className="mt-3 d-flex justify-content-center"
-      style={{ width: props.width }}
-    >
+    <div className="mt-5 d-flex justify-content-center section-form__content--form" >
       <Form
         name="login"
         className="login-form"
