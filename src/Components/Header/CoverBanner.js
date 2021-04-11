@@ -7,7 +7,7 @@ import bannerImg from "../../assets/images/background_image/landscape.jpg";
 
 
 
-function Banner(props) {
+function CoverBanner(props) {
     const settingSlick = {
         dots: true,
         infinite: true,
@@ -16,7 +16,6 @@ function Banner(props) {
         slidesToScroll: 1
     }
     return (
-
         <div id="banner" className="section-banner" >
             <div className="container">
                 <div className="row">
@@ -50,4 +49,4 @@ function Banner(props) {
     );
 }
 
-export default Banner;
+export default CoverBanner;
