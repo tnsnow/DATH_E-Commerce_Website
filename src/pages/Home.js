@@ -2,11 +2,6 @@ import React, { useState } from "react";
 import Navbar from "../Components/Header/Navbar";
 import CoverBanner from "../Components/Header/CoverBanner";
 
-
-//Page = Multiple Components
-const { SubMenu } = Menu;
-const { Search } = Input;
-
 export default function Home() {
   const [current, setCurrent] = useState();
 
