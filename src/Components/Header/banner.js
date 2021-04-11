@@ -16,6 +16,7 @@ function Banner(props) {
         slidesToScroll: 1
     }
     return (
+
         <div id="banner" className="section-banner" >
             <div className="container">
                 <div className="row">
