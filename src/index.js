@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 const queryClient = new QueryClient();
 
 ReactDOM.render(
