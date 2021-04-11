@@ -4,15 +4,10 @@ import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Form, Input, Button, Checkbox, Spin, notification } from "antd";
-import {
-  LoadingOutlined,
-  CheckCircleOutlined,
-  WarningOutlined,
-} from "@ant-design/icons";
+import { LoadingOutlined, CheckCircleOutlined, WarningOutlined, } from "@ant-design/icons";
 import "antd/dist/antd.css";
-// import LoginImage from "../../assets/images/form_customer/login_img.jpg";
 
-const antLoadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+const antLoadingBtn = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 //noti
 const openNotification = ({ ...props }) => {
@@ -59,7 +54,6 @@ export default function RegisterForm(props) {
   );
   const onFinish = ({ username, password, email }) => {
     //trigger this function when submitted
-    // console.log("Received values of form: ", values);
     //post
     const newData = {
       username,
@@ -78,7 +72,7 @@ export default function RegisterForm(props) {
 
   return (
     <div
-      className="mt-3 d-flex justify-content-center"
+      className="mt-5 d-flex justify-content-center"
       style={{ width: props.width }}
     >
       <Form form={form} name="register" onFinish={onFinish} scrollToFirstError>
@@ -170,8 +164,7 @@ export default function RegisterForm(props) {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            {isLoading ? <Spin indicator={antLoadingIcon} /> : "Register"}
-            {/* register */}
+            {isLoading ? <Spin indicator={antLoadingBtn} /> : "Register"}
           </Button>
         </Form.Item>
       </Form>

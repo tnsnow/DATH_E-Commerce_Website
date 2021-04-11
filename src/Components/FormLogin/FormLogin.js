@@ -45,7 +45,6 @@ export default function FormLogin(props) {
         });
 
         //handle tokens here
-        // console.log(data);
         history.push("/");
       }
 
@@ -60,7 +59,6 @@ export default function FormLogin(props) {
     },
   });
   const onFinish = ({ email, password }) => {
-    // console.log("Received values of form: ", { email, password });
     mutate({
       email,
       password,

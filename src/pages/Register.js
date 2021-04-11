@@ -3,8 +3,8 @@ import { Row, Col } from "antd";
 import FormRegister from "../Components/FormRegister/FormRegister";
 import '../assets/scss/styles.scss';
 
-Register.propTypes = {};
 export default function Register() {
+  console.log('Loading register page!');
   return (
     <div id="registerPahe" className="section-form section-register">
       <Row justify="center" align="center">
@@ -14,7 +14,7 @@ export default function Register() {
             value={100}
           >
             <div className="section-form__content--title">
-              <h1>Login</h1>
+              <h1>Register</h1>
             </div>
 
             <FormRegister />

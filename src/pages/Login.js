@@ -3,8 +3,8 @@ import { Row, Col } from "antd";
 import FormLogin from "../Components/FormLogin/FormLogin";
 import '../assets/scss/styles.scss';
 
-Login.propTypes = {};
 export default function Login() {
+  console.log('Loading Login page!');
   return (
     <div id="loginPage" class="section-form section-login">
       <Row justify="center" align="center">

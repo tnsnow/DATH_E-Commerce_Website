@@ -16,6 +16,10 @@
             h1 {
                 text-transform: uppercase;
                 color: $color-white;
+                font: {
+                    size: 3rem;
+                    weight: 700;
+                }
             }
         }
         &--form {
