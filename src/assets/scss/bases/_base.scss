@@ -92,3 +92,14 @@ ul {
 .h-100vh {
     height: 100vh;
 }
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .centered-left{
+        justify-content: left;
+    }
+}
+
