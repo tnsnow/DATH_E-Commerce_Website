@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col } from "antd";
 import FormLogin from "../Components/FormLogin/FormLogin";
-import '../assets/scss/styles.scss';
 
 export default function Login() {
   console.log('Loading Login page!');

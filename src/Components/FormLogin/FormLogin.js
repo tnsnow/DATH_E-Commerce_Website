@@ -12,7 +12,6 @@ import {
   LockOutlined,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
-import LoginImage from "../../assets/images/form_customer/login_img.jpg";
 
 //api fetching
 const postLoginUser = (data) => {
