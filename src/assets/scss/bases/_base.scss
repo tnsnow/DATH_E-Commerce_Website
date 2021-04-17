@@ -53,7 +53,7 @@ td,
 figure,
 figcaption,
 label {
-    padding: 0 !important;
+    // padding: 0 !important;
     margin: 0 !important;
 }
 
@@ -98,8 +98,7 @@ ul {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    .centered-left{
+    .centered-left {
         justify-content: left;
     }
 }
-

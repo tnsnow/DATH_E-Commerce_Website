@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Input, Space, Button, Popover } from 'antd';
-import { QuestionCircleOutlined, ShoppingCartOutlined, BellOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined, ShoppingCartOutlined, BellOutlined, FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
 import logo from "../../assets/images/logo/logo_cartya_black.png";
 
 const { SubMenu } = Menu;
@@ -28,14 +28,18 @@ function Navbar(props) {
                                     <a href="#">Kênh người bán</a>
                                 </Menu.Item>
                                 <Menu.Item>
-                                    <div className="d-flex">
-                                        <p>Kết nối với chúng tôi:</p>
-                                        <div className="d-flex social">
-                                            <div className="social__item">
-                                                <a href="#">fb</a>
+                                    <div className="d-flex left-social">
+                                        <p className="left-social__title">Kết nối với chúng tôi:</p>
+                                        <div className="d-flex left-social__content">
+                                            <div className="left-social__content--item">
+                                                <a href="#">
+                                                    <FacebookOutlined className="item-icon" />
+                                                </a>
                                             </div>
-                                            <div className="social__item">
-                                                <a href="#">ins</a>
+                                            <div className="left-social__content--item">
+                                                <a href="#">
+                                                    <InstagramOutlined className="item-icon" />
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -44,23 +48,23 @@ function Navbar(props) {
                         </Menu>
                     </div>
                     <div className="section-navbar__item section-navbar__top--right">
-                        <Menu mode="horizontal">
+                        <Menu mode="horizontal" className="right-content">
                             <Space>
-                                <Menu.Item>
-                                    <BellOutlined />
-                                    <span>Thông báo</span>
+                                <Menu.Item className="right-content__item right-content__notification">
+                                    <BellOutlined className="right-content__item--icon" />
+                                    <span className="right-content__item--title">Thông báo</span>
                                 </Menu.Item>
-                                <Menu.Item>
-                                    <a href="/Login">
-                                        <QuestionCircleOutlined />
-                                        <span>Hỗ Trợ</span>
+                                <Menu.Item className="right-content__item right-content__support">
+                                    <a href="/">
+                                        <QuestionCircleOutlined className="right-content__item--icon" />
+                                        <span className="right-content__item--title">Hỗ Trợ</span>
                                     </a>
                                 </Menu.Item>
-                                <Menu.Item key="login">
-                                    <a href="/Login">Login</a>
+                                <Menu.Item className="right-content__item right-content__login" key="login">
+                                    <a href="/Login" className="right-content__item--title">Login</a>
                                 </Menu.Item>
-                                <Menu.Item key="register">
-                                    <a href="/Register">Register</a>
+                                <Menu.Item className="right-content__item right-content__register" key="register">
+                                    <a href="/Register" className="right-content__item--title">Register</a>
                                 </Menu.Item>
                             </Space>
                         </Menu>
