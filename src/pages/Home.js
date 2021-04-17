@@ -6,10 +6,12 @@ import CategoryTab from "../Components/Category/CategoryTab";
 import Navbar from "../Components/Header/Navbar";
 import CoverBanner from "../Components/Header/CoverBanner";
 import ItemsGroup from "../Components/Card/ItemsGroup";
+import Footer from "../Components/Footer";
 export default function Home() {
   return (
     <>
       <Navbar />
+
       <div className="container mt-5">
         <CoverBanner />
         <div className="row">
@@ -24,6 +26,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 }
