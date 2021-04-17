@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React from // useState
+"react";
+// import PropTypes from "prop-types";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Form, Input, Button, Checkbox, Spin, notification } from "antd";
-import { LoadingOutlined, CheckCircleOutlined, WarningOutlined, } from "@ant-design/icons";
+import {
+  LoadingOutlined,
+  CheckCircleOutlined,
+  WarningOutlined,
+} from "@ant-design/icons";
 import "antd/dist/antd.css";
 
 const antLoadingBtn = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -22,36 +27,33 @@ const postRegisterUser = (data) => {
 export default function RegisterForm(props) {
   const history = useHistory();
   const [form] = Form.useForm();
-  const { mutate, isError, error, isLoading } = useMutation(
-    (data) => postRegisterUser(data),
-    {
-      onError: (err) => {
+  const { mutate, isLoading } = useMutation((data) => postRegisterUser(data), {
+    onError: (err) => {
+      openNotification({
+        message: "Error",
+        description: err,
+        icon: <WarningOutlined style={{ color: "#fa3939" }} />,
+      });
+    },
+    onSuccess: ({ data }) => {
+      console.log(data);
+      if (data.error) {
         openNotification({
           message: "Error",
-          description: err,
+          description: data.error,
           icon: <WarningOutlined style={{ color: "#fa3939" }} />,
         });
-      },
-      onSuccess: ({ data }) => {
-        console.log(data);
-        if (data.error) {
-          openNotification({
-            message: "Error",
-            description: data.error,
-            icon: <WarningOutlined style={{ color: "#fa3939" }} />,
-          });
-        }
-        if (data.success) {
-          openNotification({
-            message: "Success",
-            description: data.success,
-            icon: <CheckCircleOutlined style={{ color: "#36e379" }} />,
-          });
-          history.push("/login");
-        }
-      },
-    }
-  );
+      }
+      if (data.success) {
+        openNotification({
+          message: "Success",
+          description: data.success,
+          icon: <CheckCircleOutlined style={{ color: "#36e379" }} />,
+        });
+        history.push("/login");
+      }
+    },
+  });
   const onFinish = ({ username, password, email }) => {
     //trigger this function when submitted
     //post

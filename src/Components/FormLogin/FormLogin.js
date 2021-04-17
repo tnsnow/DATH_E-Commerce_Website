@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React from // useState
+"react";
+// import PropTypes from "prop-types";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
@@ -65,7 +66,7 @@ export default function FormLogin(props) {
   };
 
   return (
-    <div className="mt-5 d-flex justify-content-center section-form__content--form" >
+    <div className="mt-5 d-flex justify-content-center section-form__content--form">
       <Form
         name="login"
         className="login-form"
