@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Menu, Input, Space, Button, Popover } from 'antd';
+import { Menu, Input, Space, Row, Col } from 'antd';
 import { QuestionCircleOutlined, ShoppingCartOutlined, BellOutlined, FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
 import logo from "../../assets/images/logo/logo_cartya_black.png";
 
@@ -15,10 +15,8 @@ function Navbar(props) {
         // setCurrent(e.key);
     };
 
-    // const onSearch = value => console.log(value);
-
     return (
-        <div id="menuComponent" className="section-navbar" >
+        <div id="menuComponent" className="section-navbar">
             <div className="container">
                 <div className="d-flex justify-content-between section-navbar__top">
                     <div className="section-navbar__item section-navbar__top--left">
@@ -30,7 +28,7 @@ function Navbar(props) {
                                 <Menu.Item>
                                     <div className="d-flex left-social">
                                         <p className="left-social__title">Kết nối với chúng tôi:</p>
-                                        <div className="d-flex left-social__content">
+                                        <div className="d-flex align-items-center h-100 left-social__content">
                                             <div className="left-social__content--item">
                                                 <a href="#">
                                                     <FacebookOutlined className="item-icon" />
@@ -50,14 +48,14 @@ function Navbar(props) {
                     <div className="section-navbar__item section-navbar__top--right">
                         <Menu mode="horizontal" className="right-content">
                             <Space>
-                                <Menu.Item className="right-content__item right-content__notification">
+                                <Menu.Item className="d-flex  align-items-center h-100 right-content__item right-content__notification">
                                     <BellOutlined className="right-content__item--icon" />
-                                    <span className="right-content__item--title">Thông báo</span>
+                                    <p className="right-content__item--title">Thông báo</p>
                                 </Menu.Item>
                                 <Menu.Item className="right-content__item right-content__support">
-                                    <a href="/">
+                                    <a href="/" className="d-flex align-items-center h-100">
                                         <QuestionCircleOutlined className="right-content__item--icon" />
-                                        <span className="right-content__item--title">Hỗ Trợ</span>
+                                        <p className="right-content__item--title">Hỗ Trợ</p>
                                     </a>
                                 </Menu.Item>
                                 <Menu.Item className="right-content__item right-content__login" key="login">
@@ -71,28 +69,36 @@ function Navbar(props) {
                     </div>
                 </div>
 
-                <div className="d-flex justify-content-between section-navbar__bottom">
-                    <Menu mode="horizontal">
-                        <Space>
-                            <Menu.Item>
+                <div className="section-navbar__bottom">
+                    <Row gutter={48}>
+                        <Col className="gutter-row" span={6}>
+                            <div className="section-navbar__bottom--logo">
                                 <a href="/">
-                                    <img src={logo} alt="Logo" />
+                                    <img className="img-fluid" src={logo} alt="Logo" />
                                 </a>
-                            </Menu.Item>
-                            <Menu.Item>
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={14}>
+                            <div className="d-flex align-items-center h-100 section-navbar__bottom--serch">
                                 <Search
                                     placeholder="input search text"
                                     onSearch={onSearch}
                                     enterButton
+                                    className="w-100"
                                 />
-                            </Menu.Item>
-                            <Menu.Item>
-                                <a hrf="">
+                            </div>
+                        </Col>
+                        <Col className="gutter-row" span={4}>
+                            <div className="d-flex justify-content-center h-100 section-navbar__bottom--icon">
+                                <a
+                                    className="d-flex align-items-center"
+                                    hrf="#"
+                                >
                                     <ShoppingCartOutlined />
                                 </a>
-                            </Menu.Item>
-                        </Space>
-                    </Menu>
+                            </div>
+                        </Col>
+                    </Row>
                 </div>
             </div>
         </div >

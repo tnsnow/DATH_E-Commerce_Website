@@ -1,4 +1,6 @@
 .section-navbar {
+    // background-color: red;
+    border-bottom: 2px solid $color-black;
     &__item {
         .ant-menu-horizontal {
             border: unset;
@@ -30,6 +32,13 @@
                 &--title {
                 }
             }
+        }
+    }
+
+    &__bottom {
+        margin: 2rem 0;
+        &--icon {
+            font-size: 4rem;
         }
     }
 }
