@@ -4,18 +4,18 @@ import { Menu, Input, Space, Button, Popover } from 'antd';
 import { QuestionCircleOutlined, ShoppingCartOutlined, BellOutlined, FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
 import logo from "../../assets/images/logo/logo_cartya_black.png";
 
-const { SubMenu } = Menu;
+// const { SubMenu } = Menu;
 const { Search } = Input;
 
 function Navbar(props) {
-    const [current, setCurrent] = useState();
+    const onSearch = (value) => console.log(value);
 
     const handleClick = (e) => {
         console.log('click ', e);
-        setCurrent(e.key);
+        // setCurrent(e.key);
     };
 
-    const onSearch = value => console.log(value);
+    // const onSearch = value => console.log(value);
 
     return (
         <div id="menuComponent" className="section-navbar" >
@@ -80,7 +80,11 @@ function Navbar(props) {
                                 </a>
                             </Menu.Item>
                             <Menu.Item>
-                                <Search placeholder="input search text" onSearch={onSearch} enterButton />
+                                <Search
+                                    placeholder="input search text"
+                                    onSearch={onSearch}
+                                    enterButton
+                                />
                             </Menu.Item>
                             <Menu.Item>
                                 <a hrf="">

@@ -102,3 +102,18 @@ ul {
         justify-content: left;
     }
 }
+
+.middle-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50%, -50%);
+}
+
+.title-category {
+    width: 256px;
+}
+
+.padding-items {
+    padding: 5px !important;
+}

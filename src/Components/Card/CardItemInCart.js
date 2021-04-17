@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { Button, Space, Rate } from "antd";
-import {
-  DownloadOutlined,
-  MinusOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
 export default function CardItemInCart({ product }) {
   const [qty, setQty] = useState(0);
-  const { name, description, rating, like, images, price, sold } = product;
+  const { name, description, rating, images, price } = product;
   return (
     <div className="session-cart ">
       <div className="row">
