@@ -11,9 +11,9 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <CoverBanner />
 
       <div className="container mt-5">
-        <CoverBanner />
         <div className="row">
           <div className="col col-md-4 p-3">
             <CategoryTab />
