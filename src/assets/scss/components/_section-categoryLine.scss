@@ -1,0 +1,52 @@
+.section-categoryLine {
+    &__title {
+    }
+    .categoryLine {
+        &__content {
+            .slide-item {
+                width: 100%;
+                height: auto;
+                text-align: center;
+                .slide-item__content {
+                    border-radius: 1.5rem;
+                    border: 2px solid $color-black;
+                    overflow: hidden;
+                    background-color: $color-private;
+                    margin: 5px;
+                    &--icon {
+                    }
+                    &--decs {
+                        font: {
+                            size: 1.6rem;
+                            weight: 700;
+                        }
+                        color: $color-white;
+                        padding: 1.5rem 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .slick-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        $icon-size: 3rem;
+        width: $icon-size;
+        height: $icon-size;
+        &::before {
+            content: "";
+            display: none;
+        }
+        span {
+            font-size: 3rem;
+            color: $color-black;
+            transition: 0.3s;
+            &:hover {
+                color: $color-private;
+                font-size: 5rem;
+            }
+        }
+    }
+}
