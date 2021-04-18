@@ -92,7 +92,7 @@ function Navbar(props) {
                             <div className="d-flex justify-content-center h-100 section-navbar__bottom--icon">
                                 <a
                                     className="d-flex align-items-center"
-                                    hrf="#"
+                                    href="#"
                                 >
                                     <ShoppingCartOutlined />
                                 </a>

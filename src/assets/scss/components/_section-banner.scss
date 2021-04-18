@@ -1,4 +1,31 @@
 .section-banner {
-    &__item {
+    .banner-content {
+        display: flex;
+        flex-wrap: wrap;
+
+        &__item {
+            img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+        }
+
+        &__left {
+            flex: 2;
+            width: 60%;
+        }
+
+        &__right {
+            flex: 1;
+            width: 40%;
+            .content-right__item + .content-right__item {
+                // margin-top: 15px;
+            }
+        }
+
+        .banner-content__item + .banner-content__item {
+            padding-left: 1.5rem;
+        }
     }
 }
