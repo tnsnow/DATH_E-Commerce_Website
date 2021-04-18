@@ -5,6 +5,7 @@ import { Divider } from "antd";
 import CategoryTab from "../Components/Category/CategoryTab";
 import Navbar from "../Components/Header/Navbar";
 import CoverBanner from "../Components/Header/CoverBanner";
+import CategoryLine from "../Components/Category/CategoryLine";
 import ItemsGroup from "../Components/Card/ItemsGroup";
 import Footer from "../Components/Footer";
 export default function Home() {
@@ -12,7 +13,7 @@ export default function Home() {
     <>
       <Navbar />
       <CoverBanner />
-
+      <CategoryLine />
       <div className="container mt-5">
         <div className="row">
           <div className="col col-md-4 p-3">
