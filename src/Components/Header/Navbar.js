@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Input, Space, Row, Col } from 'antd';
-import { QuestionCircleOutlined, ShoppingCartOutlined, BellOutlined, FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined, ShoppingCartOutlined, BellOutlined, FacebookOutlined, InstagramOutlined, SearchOutlined } from '@ant-design/icons';
 import logo from "../../assets/images/logo/logo_cartya_black.png";
 
 // const { SubMenu } = Menu;
@@ -80,12 +80,10 @@ function Navbar(props) {
                         </Col>
                         <Col className="gutter-row" span={14}>
                             <div className="d-flex align-items-center h-100 section-navbar__bottom--serch">
-                                <Search
-                                    placeholder="input search text"
-                                    onSearch={onSearch}
-                                    enterButton
-                                    className="w-100"
-                                />
+                                <input placeholder="Search..." />
+                                <button type="button" class="btn btn-default">
+                                    <SearchOutlined />
+                                </button>
                             </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
