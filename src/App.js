@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound404 from "./pages/Notfound404";
+import Seller from "./pages/Seller";
 
 function App() {
   return (
@@ -16,11 +17,17 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
+          <Route path="/home">
+            <Home />
+          </Route>
           <Route path="/login">
             <Login />
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/seller">
+            <Seller />
           </Route>
           <Route path="*">
             <NotFound404 />
