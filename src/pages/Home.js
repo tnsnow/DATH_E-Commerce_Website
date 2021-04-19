@@ -6,6 +6,8 @@ import CategoryTab from "../Components/Category/CategoryTab";
 import Navbar from "../Components/Header/Navbar";
 import CoverBanner from "../Components/Header/CoverBanner";
 import ItemsGroup from "../Components/Card/ItemsGroup";
+import CategoryLine from "../Components/Category/CategoryLine";
+import Footer from "../Components/Footer";
 import Search from "./Search";
 export default function Home() {
   return (
@@ -15,6 +17,7 @@ export default function Home() {
         <Route exact path="/">
           <div className="container mt-5">
             <CoverBanner />
+            <CategoryLine />
             <div className="row">
               <div className="col col-md-4 p-3">
                 <CategoryTab />
@@ -32,6 +35,7 @@ export default function Home() {
           <Search />
         </Route>
       </Switch>
+      <Footer />
     </>
   );
 }
