@@ -1,11 +1,11 @@
 import React from "react";
-// import PropTypes from 'prop-types';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import bannerImg from "../../assets/images/background_image/landscape.jpg";
 import { useQuery } from 'react-query';
 import axios from "axios";
+
+import bannerImg from '../../assets/images/background_image/bg-01.jpg';
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
