@@ -9,6 +9,8 @@ import ItemsGroup from "../Components/Card/ItemsGroup";
 import CategoryLine from "../Components/Category/CategoryLine";
 import Footer from "../Components/Footer";
 import Search from "./Search";
+import Trends from "../Components/Trends/Trends";
+
 export default function Home() {
   return (
     <>
@@ -19,6 +21,8 @@ export default function Home() {
             <div className="container">
               <CoverBanner />
               <CategoryLine />
+              <Trends />
+
               <div className="row">
                 <div className="col col-md-4 p-3">
                   <CategoryTab />
