@@ -1,0 +1,8 @@
+.section-promotions {
+    &__item {
+        border-radius: 1.5rem;
+        border: 1px solid $color-secondary;
+        background-color: $color-gray;
+        overflow: hidden;
+    }
+}
