@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, } from 'antd'
-import { FileSearchOutlined } from '@ant-design/icons';
+import { FileSearchOutlined, PlusSquareOutlined } from '@ant-design/icons';
 
 import ImgProduct from "../../assets/images/product/b518860859b1ea204032a449023fd56a.jpg";
 
@@ -9,14 +9,19 @@ Trends.propTypes = {};
 
 function Trends(props) {
     return (
-        <div className="section-trends">
-            <div className="section-trends__title">
-                <Row>
-                    <Col span={24} className="d-flex">
-                        <FileSearchOutlined style={{ fontSize: '2.5rem' }} />
-                        <h1>Tìm kiếm nổi bật</h1>
-                    </Col>
-                </Row>
+        <div className="section-trends my-5">
+            <div className="section-trends__title d-flex justify-content-between">
+                <div className="section-trends__title--left d-flex">
+                    <FileSearchOutlined style={{ fontSize: '2.5rem' }} />
+                    <h1>Tìm kiếm nổi bật</h1>
+                </div>
+
+                <div className="section-trends__title--right ">
+                    <a href="" className="d-flex">
+                        <PlusSquareOutlined style={{ fontSize: '2.5rem' }} />
+                        <h3>Xem thêm</h3>
+                    </a>
+                </div>
             </div>
 
             <div className="section-trends__content">
