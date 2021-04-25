@@ -13,28 +13,30 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Switch>
-        <Route exact path="/">
-          <div className="container mt-5">
-            <CoverBanner />
-            <CategoryLine />
-            <div className="row">
-              <div className="col col-md-4 p-3">
-                <CategoryTab />
-              </div>
-              <div className="col col-md-8 p-3">
-                <Divider style={{ color: "#1890ff" }} orientation="left">
-                  <h1>TOP SELLER</h1>
-                </Divider>
-                <ItemsGroup />
+      <div className="section-blog">
+        <Switch>
+          <Route exact path="/">
+            <div className="container">
+              <CoverBanner />
+              <CategoryLine />
+              <div className="row">
+                <div className="col col-md-4 p-3">
+                  <CategoryTab />
+                </div>
+                <div className="col col-md-8 p-3">
+                  <Divider style={{ color: "#1890ff" }} orientation="left">
+                    <h1>TOP SELLER</h1>
+                  </Divider>
+                  <ItemsGroup />
+                </div>
               </div>
             </div>
-          </div>
-        </Route>
-        <Route path="/home/search/:keyword">
-          <Search />
-        </Route>
-      </Switch>
+          </Route>
+          <Route path="/home/search/:keyword">
+            <Search />
+          </Route>
+        </Switch>
+      </div>
       <Footer />
     </>
   );

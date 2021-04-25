@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import iconCategory from '../../assets/images/icon/shop-icon.jpg';
 import { RightOutlined, LeftOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 CategoryLine.propTypes = {};
 
@@ -38,6 +39,7 @@ function CategoryLine(props) {
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />,
     }
+
     return (
         <div className="section-categoryLine">
             <div className="container">
@@ -105,6 +107,16 @@ function CategoryLine(props) {
                                             <img className="img-fluid" src={iconCategory} alt="" />
                                         </div>
                                         <div className="slide-item__content--decs">Nước hoa</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div className="slide-item">
+                                <a href="#">
+                                    <div className="slide-item__content">
+                                        <div className="slide-item__content--icon">
+                                            <img className="img-fluid" src={iconCategory} alt="" />
+                                        </div>
+                                        <div className="slide-item__content--decs">Dây nịch</div>
                                     </div>
                                 </a>
                             </div>

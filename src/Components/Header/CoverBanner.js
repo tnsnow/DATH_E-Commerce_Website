@@ -38,71 +38,32 @@ function CoverBanner(props) {
     infinite: true,
     autoplay: false,
     autoplaySpeed: 2000,
-    // nextArrow: <SampleNextArrow />,
-    // prevArrow: <SamplePrevArrow />,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
     slidesToShow: 1,
     slidesToScroll: 1
   }
 
-  // const { isLoading, isError, data, error } = useQuery('bannerItem', fetchBanner);
-  // if (isLoading) {
-  //   return <p>Loading...</p>
-  // }
-  // if (isError) {
-  //   return <p>Error...</p>
-  // }
-
   return (
     <div id="banner" className="section-banner" >
       <div className="container">
-        <div className="banner-content">
-          <div className="banner-content__item banner-content__left">
-            <Slider className="content-left" {...settingSlick}>
-              {/* {
-                data.data.data.map(bannerItem =>
-                  bannerItem.images.map(i =>
-                    <div className="slider-item">
-                      <a href="/">
-                        <img src={i} alt="Banner 1" />
-                      </a>
-                    </div>
-                  )
-                )
-              } */}
-
-              <div className="slider-item">
-                <a href="/">
-                  <img src={bannerImg} alt="Banner 1" />
-                </a>
-              </div>
-              <div className="slider-item">
-                <a href="/">
-                  <img src={bannerImg} alt="Banner 1" />
-                </a>
-              </div>
-              <div className="slider-item">
-                <a href="/">
-                  <img src={bannerImg} alt="Banner 1" />
-                </a>
-              </div>
-            </Slider>
+        <Slider className="content" {...settingSlick}>
+          <div className="slider-item">
+            <a href="/">
+              <img class="img-fluid" src={bannerImg} alt="Banner 1" />
+            </a>
           </div>
-
-          <div className="banner-content__item banner-content__right">
-            <div className="content-right">
-              <div className="content-right__item content-right__top">
-                <a href="/">
-                  <img src={bannerImg} />
-                </a>
-              </div>
-              <div className="content-right__item content-right__bottom">
-                <a href="/">
-                  <img src={bannerImg} />
-                </a>
-              </div>
-            </div>
+          <div className="slider-item">
+            <a href="/">
+              <img class="img-fluid" src={bannerImg} alt="Banner 1" />
+            </a>
           </div>
-        </div>
+          <div className="slider-item">
+            <a href="/">
+              <img class="img-fluid" src={bannerImg} alt="Banner 1" />
+            </a>
+          </div>
+        </Slider>
       </div>
     </div>
   );
