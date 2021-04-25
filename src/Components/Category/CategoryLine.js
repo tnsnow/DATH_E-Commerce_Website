@@ -31,7 +31,7 @@ const SamplePrevArrow = (props) => {
 
 function CategoryLine(props) {
     const settings = {
-        slidesPerRow: 4,
+        slidesPerRow: 6,
         slidesToShow: 1,
         infinite: true,
         // rows: 2,
