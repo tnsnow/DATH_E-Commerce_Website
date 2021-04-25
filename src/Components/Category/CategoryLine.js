@@ -42,87 +42,83 @@ function CategoryLine(props) {
 
     return (
         <div className="section-categoryLine">
-            <div className="container">
-                <div className="categoryLine">
-                    <div className="categoryLine__title">
-                        <h1>Danh mục sản phẩm</h1>
-                    </div>
+            <div className="categoryLine__title">
+                <h1>Danh mục sản phẩm</h1>
+            </div>
 
-                    <div className="categoryLine__content">
-                        <Slider {...settings}>
-                            <div className="slide-item">
-                                <a href="#">
-                                    <div className="slide-item__content">
-                                        <div className="slide-item__content--icon">
-                                            <img className="img-fluid" src={iconCategory} alt="" />
-                                        </div>
-                                        <div className="slide-item__content--decs">Thời trang nam</div>
-                                    </div>
-                                </a>
+            <div className="categoryLine__content">
+                <Slider {...settings}>
+                    <div className="slide-item">
+                        <a href="#">
+                            <div className="slide-item__content">
+                                <div className="slide-item__content--icon">
+                                    <img className="img-fluid" src={iconCategory} alt="" />
+                                </div>
+                                <div className="slide-item__content--decs">Thời trang nam</div>
                             </div>
-                            <div className="slide-item">
-                                <a href="#">
-                                    <div className="slide-item__content">
-                                        <div className="slide-item__content--icon">
-                                            <img className="img-fluid" src={iconCategory} alt="" />
-                                        </div>
-                                        <div className="slide-item__content--decs">Thời trang nữ</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div className="slide-item">
-                                <a href="#">
-                                    <div className="slide-item__content">
-                                        <div className="slide-item__content--icon">
-                                            <img className="img-fluid" src={iconCategory} alt="" />
-                                        </div>
-                                        <div className="slide-item__content--decs">Giày thể thao</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div className="slide-item">
-                                <a href="#">
-                                    <div className="slide-item__content">
-                                        <div className="slide-item__content--icon">
-                                            <img className="img-fluid" src={iconCategory} alt="" />
-                                        </div>
-                                        <div className="slide-item__content--decs">Phụ kiện</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div className="slide-item">
-                                <a href="#">
-                                    <div className="slide-item__content">
-                                        <div className="slide-item__content--icon">
-                                            <img className="img-fluid" src={iconCategory} alt="" />
-                                        </div>
-                                        <div className="slide-item__content--decs">Đồng hồ</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div className="slide-item">
-                                <a href="#">
-                                    <div className="slide-item__content">
-                                        <div className="slide-item__content--icon">
-                                            <img className="img-fluid" src={iconCategory} alt="" />
-                                        </div>
-                                        <div className="slide-item__content--decs">Nước hoa</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div className="slide-item">
-                                <a href="#">
-                                    <div className="slide-item__content">
-                                        <div className="slide-item__content--icon">
-                                            <img className="img-fluid" src={iconCategory} alt="" />
-                                        </div>
-                                        <div className="slide-item__content--decs">Dây nịch</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </Slider>
+                        </a>
                     </div>
-                </div>
+                    <div className="slide-item">
+                        <a href="#">
+                            <div className="slide-item__content">
+                                <div className="slide-item__content--icon">
+                                    <img className="img-fluid" src={iconCategory} alt="" />
+                                </div>
+                                <div className="slide-item__content--decs">Thời trang nữ</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div className="slide-item">
+                        <a href="#">
+                            <div className="slide-item__content">
+                                <div className="slide-item__content--icon">
+                                    <img className="img-fluid" src={iconCategory} alt="" />
+                                </div>
+                                <div className="slide-item__content--decs">Giày thể thao</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div className="slide-item">
+                        <a href="#">
+                            <div className="slide-item__content">
+                                <div className="slide-item__content--icon">
+                                    <img className="img-fluid" src={iconCategory} alt="" />
+                                </div>
+                                <div className="slide-item__content--decs">Phụ kiện</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div className="slide-item">
+                        <a href="#">
+                            <div className="slide-item__content">
+                                <div className="slide-item__content--icon">
+                                    <img className="img-fluid" src={iconCategory} alt="" />
+                                </div>
+                                <div className="slide-item__content--decs">Đồng hồ</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div className="slide-item">
+                        <a href="#">
+                            <div className="slide-item__content">
+                                <div className="slide-item__content--icon">
+                                    <img className="img-fluid" src={iconCategory} alt="" />
+                                </div>
+                                <div className="slide-item__content--decs">Nước hoa</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div className="slide-item">
+                        <a href="#">
+                            <div className="slide-item__content">
+                                <div className="slide-item__content--icon">
+                                    <img className="img-fluid" src={iconCategory} alt="" />
+                                </div>
+                                <div className="slide-item__content--decs">Dây nịch</div>
+                            </div>
+                        </a>
+                    </div>
+                </Slider>
             </div>
         </div>
     );

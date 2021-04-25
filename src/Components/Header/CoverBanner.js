@@ -46,25 +46,23 @@ function CoverBanner(props) {
 
   return (
     <div id="banner" className="section-banner" >
-      <div className="container">
-        <Slider className="content" {...settingSlick}>
-          <div className="slider-item">
-            <a href="/">
-              <img class="img-fluid" src={bannerImg} alt="Banner 1" />
-            </a>
-          </div>
-          <div className="slider-item">
-            <a href="/">
-              <img class="img-fluid" src={bannerImg} alt="Banner 1" />
-            </a>
-          </div>
-          <div className="slider-item">
-            <a href="/">
-              <img class="img-fluid" src={bannerImg} alt="Banner 1" />
-            </a>
-          </div>
-        </Slider>
-      </div>
+      <Slider className="content" {...settingSlick}>
+        <div className="slider-item">
+          <a href="/">
+            <img class="img-fluid" src={bannerImg} alt="Banner 1" />
+          </a>
+        </div>
+        <div className="slider-item">
+          <a href="/">
+            <img class="img-fluid" src={bannerImg} alt="Banner 1" />
+          </a>
+        </div>
+        <div className="slider-item">
+          <a href="/">
+            <img class="img-fluid" src={bannerImg} alt="Banner 1" />
+          </a>
+        </div>
+      </Slider>
     </div>
   );
 }

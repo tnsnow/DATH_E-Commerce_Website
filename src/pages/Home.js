@@ -14,8 +14,13 @@ import Trends from "../Components/Trends/Trends";
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <div className="section-blog">
+      <div className="box-nav">
+        <div className="container">
+          <Navbar />
+        </div>
+      </div>
+
+      <div className="box-blog">
         <Switch>
           <Route exact path="/">
             <div className="container">
@@ -41,7 +46,11 @@ export default function Home() {
           </Route>
         </Switch>
       </div>
-      <Footer />
+      <div className="">
+        <div className="container">
+          <Footer />
+        </div>
+      </div>
     </>
   );
 }
