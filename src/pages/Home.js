@@ -11,6 +11,7 @@ import Footer from "../Components/Footer";
 import Search from "./Search";
 import Trends from "../Components/Trends/Trends";
 import Promotions from "../Components/Promotions/Promotions";
+import ListSeller from "../Components/Sellers/ListSellers";
 
 export default function Home() {
   return (
@@ -29,18 +30,7 @@ export default function Home() {
               <CategoryLine />
               <Trends />
               <Promotions />
-
-              <div className="row">
-                <div className="col col-md-4 p-3">
-                  <CategoryTab />
-                </div>
-                <div className="col col-md-8 p-3">
-                  <Divider style={{ color: "#1890ff" }} orientation="left">
-                    <h1>TOP SELLER</h1>
-                  </Divider>
-                  <ItemsGroup />
-                </div>
-              </div>
+              <ListSeller />
             </div>
           </Route>
           <Route path="/home/search/:keyword">
