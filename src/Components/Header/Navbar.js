@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -65,7 +66,7 @@ function Navbar(props) {
               >
                 <a href="/Login" className="right-content__item--title">
                   Login
-                  </a>
+                </a>
               </Menu.Item>
               <Menu.Item
                 className="right-content__item right-content__register"
@@ -73,7 +74,7 @@ function Navbar(props) {
               >
                 <a href="/Register" className="right-content__item--title">
                   Register
-                  </a>
+                </a>
               </Menu.Item>
             </Space>
           </Menu>

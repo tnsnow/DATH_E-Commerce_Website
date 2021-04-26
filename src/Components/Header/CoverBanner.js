@@ -1,11 +1,12 @@
+// eslint - disable;
 import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 import axios from "axios";
 
-import bannerImg from '../../assets/images/background_image/bg-01.jpg';
+import bannerImg from "../../assets/images/background_image/bg-01.jpg";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -29,7 +30,7 @@ function SamplePrevArrow(props) {
 }
 
 function fetchBanner() {
-  return axios.get('http://localhost:4001/products');
+  return axios.get("http://localhost:4001/products");
 }
 
 function CoverBanner(props) {
@@ -41,11 +42,11 @@ function CoverBanner(props) {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     slidesToShow: 1,
-    slidesToScroll: 1
-  }
+    slidesToScroll: 1,
+  };
 
   return (
-    <div id="banner" className="section-banner" >
+    <div id="banner" className="section-banner">
       <Slider className="content" {...settingSlick}>
         <div className="slider-item">
           <a href="/">

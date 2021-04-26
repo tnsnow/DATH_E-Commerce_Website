@@ -17,7 +17,7 @@ export default function Home() {
     <>
       <div className="box-nav">
         <div className="container">
-          <Navbar />
+          <Navbar z />
         </div>
       </div>
 
