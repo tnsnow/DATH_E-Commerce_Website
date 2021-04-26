@@ -9,36 +9,33 @@ export default function CardItem({ isLoading, product }) {
   return (
     <div>
       <Card
-        style={{ width: "100%", padding: "1rem" }}
+        style={{ width: "100%", padding: "0.25rem" }}
         loading={isLoading}
         hoverable={true}
-        cover={<img alt="image-product" src={images} />}
+        cover={
+          isLoading ? (
+            <Skeleton.Image />
+          ) : (
+            <img alt="image-product" src={images} />
+          )
+        }
       >
         <Meta
-          title={price + " vnd"}
+          style={{ padding: "-20px" }}
+          title={name}
           description={
             <div>
-              <h5>{name}</h5>
-              <div className="mt-3 mb-3">
+              <span style={{ fontSize: "2rem", color: "#1890ff" }}>
+                {price + " đ"}
+              </span>
+              <div className="mt-2 mb-2 d-flex justify-content-between">
                 <Rate
                   style={{ fontSize: "1.25rem" }}
                   disabled
                   defaultValue={rating}
                 />
                 <span>{rating}</span>
-              </div>
-              <div>
-                <Space size="middle">
-                  <Button size="large" type="primary">
-                    Buy
-                  </Button>
-                  <Button
-                    className="d-flex justify-content-center align-items-center"
-                    type="danger"
-                    size="large"
-                    icon={<HeartOutlined />}
-                  />
-                </Space>
+                <p>Sold {sold}</p>
               </div>
             </div>
           }
