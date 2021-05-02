@@ -14,6 +14,7 @@ export default function ProtectedRoute({ child, ...rest }) {
           child
         ) : (
           <Redirect
+            push
             to={{
               pathname: "/login",
             }}

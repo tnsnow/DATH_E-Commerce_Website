@@ -56,10 +56,9 @@ export default function FormLogin(props) {
 
         //handle tokens here
         setCookies("accessToken", data.accessToken, { path: "/" });
-        //redirect to home page
-        history.push("/");
+        //redirect to previous path in history stack
+        history.go(-1);
       }
-
       if (data.error) {
         //error notification
         openNotification({
