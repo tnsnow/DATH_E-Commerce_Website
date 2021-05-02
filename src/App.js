@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+  Route,
+} from "react-router-dom";
 import "./App.css";
 import "../src/assets/scss/styles.scss";
 
@@ -8,6 +13,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound404 from "./pages/Notfound404";
 import Seller from "./pages/Seller";
+import ProtectedRoute from "./Components/AuthRoute/ProtectedRoute";
 
 function App() {
   return (
@@ -18,7 +24,11 @@ function App() {
             <Home />
           </Route>
           <Route path="/home">
-            <Home />
+            <Redirect
+              to={{
+                pathname: "/",
+              }}
+            />
           </Route>
           <Route path="/login">
             <Login />
@@ -26,9 +36,7 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/seller">
-            <Seller />
-          </Route>
+          <ProtectedRoute path="/seller" child={<Seller />} />
           <Route path="*">
             <NotFound404 />
           </Route>

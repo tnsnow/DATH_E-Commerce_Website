@@ -11,11 +11,14 @@ import {
   InstagramOutlined,
 } from "@ant-design/icons";
 import logo from "../../assets/images/logo/logo_cartya_black.png";
+import { useCookies } from "react-cookie";
 
 const { Search } = Input;
 
 function Navbar(props) {
   let history = useHistory();
+  const [cookies] = useCookies(["accessToken"]);
+
   const onSearch = (value) => history.push(`/home/search/${value}`);
 
   return (
@@ -25,7 +28,7 @@ function Navbar(props) {
           <Menu mode="horizontal">
             <Space>
               <Menu.Item>
-                <a href="#">Kênh người bán</a>
+                <a href="/seller">Kênh người bán</a>
               </Menu.Item>
               <Menu.Item>
                 <div className="d-flex left-social">

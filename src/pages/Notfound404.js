@@ -1,9 +1,11 @@
 import React from "react";
+import { useLocation } from "react-router";
 
 export default function Notfound404() {
+  const { pathname } = useLocation();
   return (
-    <div className="middle-font">
-      <h1>Page not found 😥</h1>
+    <div className="middle-text">
+      <h1>Path : {pathname} not found 😥</h1>
     </div>
   );
 }

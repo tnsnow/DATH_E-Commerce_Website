@@ -4,6 +4,7 @@ import React from "react"; // useState
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
+import { useCookies } from "react-cookie";
 import { Form, Input, Button, Checkbox, Space, notification } from "antd";
 import {
   LoadingOutlined,
@@ -16,7 +17,15 @@ import "antd/dist/antd.css";
 
 //api fetching
 const postLoginUser = (data) => {
-  return axios.post("http://localhost:4001/users/login/", data);
+  return axios
+    .post("http://localhost:4001/users/login/", data)
+    .catch(function (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        return error.response.data;
+      }
+    });
 };
 
 //noti
@@ -28,6 +37,7 @@ const openNotification = ({ ...props }) => {
 
 export default function FormLogin(props) {
   const history = useHistory();
+  const [cookies, setCookies] = useCookies([]);
   const { mutate, isLoading } = useMutation((data) => postLoginUser(data), {
     onError: (err) => {
       openNotification({
@@ -45,6 +55,8 @@ export default function FormLogin(props) {
         });
 
         //handle tokens here
+        setCookies("accessToken", data.accessToken, { path: "/" });
+        //redirect to home page
         history.push("/");
       }
 

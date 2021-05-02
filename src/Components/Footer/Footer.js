@@ -3,9 +3,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Menu } from "antd";
 
-footer.propTypes = {};
+Footer.propTypes = {};
 
-function footer(props) {
+function Footer(props) {
   return (
     <div id="footer" className="footer-section">
       <div className="footer-section__top">
@@ -43,4 +43,4 @@ function footer(props) {
   );
 }
 
-export default footer;
+export default Footer;

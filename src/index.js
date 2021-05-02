@@ -3,18 +3,24 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 
+//providers
+import { CookiesProvider } from "react-cookie";
+import { QueryClient, QueryClientProvider } from "react-query";
+import ErrorBoundary from "antd/lib/alert/ErrorBoundary";
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <CookiesProvider>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </CookiesProvider>
+    </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById("root")
 );

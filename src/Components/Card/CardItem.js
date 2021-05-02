@@ -1,24 +1,18 @@
 import React from "react";
-import { Skeleton, Switch, Card, Avatar, Rate, Button, Space } from "antd";
-import { HeartOutlined } from "@ant-design/icons";
+import { Card, Rate, Space } from "antd";
 
 const Meta = Card.Meta;
 
 export default function CardItem({ isLoading, product }) {
   const { name, description, rating, like, images, price, sold } = product;
+
   return (
     <div>
       <Card
         style={{ width: "100%", padding: "0.25rem" }}
         loading={isLoading}
         hoverable={true}
-        cover={
-          isLoading ? (
-            <Skeleton.Image />
-          ) : (
-            <img alt="image-product" src={images} />
-          )
-        }
+        cover={isLoading ? "" : <img alt="image-product" src={images} />}
       >
         <Meta
           style={{ padding: "-20px" }}
@@ -29,12 +23,16 @@ export default function CardItem({ isLoading, product }) {
                 {price + " đ"}
               </span>
               <div className="mt-2 mb-2 d-flex justify-content-between">
-                <Rate
-                  style={{ fontSize: "1.25rem" }}
-                  disabled
-                  defaultValue={rating}
-                />
-                <span>{rating}</span>
+                <div>
+                  <Space size="middle">
+                    <Rate
+                      style={{ fontSize: "1.25rem" }}
+                      disabled
+                      defaultValue={rating}
+                    />
+                    <p>{rating}</p>
+                  </Space>
+                </div>
                 <p>Sold {sold}</p>
               </div>
             </div>
