@@ -1,25 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+/* eslint-disable */
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 //providers
 import { CookiesProvider } from "react-cookie";
+
 import { QueryClient, QueryClientProvider } from "react-query";
 import ErrorBoundary from "antd/lib/alert/ErrorBoundary";
+import { RecoilRoot } from "recoil";
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
-      <CookiesProvider>
-        <QueryClientProvider client={queryClient}>
-          <App />
-        </QueryClientProvider>
-      </CookiesProvider>
+      <RecoilRoot>
+        <CookiesProvider>
+          <QueryClientProvider client={queryClient}>
+            <App />
+          </QueryClientProvider>
+        </CookiesProvider>
+      </RecoilRoot>
     </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById("root")

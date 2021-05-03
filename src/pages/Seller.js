@@ -2,12 +2,46 @@ import React from "react";
 import { Layout } from "antd";
 import { Switch, Route } from "react-router-dom";
 import { AppstoreOutlined, ShoppingOutlined } from "@ant-design/icons";
+import { useRecoilValue } from "recoil";
+
+// atoms & selectors
+import userAtom from "../recoil/user";
+
 //components
 import Navbar from "../Components/DynamicNavbar/Navbar";
 import Sidebar from "../Components/DynamicNavbar/Sidebar";
 import Product from "../Components/Seller/products/Product";
+
 export default function Seller() {
   const { Content, Header, Footer, Sider } = Layout;
+  const currentUser = useRecoilValue(userAtom);
+  console.log(currentUser);
+  const itemsNav = [
+    {
+      name: currentUser.username ? currentUser.username : "User",
+      url: `#`,
+    },
+    {
+      icon: <AppstoreOutlined style={{ color: "white", fontSize: "24px" }} />,
+    },
+  ];
+  const itemsSide = [
+    {
+      title: "Products",
+      url: "/seller/products",
+      icon: <ShoppingOutlined style={{ color: "gray", fontSize: "16px" }} />,
+      childs: [
+        {
+          title: "All products",
+          url: "/seller/products/all",
+        },
+        {
+          title: "Add product",
+          url: "/seller/products/add",
+        },
+      ],
+    },
+  ];
 
   return (
     <Layout>
@@ -41,29 +75,3 @@ export default function Seller() {
 const Main = () => {
   return <h1>Main</h1>;
 };
-const itemsNav = [
-  {
-    name: "Ken",
-    url: "#",
-  },
-  {
-    icon: <AppstoreOutlined style={{ color: "white", fontSize: "24px" }} />,
-  },
-];
-const itemsSide = [
-  {
-    title: "Products",
-    url: "/seller/products",
-    icon: <ShoppingOutlined style={{ color: "gray", fontSize: "16px" }} />,
-    childs: [
-      {
-        title: "All products",
-        url: "/seller/products/all",
-      },
-      {
-        title: "Add product",
-        url: "/seller/products/add",
-      },
-    ],
-  },
-];

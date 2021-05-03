@@ -1,10 +1,11 @@
 /* eslint-disable */
-import React from "react"; // useState
+import React, { useState } from "react";
 // import PropTypes from "prop-types";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
 import { useCookies } from "react-cookie";
+import { decodeToken } from "react-jwt";
 import { Form, Input, Button, Checkbox, Space, notification } from "antd";
 import {
   LoadingOutlined,
@@ -14,7 +15,10 @@ import {
   LockOutlined,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
+import { useRecoilState } from "recoil";
 
+//atoms & reducers import
+import userAtom from "../../recoil/user/index";
 //api fetching
 const postLoginUser = (data) => {
   return axios
@@ -37,6 +41,8 @@ const openNotification = ({ ...props }) => {
 
 export default function FormLogin(props) {
   const history = useHistory();
+
+  const [_, setUser] = useRecoilState(userAtom);
   const [cookies, setCookies] = useCookies([]);
   const { mutate, isLoading } = useMutation((data) => postLoginUser(data), {
     onError: (err) => {
@@ -56,8 +62,11 @@ export default function FormLogin(props) {
 
         //handle tokens here
         setCookies("accessToken", data.accessToken, { path: "/" });
+
+        // set atomUser
+        setUser(decodeToken(data.accessToken));
         //redirect to previous path in history stack
-        history.go(-1);
+        history.goBack();
       }
       if (data.error) {
         //error notification
