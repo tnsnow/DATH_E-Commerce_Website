@@ -15,7 +15,6 @@ import Product from "../Components/Seller/products/Product";
 export default function Seller() {
   const { Content, Header, Footer, Sider } = Layout;
   const currentUser = useRecoilValue(userAtom);
-  console.log(currentUser);
   const itemsNav = [
     {
       name: currentUser.username ? currentUser.username : "User",

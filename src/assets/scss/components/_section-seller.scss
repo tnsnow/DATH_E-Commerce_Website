@@ -2,3 +2,11 @@
     padding : 10px;
     background-color : whitesmoke;
 }
+.image-label{
+    display: flex;
+    align-items: center;
+    span{
+        font-weight: 500;
+        margin-left: 10px;
+    }
+}

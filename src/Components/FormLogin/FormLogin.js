@@ -44,40 +44,34 @@ export default function FormLogin(props) {
 
   const [_, setUser] = useRecoilState(userAtom);
   const [cookies, setCookies] = useCookies([]);
-  const { mutate, isLoading } = useMutation((data) => postLoginUser(data), {
-    onError: (err) => {
-      openNotification({
-        message: "Error",
-        description: err,
-        icon: <WarningOutlined style={{ color: "#fa3939" }} />,
-      });
-    },
-    onSuccess: ({ data }) => {
-      if (data.success) {
-        openNotification({
-          message: "Success",
-          description: data.success,
-          icon: <CheckCircleOutlined style={{ color: "#36e379" }} />,
-        });
-
-        //handle tokens here
-        setCookies("accessToken", data.accessToken, { path: "/" });
-
-        // set atomUser
-        setUser(decodeToken(data.accessToken));
-        //redirect to previous path in history stack
-        history.goBack();
-      }
-      if (data.error) {
-        //error notification
+  const { mutate, isLoading, isError, error } = useMutation(
+    (data) => postLoginUser(data),
+    {
+      onError: (err) => {
         openNotification({
           message: "Error",
-          description: data.error,
+          description: err,
           icon: <WarningOutlined style={{ color: "#fa3939" }} />,
         });
-      }
-    },
-  });
+      },
+      onSuccess: ({ data }) => {
+        if (data.success) {
+          openNotification({
+            message: "Success",
+            description: data.success,
+            icon: <CheckCircleOutlined style={{ color: "#36e379" }} />,
+          });
+
+          //handle tokens here
+          setCookies("accessToken", data.accessToken, { path: "/" });
+          // set atomUser
+          setUser(decodeToken(data.accessToken));
+          //redirect to previous path in history stack
+          history.goBack();
+        }
+      },
+    }
+  );
   const onFinish = ({ email, password }) => {
     mutate({
       email,
@@ -139,6 +133,7 @@ export default function FormLogin(props) {
             </Button>
             Or <a href="/register">register now!</a>
           </Space>
+          {isError && <span>{error}</span>}
         </Form.Item>
       </Form>
     </div>
