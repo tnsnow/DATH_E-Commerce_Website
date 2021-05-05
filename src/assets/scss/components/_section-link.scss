@@ -1,0 +1,21 @@
+.section-link {
+    a {
+        font: {
+            size: 1.6rem;
+            weight: 700;
+        }
+        color: $color-secondary;
+        position: relative;
+        padding-right: 5px;
+    }
+
+    a + a {
+        padding-left: 1.5rem;
+        &::after {
+            content: ">";
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+}

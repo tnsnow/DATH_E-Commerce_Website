@@ -20,7 +20,14 @@ function App() {
     <Router>
       <div>
         <Switch>
+<<<<<<< HEAD
           <Route exact path="/">
+=======
+          <Route path="/">
+            <Home />
+          </Route>
+          <Route exact path="/home">
+>>>>>>> TNsnow
             <Redirect
               to={{
                 pathname: "/home",
