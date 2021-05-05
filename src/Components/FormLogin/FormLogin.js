@@ -68,6 +68,12 @@ export default function FormLogin(props) {
           setUser(decodeToken(data.accessToken));
           //redirect to previous path in history stack
           history.goBack();
+        } else {
+          openNotification({
+            message: "Error",
+            description: data.error,
+            icon: <WarningOutlined style={{ color: "#fa3939" }} />,
+          });
         }
       },
     }

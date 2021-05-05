@@ -20,10 +20,10 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/">
+          <Route path="/">
             <Home />
           </Route>
-          <Route path="/home">
+          <Route exact path="/home">
             <Redirect
               to={{
                 pathname: "/",
