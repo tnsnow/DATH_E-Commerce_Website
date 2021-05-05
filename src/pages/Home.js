@@ -16,6 +16,8 @@ import Trends from "../Components/Trends/Trends";
 import Promotions from "../Components/Promotions/Promotions";
 import ListSeller from "../Components/Sellers/ListSellers";
 
+import ProductDetail from "../Features/ProductDetail";
+
 export default function Home() {
   const fetchListCart = async () => {
     return await axios
@@ -65,6 +67,9 @@ export default function Home() {
           </Route>
           <Route path="/home/search/:keyword">
             <Search />
+          </Route>
+          <Route path="/home/product-detail">
+            <ProductDetail />
           </Route>
         </Switch>
       </div>
