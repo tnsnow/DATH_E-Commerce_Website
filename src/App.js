@@ -22,20 +22,23 @@ function App() {
         <Switch>
 <<<<<<< HEAD
           <Route exact path="/">
+<<<<<<< HEAD
 =======
           <Route path="/">
             <Home />
           </Route>
           <Route exact path="/home">
 >>>>>>> TNsnow
-            <Redirect
-              to={{
-                pathname: "/home",
-              }}
-            />
+=======
+            <Home />
           </Route>
           <Route path="/home">
-            <Home />
+>>>>>>> parent of 3d4eec7 (Route /home fixed)
+            <Redirect
+              to={{
+                pathname: "/",
+              }}
+            />
           </Route>
           <Route path="/login">
             <Login />

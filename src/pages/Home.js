@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Divider, Skeleton, Card } from "antd";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 
@@ -47,11 +47,23 @@ export default function Home() {
 
       <div className="box-blog">
         <Switch>
-          {/* <Route exact path="/">
-            <Redirect to="/home" />
-          </Route> */}
-          <Route exact path="/home">
-            <HomeDefault isLoading={isLoading} data={data} />
+          <Route exact path="/">
+            <div className="container">
+              <CoverBanner />
+              <CategoryLine />
+              <Trends />
+              <Promotions />
+              <ListSeller />
+              {isLoading ? (
+                <Card
+                  style={{ width: "300px", padding: "0.25rem" }}
+                  loading={isLoading}
+                  cover={<Skeleton.Image />}
+                ></Card>
+              ) : (
+                <ItemsGroup isLoading={isLoading} data={data} />
+              )}
+            </div>
           </Route>
           <Route path="/home/search/:keyword">
             <Search />
@@ -73,24 +85,3 @@ export default function Home() {
     </>
   );
 }
-
-const HomeDefault = ({ isLoading, data }) => {
-  return (
-    <div className="container">
-      <CoverBanner />
-      <CategoryLine />
-      <Trends />
-      <Promotions />
-      <ListSeller />
-      {isLoading ? (
-        <Card
-          style={{ width: "300px", padding: "0.25rem" }}
-          loading={isLoading}
-          cover={<Skeleton.Image />}
-        ></Card>
-      ) : (
-        <ItemsGroup isLoading={isLoading} data={data} />
-      )}
-    </div>
-  );
-};
