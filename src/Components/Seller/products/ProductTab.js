@@ -104,8 +104,7 @@ export default function ProductTab() {
     "product",
     () => fetchProduct(currentUser.userId),
     {
-      // retry: true,
-      refetchInterval: 3000,
+      enabled: !!currentUser.userId,
       onSuccess: (data) => {
         const { data: dataRes } = data;
         if (!dataRes) {
