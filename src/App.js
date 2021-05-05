@@ -25,6 +25,7 @@ function App() {
           <Route exact path="/">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
           <Route path="/">
             <Home />
@@ -42,6 +43,11 @@ function App() {
           </Route>
           <Route path="/home">
 >>>>>>> parent of 7802657 (build component + feature product-detail)
+=======
+            <Home />
+          </Route>
+          <Route path="/home">
+>>>>>>> parent of 3d4eec7 (Route /home fixed)
 =======
             <Home />
           </Route>
