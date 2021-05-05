@@ -35,7 +35,7 @@ function ListSellers(props) {
 
             <div className="section-list_sellers__content">
                 <Row gutter={16}>
-                    <Col className="gutter-row" span={4}>
+                    <Col className="gutter-row" span={6}>
                         <div className="content-item">
                             <a href="#">
                                 <Card
@@ -53,7 +53,7 @@ function ListSellers(props) {
                             </a>
                         </div>
                     </Col>
-                    <Col className="gutter-row" span={4}>
+                    <Col className="gutter-row" span={6}>
                         <div className="content-item">
                             <a href="#">
                                 <Card
@@ -71,7 +71,7 @@ function ListSellers(props) {
                             </a>
                         </div>
                     </Col>
-                    <Col className="gutter-row" span={4}>
+                    <Col className="gutter-row" span={6}>
                         <div className="content-item">
                             <a href="#">
                                 <Card
@@ -89,7 +89,7 @@ function ListSellers(props) {
                             </a>
                         </div>
                     </Col>
-                    <Col className="gutter-row" span={4}>
+                    <Col className="gutter-row" span={6}>
                         <div className="content-item">
                             <a href="#">
                                 <Card
@@ -107,7 +107,7 @@ function ListSellers(props) {
                             </a>
                         </div>
                     </Col>
-                    <Col className="gutter-row" span={4}>
+                    <Col className="gutter-row" span={6}>
                         <div className="content-item">
                             <a href="#">
                                 <Card
@@ -125,7 +125,7 @@ function ListSellers(props) {
                             </a>
                         </div>
                     </Col>
-                    <Col className="gutter-row" span={4}>
+                    <Col className="gutter-row" span={6}>
                         <div className="content-item">
                             <a href="#">
                                 <Card
@@ -143,7 +143,7 @@ function ListSellers(props) {
                             </a>
                         </div>
                     </Col>
-                    <Col className="gutter-row" span={4}>
+                    <Col className="gutter-row" span={6}>
                         <div className="content-item">
                             <a href="#">
                                 <Card
@@ -161,7 +161,7 @@ function ListSellers(props) {
                             </a>
                         </div>
                     </Col>
-                    <Col className="gutter-row" span={4}>
+                    <Col className="gutter-row" span={6}>
                         <div className="content-item">
                             <a href="#">
                                 <Card
@@ -179,7 +179,7 @@ function ListSellers(props) {
                             </a>
                         </div>
                     </Col>
-                    <Col className="gutter-row" span={4}>
+                    <Col className="gutter-row" span={6}>
                         <div className="content-item">
                             <a href="#">
                                 <Card
@@ -197,7 +197,7 @@ function ListSellers(props) {
                             </a>
                         </div>
                     </Col>
-                    <Col className="gutter-row" span={4}>
+                    <Col className="gutter-row" span={6}>
                         <div className="content-item">
                             <a href="#">
                                 <Card

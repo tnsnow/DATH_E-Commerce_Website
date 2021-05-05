@@ -1,12 +1,20 @@
-.common-content{
-    padding : 10px;
-    background-color : whitesmoke;
+.common-content {
+    padding: 10px;
+    background-color: whitesmoke;
 }
-.image-label{
+.image-label {
     display: flex;
     align-items: center;
-    span{
+    span {
         font-weight: 500;
         margin-left: 10px;
+    }
+}
+
+.section-list_sellers {
+    &__content {
+        .content-item {
+            margin: 10px 0;
+        }
     }
 }
