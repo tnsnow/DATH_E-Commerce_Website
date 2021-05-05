@@ -5,9 +5,32 @@
     padding: 10px;
 
     &__img {
-        background-color: blue;
+        .img-active {
+        }
+
+        .img-list-child {
+            &__item {
+                padding: 5px;
+            }
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+            background-color: $color-white;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 1px solid $color-black;
+        }
     }
     &__desc {
         background-color: yellow;
+    }
+
+    .img-active + .img-list-child {
+        margin-top: 5px;
     }
 }
