@@ -8,6 +8,10 @@ import ProductAdd from "./ProductAdd";
 
 const { TabPane } = Tabs;
 export default function Product() {
+  const onGetForm = (values) => {
+    // images[] -> image.originFileObj
+    console.log(values);
+  };
   return (
     <>
       <Switch>
@@ -23,7 +27,9 @@ export default function Product() {
             </Tabs>
           </div>
         </Route>
-        <Route path="/seller/products/add" component={ProductAdd} />
+        <Route path="/seller/products/add">
+          <ProductAdd onGetForm={onGetForm} />
+        </Route>
       </Switch>
     </>
   );
