@@ -21,14 +21,14 @@ function App() {
       <div>
         <Switch>
           <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/home">
             <Redirect
               to={{
-                pathname: "/",
+                pathname: "/home",
               }}
             />
+          </Route>
+          <Route path="/home">
+            <Home />
           </Route>
           <Route path="/login">
             <Login />
