@@ -24,6 +24,7 @@ function App() {
 <<<<<<< HEAD
           <Route exact path="/">
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
           <Route path="/">
             <Home />
@@ -41,6 +42,11 @@ function App() {
           </Route>
           <Route path="/home">
 >>>>>>> parent of 7802657 (build component + feature product-detail)
+=======
+            <Home />
+          </Route>
+          <Route path="/home">
+>>>>>>> parent of 3d4eec7 (Route /home fixed)
             <Redirect
               to={{
                 pathname: "/",
