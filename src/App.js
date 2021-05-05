@@ -21,6 +21,7 @@ function App() {
       <div>
         <Switch>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <Route exact path="/">
 <<<<<<< HEAD
 =======
@@ -34,6 +35,12 @@ function App() {
           </Route>
           <Route path="/home">
 >>>>>>> parent of 3d4eec7 (Route /home fixed)
+=======
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/home">
+>>>>>>> parent of 7802657 (build component + feature product-detail)
             <Redirect
               to={{
                 pathname: "/",
