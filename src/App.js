@@ -20,44 +20,15 @@ function App() {
     <Router>
       <div>
         <Switch>
-<<<<<<< HEAD
-<<<<<<< HEAD
           <Route exact path="/">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-          <Route path="/">
-            <Home />
-          </Route>
-          <Route exact path="/home">
->>>>>>> TNsnow
-=======
-            <Home />
-          </Route>
-          <Route path="/home">
->>>>>>> parent of 3d4eec7 (Route /home fixed)
-=======
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/home">
->>>>>>> parent of 7802657 (build component + feature product-detail)
-=======
-            <Home />
-          </Route>
-          <Route path="/home">
->>>>>>> parent of 3d4eec7 (Route /home fixed)
-=======
-            <Home />
-          </Route>
-          <Route path="/home">
->>>>>>> parent of 3d4eec7 (Route /home fixed)
             <Redirect
               to={{
-                pathname: "/",
+                pathname: "/home",
               }}
             />
+          </Route>
+          <Route path="/home">
+            <Home />
           </Route>
           <Route path="/login">
             <Login />
