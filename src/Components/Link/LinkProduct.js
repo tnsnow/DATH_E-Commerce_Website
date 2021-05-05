@@ -1,16 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Breadcrumb } from 'antd';
 
 LinkProduct.propTypes = {};
 
 function LinkProduct(props) {
     return (
-        <div className="section-link">
-            <a href="#">Cartya</a>
-            <a href="#">Thời trang nữ</a>
-            <a href="#">Đầm</a>
-            <a href="#">Đầm Maxi</a>
-        </div>
+        <Breadcrumb>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>
+                <a href="#">Application Center</a>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+                <a href="#">Application List</a>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>An Application</Breadcrumb.Item>
+        </Breadcrumb>
     );
 }
 
