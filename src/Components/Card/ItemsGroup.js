@@ -13,9 +13,7 @@ export default function ItemsGroup({ isLoading, data }) {
     <div className="row">
       {data &&
         data.data.map((product) => (
-          <div className="col-lg-3 padding-items">
-            <CardItem isLoading={isLoading} product={product} />
-          </div>
+          <CardItem isLoading={isLoading} product={product} />
         ))}
     </div>
   );

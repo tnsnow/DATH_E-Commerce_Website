@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import "../src/assets/scss/styles.scss";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 //Pages import
 import Home from "./pages/Home";

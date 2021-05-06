@@ -5,46 +5,12 @@ import ProductTab from "./ProductTab";
 import ProductAdd from "./ProductAdd";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { useMutation, useQuery, useQueries } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 // components import
 
 const { TabPane } = Tabs;
 export default function Product() {
-  const optionsCascader = [
-    // {
-    //   value: "zhejiang",
-    //   label: "Zhejiang",
-    //   children: [
-    //     {
-    //       value: "hangzhou",
-    //       label: "Hangzhou",
-    //       children: [
-    //         {
-    //           value: "xihu",
-    //           label: "West Lake",
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
-    // {
-    //   value: "jiangsu",
-    //   label: "Jiangsu",
-    //   children: [
-    //     {
-    //       value: "nanjing",
-    //       label: "Nanjing",
-    //       children: [
-    //         {
-    //           value: "zhonghuamen",
-    //           label: "Zhong Hua Men",
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
-  ];
   const [cascader, setCascader] = useState(optionsCascader);
   const [cookies] = useCookies(["accessToken"]);
 
