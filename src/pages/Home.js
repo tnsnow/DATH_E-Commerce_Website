@@ -11,12 +11,12 @@ import CoverBanner from "../Components/Header/CoverBanner";
 import ItemsGroup from "../Components/Card/ItemsGroup";
 import CategoryLine from "../Components/Category/CategoryLine";
 import Footer from "../Components/Footer/Footer";
-import Search from "./Search";
 import Trends from "../Components/Trends/Trends";
 import Promotions from "../Components/Promotions/Promotions";
 import ListSeller from "../Components/Sellers/ListSellers";
 
 import ProductDetail from "../Features/ProductDetail";
+import Search from "../Features/Search";
 
 export default function Home() {
   const fetchListCart = async () => {
