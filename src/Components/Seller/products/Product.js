@@ -1,6 +1,7 @@
 import React from "react";
 import { Tabs } from "antd";
 import ProductTab from "./ProductTab";
+import { Switch, Route } from "react-router-dom";
 
 // components import
 
@@ -26,7 +27,7 @@ export default function Product() {
           </div>
         </Route>
         <Route path="/seller/products/add">
-          <ProductAdd onGetForm={onGetForm} />
+          {/* <ProductAdd onGetForm={onGetForm} /> */}
         </Route>
       </Switch>
     </>
