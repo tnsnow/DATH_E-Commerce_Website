@@ -18,6 +18,7 @@ function Product(props) {
                     <ProductDesc />
                 </Col>
             </Row>
+
         </div>
     );
 }

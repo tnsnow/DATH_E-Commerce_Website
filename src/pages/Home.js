@@ -47,7 +47,7 @@ export default function Home() {
 
       <div className="box-blog">
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/home">
             <div className="container">
               <CoverBanner />
               <CategoryLine />
