@@ -11,7 +11,7 @@ import { useMutation, useQuery } from "react-query";
 
 const { TabPane } = Tabs;
 export default function Product() {
-  const [cascader, setCascader] = useState(optionsCascader);
+  const [cascader, setCascader] = useState([]);
   const [cookies] = useCookies(["accessToken"]);
 
   ///QUERY ===============================
@@ -105,7 +105,7 @@ export default function Product() {
   return (
     <>
       <Switch>
-        <Route exact path="/seller/products">
+        <Route exact path="/seller/products/all">
           <div style={{ padding: 10 }}>
             <Tabs defaultActiveKey="1">
               <TabPane tab="All" key="1">
