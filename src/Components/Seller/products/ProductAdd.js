@@ -1,59 +1,27 @@
-import { Form, Input, Button, Divider, Cascader, Upload, Modal } from "antd";
+import { Form, Input, Button, Divider, Select, Upload, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 ProductAdd.propTypes = {
   onGetForm: PropTypes.func,
+  optionsCascader: PropTypes.object,
 };
 export default function ProductAdd({ onGetForm }) {
+  const { Option } = Select;
   const [uploads, setUploads] = useState({
     previewVisible: false,
     previewImage: "",
     previewTitle: "",
-    fileList: [
-      // {
-      //   uid: "-1",
-      //   name: "image.png",
-      //   status: "done",
-      //   url:
-      //     "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      // },
-      // {
-      //   uid: "-2",
-      //   name: "image.png",
-      //   status: "done",
-      //   url:
-      //     "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      // },
-      // {
-      //   uid: "-3",
-      //   name: "image.png",
-      //   status: "done",
-      //   url:
-      //     "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      // },
-      // {
-      //   uid: "-4",
-      //   name: "image.png",
-      //   status: "done",
-      //   url:
-      //     "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      // },
-      // {
-      //   uid: "-xxx",
-      //   percent: 50,
-      //   name: "image.png",
-      //   status: "uploading",
-      //   url:
-      //     "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      // },
-      // {
-      //   uid: "-5",
-      //   name: "image.png",
-      //   status: "error",
-      // },
-    ],
+    fileList: [],
+    fileImages: [],
   });
+  const provinceData = ["Zhejiang", "Jiangsu"];
+  const cityData = {
+    Zhejiang: ["Hangzhou", "Ningbo", "Wenzhou"],
+    Jiangsu: ["Nanjing", "Suzhou", "Zhenjiang"],
+  };
+  const [cities, setCities] = useState(cityData[provinceData[0]]);
+  const [secondCity, setSecondCity] = useState(cityData[provinceData[0]][0]);
   const layout = {
     labelCol: {
       span: 5,
@@ -62,41 +30,14 @@ export default function ProductAdd({ onGetForm }) {
       span: 16,
     },
   };
-  const optionsCascader = [
-    {
-      value: "zhejiang",
-      label: "Zhejiang",
-      children: [
-        {
-          value: "hangzhou",
-          label: "Hangzhou",
-          children: [
-            {
-              value: "xihu",
-              label: "West Lake",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: "jiangsu",
-      label: "Jiangsu",
-      children: [
-        {
-          value: "nanjing",
-          label: "Nanjing",
-          children: [
-            {
-              value: "zhonghuamen",
-              label: "Zhong Hua Men",
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  const handleProvinceChange = (value) => {
+    setCities(cityData[value]);
+    setSecondCity(cityData[value][0]);
+  };
 
+  const onSecondCityChange = (value) => {
+    setSecondCity(value);
+  };
   function getBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -124,11 +65,16 @@ export default function ProductAdd({ onGetForm }) {
         file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
     });
   };
+  const handleFile = async (file, fileList) => {
+    setUploads({ ...uploads, fileImages: [...uploads.fileImages, file] });
+    return false;
+  };
   const handleChange = ({ fileList }) => setUploads({ ...uploads, fileList });
   const onFinish = (values) => {
     // console.log("Success:", values);
-    onGetForm({ ...values, images: uploads.fileList });
+    onGetForm({ ...values, images: uploads.fileImages });
   };
+
   return (
     <div className="common-content">
       <Divider orientation="left">Add new Product</Divider>
@@ -171,17 +117,7 @@ export default function ProductAdd({ onGetForm }) {
           <Input />
         </Form.Item>
         <Divider orientation="left">Sale Infomation</Divider>
-        <Form.Item
-          label="Product's Price"
-          name="price"
-          rules={[
-            {
-              required: true,
-
-              message: "Product price must be number & limit value is 1000!",
-            },
-          ]}
-        >
+        <Form.Item label="Product's Price" name="price">
           <Input type={"number"} addonBefore={"VND"} defaultValue={1000} />
         </Form.Item>
         <Form.Item
@@ -206,7 +142,24 @@ export default function ProductAdd({ onGetForm }) {
             },
           ]}
         >
-          <Cascader options={optionsCascader} />
+          <Select
+            defaultValue={provinceData[0]}
+            style={{ width: 120 }}
+            onChange={handleProvinceChange}
+          >
+            {provinceData.map((province) => (
+              <Option key={province}>{province}</Option>
+            ))}
+          </Select>
+          <Select
+            style={{ width: 120 }}
+            value={secondCity}
+            onChange={onSecondCityChange}
+          >
+            {cities.map((city) => (
+              <Option key={city}>{city}</Option>
+            ))}
+          </Select>
         </Form.Item>
         <Divider orientation="left">Product images</Divider>
         <Form.Item
@@ -219,8 +172,10 @@ export default function ProductAdd({ onGetForm }) {
           ]}
         >
           <Upload
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            name="files"
+            accept=".png, .jpg, .jpeg"
             listType="picture-card"
+            beforeUpload={handleFile}
             fileList={uploads.fileList}
             onPreview={handlePreview}
             onChange={handleChange}
@@ -245,6 +200,7 @@ export default function ProductAdd({ onGetForm }) {
             />
           </Modal>
         </Form.Item>
+
         <Form.Item wrapperCol={{ offset: 5, span: 12 }}>
           <Button type="primary" htmlType="submit">
             Submit
