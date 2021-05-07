@@ -21,8 +21,8 @@ const columns = [
     dataIndex: "name",
     key: "name",
     render: ({ name, image }) => (
-      <div className="image-label">
-        <Image width={56} src={image} />
+      <div className="image-label" style={{ width: 250 }}>
+        <Image alt={name} width={56} src={image} />
         <span>{name}</span>
       </div>
     ),
@@ -37,9 +37,6 @@ const columns = [
           <>
             <Tag color="blue" key={tag.name}>
               {tag.name}
-            </Tag>
-            <Tag color="blue" key={tag.name}>
-              {tag.child[0]}
             </Tag>
           </>
         ))}
@@ -106,7 +103,8 @@ export default function ProductTab() {
     {
       enabled: !!currentUser.userId,
       onSuccess: (data) => {
-        const { data: dataRes } = data;
+        console.log(data);
+        const dataRes = data.data;
         if (!dataRes) {
           console.log("No data");
           setDataSource([]);

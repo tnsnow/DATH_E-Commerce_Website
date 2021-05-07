@@ -8,13 +8,16 @@ ProductAdd.propTypes = {
   dataParent: PropTypes.object,
   dataChild: PropTypes.object,
   handleClickParent: PropTypes.func,
+  isCreateLoading: PropTypes.bool,
 };
 export default function ProductAdd({
   handleClickParent,
   onGetForm,
   dataParent,
   dataChild,
+  isCreateLoading,
 }) {
+  const [category, setCategory] = useState({ parent: "", child: "" });
   const [isActive, setIsActive] = useState({ parent: "", child: "" });
   const [uploads, setUploads] = useState({
     previewVisible: false,
@@ -67,12 +70,13 @@ export default function ProductAdd({
   const handleChange = ({ fileList }) => setUploads({ ...uploads, fileList });
   const onFinish = (values) => {
     // console.log("Success:", values);
-    onGetForm({ ...values, images: uploads.fileImages });
+    onGetForm({ ...values, images: uploads.fileImages, category });
   };
 
   return (
     <div className="common-content">
-      <Divider orientation="left">Add new Product</Divider>
+      <h1 className="header-txt-custom">New product</h1>
+      <Divider orientation="left">Product's info</Divider>
       <Form {...layout} name="basic" onFinish={onFinish}>
         <Form.Item
           label="Product's name"
@@ -147,6 +151,7 @@ export default function ProductAdd({
                           onClick={() => {
                             setIsActive({ ...isActive, parent: item.value });
                             handleClickParent(item);
+                            setCategory({ ...category, parent: item.value });
                           }}
                           key={item.value}
                         >
@@ -172,9 +177,11 @@ export default function ProductAdd({
                           className={
                             isActive.child == item.value ? "custom-active" : ""
                           }
-                          onClick={() =>
-                            setIsActive({ ...isActive, child: item.value })
-                          }
+                          onClick={() => {
+                            setIsActive({ ...isActive, child: item.value });
+
+                            setCategory({ ...category, child: item.value });
+                          }}
                           key={item.value}
                         >
                           {item.label}
@@ -198,7 +205,7 @@ export default function ProductAdd({
         >
           <Upload
             name="files"
-            accept=".png, .jpg, .jpeg"
+            accept=".jpg,.png,.JPG,.PNG,.JPEG,.jpeg,.svg,.jfif"
             listType="picture-card"
             beforeUpload={handleFile}
             fileList={uploads.fileList}
@@ -227,7 +234,7 @@ export default function ProductAdd({
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 5, span: 12 }}>
-          <Button type="primary" htmlType="submit">
+          <Button loading={isCreateLoading} type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
