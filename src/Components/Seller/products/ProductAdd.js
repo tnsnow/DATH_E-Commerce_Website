@@ -1,13 +1,21 @@
-import { Form, Input, Button, Divider, Select, Upload, Modal } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Divider, Space, List, Upload, Modal } from "antd";
+import { PlusOutlined, RightOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 ProductAdd.propTypes = {
   onGetForm: PropTypes.func,
   optionsCascader: PropTypes.object,
+  dataParent: PropTypes.object,
+  dataChild: PropTypes.object,
+  handleClickParent: PropTypes.func,
 };
-export default function ProductAdd({ onGetForm }) {
-  const { Option } = Select;
+export default function ProductAdd({
+  handleClickParent,
+  onGetForm,
+  dataParent,
+  dataChild,
+}) {
+  const [isActive, setIsActive] = useState({ parent: "", child: "" });
   const [uploads, setUploads] = useState({
     previewVisible: false,
     previewImage: "",
@@ -15,13 +23,7 @@ export default function ProductAdd({ onGetForm }) {
     fileList: [],
     fileImages: [],
   });
-  const provinceData = ["Zhejiang", "Jiangsu"];
-  const cityData = {
-    Zhejiang: ["Hangzhou", "Ningbo", "Wenzhou"],
-    Jiangsu: ["Nanjing", "Suzhou", "Zhenjiang"],
-  };
-  const [cities, setCities] = useState(cityData[provinceData[0]]);
-  const [secondCity, setSecondCity] = useState(cityData[provinceData[0]][0]);
+
   const layout = {
     labelCol: {
       span: 5,
@@ -30,14 +32,7 @@ export default function ProductAdd({ onGetForm }) {
       span: 16,
     },
   };
-  const handleProvinceChange = (value) => {
-    setCities(cityData[value]);
-    setSecondCity(cityData[value][0]);
-  };
 
-  const onSecondCityChange = (value) => {
-    setSecondCity(value);
-  };
   function getBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -132,34 +127,64 @@ export default function ProductAdd({ onGetForm }) {
         >
           <Input defaultValue={0} min={0} type={"number"} />
         </Form.Item>
-        <Form.Item
-          label="Categories"
-          name="categories"
-          rules={[
-            {
-              required: true,
-              message: "Categories is required",
-            },
-          ]}
-        >
-          <Select
-            defaultValue={provinceData[0]}
-            style={{ width: 120 }}
-            onChange={handleProvinceChange}
-          >
-            {provinceData.map((province) => (
-              <Option key={province}>{province}</Option>
-            ))}
-          </Select>
-          <Select
-            style={{ width: 120 }}
-            value={secondCity}
-            onChange={onSecondCityChange}
-          >
-            {cities.map((city) => (
-              <Option key={city}>{city}</Option>
-            ))}
-          </Select>
+        <Divider orientation="left">Category</Divider>
+        <Form.Item wrapperCol={{ offset: 1, span: 24 }}>
+          <Space direction="horizontal" align="start">
+            {dataParent.parentData && (
+              <List
+                className="fix-category"
+                size="small"
+                bordered
+                loading={dataParent.isParenLoading}
+                dataSource={dataParent.parentData}
+                renderItem={
+                  dataParent.parentData.length > 0
+                    ? (item) => (
+                        <List.Item
+                          className={
+                            isActive.parent == item.value ? "custom-active" : ""
+                          }
+                          onClick={() => {
+                            setIsActive({ ...isActive, parent: item.value });
+                            handleClickParent(item);
+                          }}
+                          key={item.value}
+                        >
+                          {item.label} <RightOutlined size={24} />
+                        </List.Item>
+                      )
+                    : ""
+                }
+              />
+            )}
+
+            {dataChild ? (
+              <List
+                className="fix-category"
+                size="small"
+                bordered
+                loading={dataChild.isChildLoading}
+                dataSource={dataChild.childData}
+                renderItem={
+                  dataChild.childData.length > 0
+                    ? (item) => (
+                        <List.Item
+                          className={
+                            isActive.child == item.value ? "custom-active" : ""
+                          }
+                          onClick={() =>
+                            setIsActive({ ...isActive, child: item.value })
+                          }
+                          key={item.value}
+                        >
+                          {item.label}
+                        </List.Item>
+                      )
+                    : ""
+                }
+              />
+            ) : null}
+          </Space>
         </Form.Item>
         <Divider orientation="left">Product images</Divider>
         <Form.Item

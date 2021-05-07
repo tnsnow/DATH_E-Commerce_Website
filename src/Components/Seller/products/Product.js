@@ -11,9 +11,9 @@ import { useMutation, useQuery } from "react-query";
 
 const { TabPane } = Tabs;
 export default function Product() {
-  const [cascader, setCascader] = useState([]);
   const [cookies] = useCookies(["accessToken"]);
-
+  const [parentData, setParentData] = useState([]);
+  const [childData, setChildData] = useState([]);
   ///QUERY ===============================
   const fetchCategoryChild = (idParent) => {
     return axios
@@ -27,7 +27,8 @@ export default function Product() {
       });
   };
 
-  useQuery(
+  //dumb  - format later
+  const { isLoading: isParenLoading } = useQuery(
     "fetchCategory",
     () =>
       axios
@@ -49,10 +50,9 @@ export default function Product() {
           arr.push({
             label: data.name,
             value: data._id,
-            children: children,
           });
         });
-        setCascader(arr);
+        setParentData(arr);
       },
     }
   );
@@ -74,8 +74,20 @@ export default function Product() {
         }
       });
   };
+  const { mutate: mutateChild, isLoading: isChildLoading } = useMutation(
+    (parentID) => fetchCategoryChild(parentID),
+    {
+      onSuccess: ({ data }) => {
+        const arr = [];
+        data.map((item) => {
+          arr.push({ value: item._id, label: item.name });
+        });
+        setChildData(arr);
+      },
+    }
+  );
 
-  const { mutate, isLoading, isError, error } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (data) => mutationCreateProduct(data),
     {
       onSuccess: (data) => {
@@ -101,6 +113,12 @@ export default function Product() {
     // console.log({ images, imageTest });
     mutate(data);
   };
+  const handleClickParent = (item) => {
+    // console.log(item.value);
+
+    // setParentID(item.value);
+    mutateChild(item.value);
+  };
 
   return (
     <>
@@ -119,7 +137,12 @@ export default function Product() {
           </div>
         </Route>
         <Route path="/seller/products/add">
-          <ProductAdd optionsCascader={cascader} onGetForm={onGetForm} />
+          <ProductAdd
+            dataChild={{ childData, isChildLoading }}
+            dataParent={{ parentData, isParenLoading }}
+            handleClickParent={handleClickParent}
+            onGetForm={onGetForm}
+          />
         </Route>
       </Switch>
     </>
