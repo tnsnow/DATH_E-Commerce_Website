@@ -3,16 +3,15 @@ import { Card, Rate, Space } from "antd";
 
 const Meta = Card.Meta;
 
-export default function CardItem({ isLoading, product }) {
-  const { name, description, rating, like, images, price, sold } = product;
-
+export default function CardItem({ dataProduct }) {
+  const { name, rating, images, price, sold } = dataProduct;
+  console.log('product cart:', dataProduct);
   return (
-    <div>
+    <a href="#" className="">
       <Card
-        style={{ width: "100%", padding: "0.25rem" }}
-        loading={isLoading}
-        hoverable={true}
-        cover={isLoading ? "" : <img alt="image-product" src={images} />}
+        hoverable
+        style={{ width: '100%' }}
+        cover={<img alt="" src={images[0]} />}
       >
         <Meta
           style={{ padding: "-20px" }}
@@ -39,6 +38,6 @@ export default function CardItem({ isLoading, product }) {
           }
         />
       </Card>
-    </div>
+    </a>
   );
 }

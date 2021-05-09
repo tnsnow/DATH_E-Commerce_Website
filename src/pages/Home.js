@@ -8,7 +8,6 @@ import axios from "axios";
 import CategoryTab from "../Components/Category/CategoryTab";
 import Navbar from "../Components/Header/Navbar";
 import CoverBanner from "../Components/Header/CoverBanner";
-import ItemsGroup from "../Components/Card/ItemsGroup";
 import CategoryLine from "../Components/Category/CategoryLine";
 import Footer from "../Components/Footer/Footer";
 import Trends from "../Components/Trends/Trends";
@@ -17,6 +16,7 @@ import ListSeller from "../Components/Sellers/ListSellers";
 
 import ProductDetail from "../Features/ProductDetail";
 import Search from "../Features/Search";
+import ListProduct from "../Features/ListProduct";
 
 export default function Home() {
   const fetchListCart = async () => {
@@ -61,7 +61,8 @@ export default function Home() {
                   cover={<Skeleton.Image />}
                 ></Card>
               ) : (
-                <ItemsGroup isLoading={isLoading} data={data} />
+                // <ItemsGroup isLoading={isLoading} data={data} />
+                <ListProduct isLoading={isLoading} data={data} />
               )}
             </div>
           </Route>
