@@ -1,14 +1,15 @@
 /* eslint-disable */
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
-import { Menu, Input, Space, Row, Col } from "antd";
+// import PropTypes from "prop-types";
+import { Menu, Input, Space, Row, Col, AutoComplete } from "antd";
 import {
   QuestionCircleOutlined,
   ShoppingCartOutlined,
   BellOutlined,
   FacebookOutlined,
   InstagramOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 import logo from "../../assets/images/logo/logo_cartya_black.png";
 import { useCookies } from "react-cookie";
@@ -18,7 +19,7 @@ const { Search } = Input;
 function Navbar(props) {
   let history = useHistory();
   const [cookies] = useCookies(["accessToken"]);
-
+  const dataSource = ["hi", "hi2", "hi3", "ai", "hi", "hi"];
   const onSearch = (value) => history.push(`/home/search/${value}`);
 
   return (
@@ -95,12 +96,32 @@ function Navbar(props) {
           </Col>
           <Col className="gutter-row" span={14}>
             <div className="d-flex align-items-center h-100 section-navbar__bottom--serch">
-              <Search
+              {/* <Search
                 placeholder="input search text"
                 onSearch={onSearch}
                 enterButton
                 className="w-100"
               />
+               */}
+              <AutoComplete
+                style={{ width: "100%" }}
+                backfill={true}
+                dataSource={dataSource}
+                filterOption={(inputValue, option) =>
+                  option.props.children
+                    .toUpperCase()
+                    .indexOf(inputValue.toUpperCase()) !== -1
+                }
+              >
+                <Input.Search
+                  placeholder="input search text"
+                  allowClear
+                  enterButton="Search"
+                  size="large"
+                  // suffix={<SearchOutlined type={"search"} size={24} />}
+                  onSearch={onSearch}
+                />
+              </AutoComplete>
             </div>
           </Col>
           <Col className="gutter-row" span={4}>

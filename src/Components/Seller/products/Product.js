@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
-import { Tabs, notification } from "antd";
+import { Tabs, Button, Space } from "antd";
 import ProductTab from "./ProductTab";
 import ProductAdd from "./ProductAdd";
 import axios from "axios";
-import { CheckCircleOutlined, WarningOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import { useCookies } from "react-cookie";
 import { useMutation, useQuery } from "react-query";
+import { useNotification } from "../../../hooks";
+import ProductEdit from "./ProductEdit";
 
 // components import
 
 const { TabPane } = Tabs;
-const openNotification = ({ ...props }) => {
-  notification.open({
-    ...props,
-  });
-};
+
 export default function Product() {
   let history = useHistory();
+  const notificate = useNotification();
   const [cookies] = useCookies(["accessToken"]);
   const [parentData, setParentData] = useState([]);
   const [childData, setChildData] = useState([]);
@@ -49,32 +48,49 @@ export default function Product() {
         }),
     {
       onSuccess: (data) => {
-        // console.log({ dataCategory: data });
-        if (data.data) {
-          if (data.data.error) {
-            console.log(data.data.error);
-          } else {
-            const arr = [];
-            data.data.map((item) => {
-              arr.push({
-                label: item.name,
-                value: item._id,
+        try {
+          // console.log({ dataCategory: data });
+          if (data.data) {
+            if (data.data.error) {
+              console.log(data.data.error);
+            } else {
+              const arr = [];
+              data.data.map((item) => {
+                arr.push({
+                  label: item.name,
+                  value: item._id,
+                });
               });
-            });
-            setParentData(arr);
+              setParentData(arr);
+            }
+          } else {
           }
-        } else {
-        }
+        } catch (error) {}
       },
     }
   );
 
   ///MUTATE ===============
-  const mutationCreateProduct = async (data) => {
+  const mutationCreateProduct = async ({ data }) => {
     return axios
       .post("http://localhost:4001/products/new/", data, {
         headers: {
-          "content-type": "multipart/form-data",
+          Authorization: `Bearer ${cookies.accessToken}`,
+        },
+      })
+      .catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          return error.response.data;
+        }
+      });
+  };
+  const mutationEditProduct = async ({ data, id }) => {
+    console.log({ data, id });
+    return axios
+      .post(`http://localhost:4001/products/edit/${id}`, data, {
+        headers: {
           Authorization: `Bearer ${cookies.accessToken}`,
         },
       })
@@ -90,68 +106,101 @@ export default function Product() {
     (parentID) => fetchCategoryChild(parentID),
     {
       onSuccess: (data) => {
-        console.log({ dataChild: data });
-        if (data.data) {
-          if (data.data.error) {
-            console.log(data.data.error);
-          } else {
-            const arr = [];
-            data.data.map((item) => {
-              arr.push({ value: item._id, label: item.name });
-            });
-            setChildData(arr);
+        try {
+          console.log({ dataChild: data });
+          if (data.data) {
+            if (data.data.error) {
+              console.log(data.data.error);
+            } else {
+              const arr = [];
+              data.data.map((item) => {
+                arr.push({ value: item._id, label: item.name });
+              });
+              setChildData(arr);
+            }
           }
+        } catch (error) {
+          notificate("error", "Cannot get child category");
         }
       },
     }
   );
 
   const { mutate, isLoading: isCreateLoading } = useMutation(
-    (data) => mutationCreateProduct(data),
+    mutationCreateProduct,
     {
       onSuccess: (data) => {
-        if (data.data.success) {
-          openNotification({
-            message: "Success",
-            description: data.data.success,
-            icon: <CheckCircleOutlined style={{ color: "#36e379" }} />,
-          });
-          history.push("/seller/products/all");
+        try {
+          if (data.status == 200) {
+            if (data.data.success) {
+              notificate("success", data.data.success);
+              history.push("/seller/products/all");
+            }
+            if (data.data.error) {
+              notificate("error", data.data.error);
+            }
+          }
+        } catch (error) {
+          notificate("error", "Cannot create new Product 😳");
         }
-        if (data.data.error) {
-          openNotification({
-            message: "Error",
-            description: data.data.error,
-            icon: <WarningOutlined style={{ color: "#fa3939" }} />,
-          });
-        }
-      },
-      onError: (err) => {
-        openNotification({
-          message: "Error",
-          description: err,
-          icon: <WarningOutlined style={{ color: "#fa3939" }} />,
-        });
       },
     }
   );
-  const onGetForm = (values) => {
-    // images[] -> image.originFileObj\
+  const { mutate: mutateEdit, isLoading: isEditLoading } = useMutation(
+    mutationEditProduct,
+    {
+      onSuccess: (data) => {
+        try {
+          if (data.status == 200) {
+            // notificate("success", data.data);
+            if (data.data.success) {
+              notificate("success", data.data.success);
+              history.push("/seller/products/all");
+            }
+            if (data.data.error) {
+              notificate("error", data.data.error);
+            }
+          }
+        } catch (error) {
+          notificate("error", "Cannot create new Product 😳");
+        }
+      },
+    }
+  );
+  const onGetFormCreate = (values) => {
     const { name, desc, price, available, category, brand, images } = values;
-    // const arrImg = images.map((image, i) => image);
-    const data = new FormData();
-    data.append("name", name);
-    data.append("desc", desc);
-    data.append("price", price);
-    data.append("available", available ? available : "0");
-    data.append("categories", category.child);
-    images.forEach((img) => {
-      data.append("images", img);
-    });
-    data.append("brand", brand);
 
+    const data = {
+      name,
+      desc,
+      price,
+      available,
+      brand,
+      images,
+      categories: category.child.value,
+    };
     // console.log({ images, imageTest });
-    mutate(data);
+    mutate({ data });
+  };
+  const onGetFormEdit = (values) => {
+    // images[] -> image.originFileObj\
+    const { name, desc, price, available, category, brand, id, images } =
+      values;
+    console.log({ id });
+    // const arrImg = images.map((image, i) => image);
+    const data = {
+      name,
+      desc,
+      price,
+      available,
+      categories: category.child.value,
+      brand,
+      images,
+    };
+    // console.log({ data });
+    mutateEdit({ data, id });
+    // notificate("success", values.name);
+    // history.push("/seller/products/all");
   };
   const handleClickParent = (item) => {
     // console.log(item.value);
@@ -167,6 +216,20 @@ export default function Product() {
           <div style={{ padding: 10 }}>
             <Tabs defaultActiveKey="1">
               <TabPane tab="All" key="1">
+                <div style={{ padding: 10 }}>
+                  <Space>
+                    <a href="/seller/products/add">
+                      <Button
+                        size="large"
+                        className="perfect-button-icon"
+                        type="primary"
+                        icon={<PlusOutlined />}
+                      >
+                        Add new Product
+                      </Button>
+                    </a>
+                  </Space>
+                </div>
                 {/* product table */}
                 <ProductTab />
               </TabPane>
@@ -181,8 +244,17 @@ export default function Product() {
             dataChild={{ childData, isChildLoading }}
             dataParent={{ parentData, isParenLoading }}
             handleClickParent={handleClickParent}
-            onGetForm={onGetForm}
+            onGetForm={onGetFormCreate}
             isCreateLoading={isCreateLoading}
+          />
+        </Route>
+        <Route path="/seller/products/:id">
+          <ProductEdit
+            dataChild={{ childData, isChildLoading }}
+            dataParent={{ parentData, isParenLoading }}
+            handleClickParent={handleClickParent}
+            onGetForm={onGetFormEdit}
+            isEditLoading={isEditLoading}
           />
         </Route>
       </Switch>

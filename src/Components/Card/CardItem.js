@@ -9,9 +9,16 @@ export default function CardItem({ dataProduct }) {
   return (
     <a href="#" className="">
       <Card
+<<<<<<< HEAD
         hoverable
         style={{ width: '100%' }}
         cover={<img alt="" src={images[0]} />}
+=======
+        style={{ width: 200, padding: "0.25rem", margin: "0.5rem" }}
+        loading={isLoading}
+        hoverable={true}
+        cover={isLoading ? "" : <img alt="image-product" src={images[0]} />}
+>>>>>>> ken
       >
         <Meta
           style={{ padding: "-20px" }}

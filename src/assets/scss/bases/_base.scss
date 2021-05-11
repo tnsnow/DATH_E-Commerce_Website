@@ -105,7 +105,11 @@ ul {
         justify-content: left;
     }
 }
-
+.perfect-button-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .middle-text {
     position: absolute;
     top: 50%;
@@ -150,4 +154,30 @@ ul {
     line-height: 38px;
     margin-bottom: 20px;
     margin-top: 8px;
+}
+.fixed-button{
+    position: fixed;
+    bottom: 10%;
+    background-color: whitesmoke;
+    right : 5%;
+    padding : 5px;
+    animation-duration: 0.3s;
+    transition-duration: 0.3s;
+    &:hover{
+        -webkit-box-shadow: 0px 5px 19px -3px rgba(99,99,99,0.82); 
+        box-shadow: 0px 5px 19px -3px rgba(99,99,99,0.82);
+    }
+}
+
+.custom-ant-skeleton{
+    padding : 40px;
+    .ant-skeleton-content{
+        .ant-skeleton-paragraph{
+            margin-top : 24px !important;
+            li{
+                margin-top: 16px !important;
+
+            }
+        }
+    }
 }
