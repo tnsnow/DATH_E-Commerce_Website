@@ -1,7 +1,20 @@
-import { Form, Input, Button, Divider, Space, List, Upload, Modal } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Divider,
+  Space,
+  List,
+  InputNumber,
+  Upload,
+  Modal,
+} from "antd";
 import { PlusOutlined, RightOutlined } from "@ant-design/icons";
+import axios from "axios";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useNotification } from "../../../hooks";
+import ErrorBoundary from "antd/lib/alert/ErrorBoundary";
 ProductAdd.propTypes = {
   onGetForm: PropTypes.func,
   optionsCascader: PropTypes.object,
@@ -17,8 +30,12 @@ export default function ProductAdd({
   dataChild,
   isCreateLoading,
 }) {
-  const [category, setCategory] = useState({ parent: "", child: "" });
-  const [isActive, setIsActive] = useState({ parent: "", child: "" });
+  const notificate = useNotification();
+  const [category, setCategory] = useState({
+    parent: { label: "", value: "" },
+    child: { label: "", value: "" },
+  });
+
   const [uploads, setUploads] = useState({
     previewVisible: false,
     previewImage: "",
@@ -63,19 +80,71 @@ export default function ProductAdd({
         file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
     });
   };
-  const handleFile = async (file, fileList) => {
-    setUploads({ ...uploads, fileImages: [...uploads.fileImages, file] });
-    return false;
+
+  const handleChange = ({ fileList }) => {
+    // console.log(info);
+    fileList = fileList.map((file) => {
+      if (file.response) {
+        // Component will show file.url as link
+        file.url = file.response.url;
+      }
+      return file;
+    });
+    setUploads({ fileList: [...fileList] });
   };
-  const handleChange = ({ fileList }) => setUploads({ ...uploads, fileList });
+  const handleRemove = ({ response }) => {
+    axios
+      .post(
+        `http://localhost:4001/products/image/destroy/${response.public_id}`
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => notificate("error", err));
+  };
   const onFinish = (values) => {
     // console.log("Success:", values);
-    onGetForm({ ...values, images: uploads.fileImages, category });
+    const arr = uploads.fileList.map((file) => file.url);
+    onGetForm({ ...values, images: arr, category });
   };
 
   return (
     <div className="common-content">
       <h1 className="header-txt-custom">New product</h1>
+      <Divider orientation="left">Product images</Divider>
+      <Form.Item label="Images">
+        <Upload
+          action="http://localhost:4001/products//image/upload"
+          name="images"
+          accept=".jpg,.png,.JPG,.PNG,.JPEG,.jpeg,.svg,.jfif"
+          listType="picture-card"
+          // beforeUpload={beforeUpload}
+          progress
+          fileList={uploads.fileList}
+          onPreview={handlePreview}
+          onChange={handleChange}
+          onRemove={handleRemove}
+        >
+          {uploads.fileList.length >= 10 ? null : (
+            <div>
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>Upload</div>
+            </div>
+          )}
+        </Upload>
+        <Modal
+          visible={uploads.previewVisible}
+          title={uploads.previewTitle}
+          footer={null}
+          onCancel={handleCancel}
+        >
+          <img
+            alt="example"
+            style={{ width: "100%" }}
+            src={uploads.previewImage}
+          />
+        </Modal>
+      </Form.Item>
       <Divider orientation="left">Product's info</Divider>
       <Form {...layout} name="basic" onFinish={onFinish}>
         <Form.Item
@@ -100,7 +169,12 @@ export default function ProductAdd({
             },
           ]}
         >
-          <Input />
+          <Input.TextArea
+            maxLength={3000}
+            allowClear={true}
+            showCount={({ count, maxLength }) => `${count}/${maxLength}`}
+            autoSize={{ minRows: 2, maxRows: 10 }}
+          />
         </Form.Item>
 
         <Form.Item
@@ -116,23 +190,44 @@ export default function ProductAdd({
           <Input />
         </Form.Item>
         <Divider orientation="left">Sale Infomation</Divider>
-        <Form.Item label="Product's Price" name="price">
-          <Input type={"number"} addonBefore={"VND"} defaultValue={1000} />
+        <Form.Item
+          style={{ width: "100%" }}
+          rules={[
+            {
+              required: true,
+              message: "Price value is require and min 1000 ",
+            },
+          ]}
+          label="Product's Price"
+          name="price"
+        >
+          <InputNumber
+            style={{ width: "100%" }}
+            defaultValue={1000}
+            min={1000}
+            formatter={(value) => `${value} ₫`}
+          />
         </Form.Item>
         <Form.Item
           label="Available"
           name="available"
           rules={[
             {
-              // required: true,
-              message: "Available value cannot blank",
+              required: true,
+              message: "Available value is require ",
             },
           ]}
         >
-          <Input defaultValue={0} min={0} type={"number"} />
+          <InputNumber type={"number"} />
         </Form.Item>
         <Divider orientation="left">Category</Divider>
-        <Form.Item wrapperCol={{ offset: 1, span: 24 }}>
+        <Form.Item
+          label={
+            category.parent.label !== "" &&
+            `${category.parent.label} > ${category.child.label}`
+          }
+          wrapperCol={{ offset: 1, span: 24 }}
+        >
           <Space direction="horizontal" align="start">
             {dataParent.parentData && (
               <List
@@ -146,12 +241,17 @@ export default function ProductAdd({
                     ? (item) => (
                         <List.Item
                           className={
-                            isActive.parent == item.value ? "custom-active" : ""
+                            category.parent.value == item.value
+                              ? "custom-active"
+                              : ""
                           }
                           onClick={() => {
-                            setIsActive({ ...isActive, parent: item.value });
+                            // setIsActive({ ...isActive, parent: item.value });
                             handleClickParent(item);
-                            setCategory({ ...category, parent: item.value });
+                            setCategory({
+                              ...category,
+                              parent: { value: item.value, label: item.label },
+                            });
                           }}
                           key={item.value}
                         >
@@ -175,12 +275,17 @@ export default function ProductAdd({
                     ? (item) => (
                         <List.Item
                           className={
-                            isActive.child == item.value ? "custom-active" : ""
+                            category.child.value == item.value
+                              ? "custom-active"
+                              : ""
                           }
                           onClick={() => {
-                            setIsActive({ ...isActive, child: item.value });
+                            // setIsActive({ ...isActive, child: item.value });
 
-                            setCategory({ ...category, child: item.value });
+                            setCategory({
+                              ...category,
+                              child: { value: item.value, label: item.label },
+                            });
                           }}
                           key={item.value}
                         >
@@ -193,48 +298,14 @@ export default function ProductAdd({
             ) : null}
           </Space>
         </Form.Item>
-        <Divider orientation="left">Product images</Divider>
-        <Form.Item
-          label="Images"
-          rules={[
-            {
-              required: true,
-              message: "Product's images must have at least 1 image ",
-            },
-          ]}
-        >
-          <Upload
-            name="files"
-            accept=".jpg,.png,.JPG,.PNG,.JPEG,.jpeg,.svg,.jfif"
-            listType="picture-card"
-            beforeUpload={handleFile}
-            fileList={uploads.fileList}
-            onPreview={handlePreview}
-            onChange={handleChange}
-          >
-            {uploads.fileList.length >= 10 ? null : (
-              <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload</div>
-              </div>
-            )}
-          </Upload>
-          <Modal
-            visible={uploads.previewVisible}
-            title={uploads.previewTitle}
-            footer={null}
-            onCancel={handleCancel}
-          >
-            <img
-              alt="example"
-              style={{ width: "100%" }}
-              src={uploads.previewImage}
-            />
-          </Modal>
-        </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 5, span: 12 }}>
-          <Button loading={isCreateLoading} type="primary" htmlType="submit">
+          <Button
+            size="large"
+            loading={isCreateLoading}
+            type="primary"
+            htmlType="submit"
+          >
             Submit
           </Button>
         </Form.Item>

@@ -9,10 +9,10 @@ export default function CardItem({ isLoading, product }) {
   return (
     <div>
       <Card
-        style={{ width: "100%", padding: "0.25rem" }}
+        style={{ width: 200, padding: "0.25rem", margin: "0.5rem" }}
         loading={isLoading}
         hoverable={true}
-        cover={isLoading ? "" : <img alt="image-product" src={images} />}
+        cover={isLoading ? "" : <img alt="image-product" src={images[0]} />}
       >
         <Meta
           style={{ padding: "-20px" }}
