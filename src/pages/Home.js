@@ -16,11 +16,7 @@ import ListSeller from "../Components/Sellers/ListSellers";
 
 import ProductDetail from "../Features/ProductDetail";
 import Search from "../Features/Search";
-<<<<<<< HEAD
-import ListProduct from "../Features/ListProduct";
-=======
 import Profile from "./Profile";
->>>>>>> ken
 
 export default function Home() {
   const fetchListCart = async () => {
