@@ -17,6 +17,7 @@ import ListSeller from "../Components/Sellers/ListSellers";
 
 import ProductDetail from "../Features/ProductDetail";
 import Search from "../Features/Search";
+import Profile from "./Profile";
 
 export default function Home() {
   const fetchListCart = async () => {
@@ -70,6 +71,10 @@ export default function Home() {
           </Route>
           <Route path="/home/product-detail">
             <ProductDetail />
+          </Route>
+
+          <Route path="/home/profile">
+            <Profile />
           </Route>
         </Switch>
       </div>
