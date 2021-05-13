@@ -4,10 +4,10 @@ export default function UserProfile() {
   const onFinish = (values) => {
     console.log("Success:", values);
   };
-  const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 16 },
-  };
+    const layout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span : 16 },
+    };
   return (
     <>
       <Col span={16}>

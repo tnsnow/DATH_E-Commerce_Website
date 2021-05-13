@@ -97,11 +97,6 @@ export default function ProductEdit({
         file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
     });
   };
-  // const handleFile = async (file, fileList) => {
-  //   // console.log({ file, fileList });
-  //   setUploads({ ...uploads, fileList: [...uploads.fileList, file] });
-  //   return false;
-  // };
   const handleChange = ({ fileList }) => {
     fileList = fileList.map((file) => {
       if (file.response) {
@@ -112,10 +107,6 @@ export default function ProductEdit({
     });
     setUploads({ fileList: [...fileList] });
   };
-  // setUploads({
-  //   ...uploads,
-  //   fileList,
-  // });
   const onFinish = (values) => {
     // console.log("Success:", values);
     const arr = uploads.fileList.map((file) => file.url);
@@ -139,7 +130,6 @@ export default function ProductEdit({
         try {
           if (data.status === 200) {
             const { data: dataProd } = data;
-            // console.log({ dataProd: dataProd[0].categories });
             //handle category
             let cateObj = category;
             let imageList = [];
