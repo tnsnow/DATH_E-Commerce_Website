@@ -4,7 +4,7 @@ import { Card, Rate, Space } from "antd";
 const Meta = Card.Meta;
 
 export default function CardItem({ isLoading, product }) {
-  const { name, description, rating, like, images, price, sold } = product;
+  const { name, description, rating, like, images, price, sold, _id } = product;
 
   return (
     <div>
@@ -16,7 +16,7 @@ export default function CardItem({ isLoading, product }) {
       >
         <Meta
           style={{ padding: "-20px" }}
-          title={name}
+          title={<a href={`/home/product-detail/${_id}`}>{name}</a>}
           description={
             <div>
               <span style={{ fontSize: "2rem", color: "#1890ff" }}>

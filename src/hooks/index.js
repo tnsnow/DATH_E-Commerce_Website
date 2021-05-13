@@ -1,5 +1,6 @@
 import { notification } from "antd";
 import truncate from "truncate";
+import numeral from "numeral";
 export const useNotification = () => {
   return (type, description) => {
     if (type === "success") {
@@ -28,4 +29,11 @@ export const useTruncate = () => {
     return truncate(text, Number(length));
   };
   return stringTruncated;
+};
+
+export const usePriceFormat = () => {
+  const stringFormated = (price) => {
+    return "₫ " + numeral(price).format("0,0[.]00");
+  };
+  return stringFormated;
 };

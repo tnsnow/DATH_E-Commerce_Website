@@ -1,70 +1,98 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button } from 'antd';
-import { StarOutlined, AppstoreAddOutlined } from '@ant-design/icons'
+import React from "react";
+import PropTypes from "prop-types";
+import { Button, Rate } from "antd";
+import { StarOutlined, AppstoreAddOutlined } from "@ant-design/icons";
+import { usePriceFormat } from "../../hooks";
 
-ProductDesc.propTypes = {};
+ProductDesc.propTypes = {
+  data: PropTypes.object,
+};
 
-function ProductDesc(props) {
-    return (
-        <div className="section-product-detail__content">
-            <div className="content-title">
-                <h1>QUẦN ỐNG RỘNG CẠP CAO NAM NỮ -Meo4.store</h1>
-            </div>
+function ProductDesc({ data }) {
+  const { name, sold, available, rating, price, desc, brand } = data;
+  const formatter = usePriceFormat();
+  return (
+    <div className="section-product-detail__content">
+      <div className="content-title">
+        <h1>{name}</h1>
+      </div>
 
-            <div className="content-rating">
-                <a className="content-rating__item content-rating__star" href="#">
-                    <div className="content-rating__item--content content-rating__item--numb">4.7</div>
-                    <div className="content-rating__item--content content-rating__item--icon">
+      <div className="content-rating">
+        <a className="content-rating__item content-rating__star" href="#">
+          <div className="content-rating__item--content content-rating__item--numb">
+            {rating}
+          </div>
+          <div className="content-rating__item--content content-rating__item--icon">
+            {/* <StarOutlined />
                         <StarOutlined />
                         <StarOutlined />
                         <StarOutlined />
-                        <StarOutlined />
-                        <StarOutlined />
-                    </div>
-                </a>
+                        <StarOutlined /> */}
+            {<Rate defaultValue={rating} allowHalf disabled />}
+          </div>
+        </a>
 
-                <div className="content-rating__item content-rating__evaluate">
-                    <div className="content-rating__item--content content-rating__item--numb">176</div>
-                    <div className="content-rating__item--content content-rating__item--text">Đánh giá</div>
-                </div>
-
-                <div className="content-rating__item content-rating__sold">
-                    <div className="content-rating__item--content content-rating__item--numb">399</div>
-                    <div className="content-rating__item--content content-rating__item--text">Đã bán</div>
-                </div>
-
-                <div className="content-rating__item content-rating__warehouse">
-                    <div className="content-rating__item--content content-rating__item--text">Số lượng còn</div>
-                    <div className="content-rating__item--content content-rating__item--numb">50</div>
-                </div>
-            </div>
-
-            <div className="content-price">
-                <h1>155.000đ</h1>
-            </div>
-
-            <div className="content-desc">
-                <div className="content-desc__item content-desc__description">
-                    <div className="content-desc__description--item content-desc__description--left">Mô tả sản phẩm: </div>
-                    <div className="content-desc__description--item content-desc__description--right">This is some description</div>
-                </div>
-                <div className="content-desc__item content-desc__product-branch">
-                    <div className="content-desc__description--item content-desc__product-branch--left">Thương hiệu: </div>
-                    <div className="content-desc__description--item content-desc__product-branch--right">LOL</div>
-                </div>
-            </div>
-
-            <div className="content-btn">
-                <Button type="dashed" danger icon={<AppstoreAddOutlined />}>
-                    Thêm vào giỏ hàng
-                </Button>
-                <Button type="primary" danger>
-                    Mua ngay
-                </Button>
-            </div>
+        <div className="content-rating__item content-rating__evaluate">
+          <div className="content-rating__item--content content-rating__item--numb">
+            176
+          </div>
+          <div className="content-rating__item--content content-rating__item--text">
+            Đánh giá
+          </div>
         </div>
-    );
+
+        <div className="content-rating__item content-rating__sold">
+          <div className="content-rating__item--content content-rating__item--numb">
+            {sold}
+          </div>
+          <div className="content-rating__item--content content-rating__item--text">
+            Đã bán
+          </div>
+        </div>
+
+        <div className="content-rating__item content-rating__warehouse">
+          <div className="content-rating__item--content content-rating__item--text">
+            Số lượng còn
+          </div>
+          <div className="content-rating__item--content content-rating__item--numb">
+            {available}
+          </div>
+        </div>
+      </div>
+
+      <div className="content-price">
+        <h1>{formatter(price)}</h1>
+      </div>
+
+      <div className="content-desc">
+        <div className="content-desc__item content-desc__description">
+          <div className="content-desc__description--item content-desc__description--left">
+            Mô tả sản phẩm:{" "}
+          </div>
+          <div className="content-desc__description--item content-desc__description--right">
+            {desc}
+          </div>
+        </div>
+        <div className="content-desc__item content-desc__product-branch">
+          <div className="content-desc__description--item content-desc__product-branch--left">
+            Thương hiệu:{" "}
+          </div>
+          <div className="content-desc__description--item content-desc__product-branch--right">
+            {brand}
+          </div>
+        </div>
+      </div>
+
+      <div className="content-btn">
+        <Button type="dashed" danger icon={<AppstoreAddOutlined />}>
+          Thêm vào giỏ hàng
+        </Button>
+        <Button type="primary" danger>
+          Mua ngay
+        </Button>
+      </div>
+    </div>
+  );
 }
 
 export default ProductDesc;

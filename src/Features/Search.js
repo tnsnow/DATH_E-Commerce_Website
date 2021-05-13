@@ -28,7 +28,7 @@ export default function Search() {
         <Skeleton
           className="custom-ant-skeleton"
           active
-          paragraph={{ rows: 10 }}
+          paragraph={{ rows: 5 }}
         />
         ;
       </div>

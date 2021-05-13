@@ -69,7 +69,7 @@ export default function Home() {
           <Route path="/home/search/:keyword">
             <Search />
           </Route>
-          <Route path="/home/product-detail">
+          <Route path="/home/product-detail/:id">
             <ProductDetail />
           </Route>
 
