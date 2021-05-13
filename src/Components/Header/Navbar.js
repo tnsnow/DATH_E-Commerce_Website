@@ -11,7 +11,7 @@ import {
   InstagramOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import logo from "../../assets/images/logo/logo_cartya_black.png";
+import logo from "../../assets/images/logo/cartya-logo.png";
 import { useCookies } from "react-cookie";
 
 const { Search } = Input;
