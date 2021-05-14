@@ -1,13 +1,28 @@
 import React from "react";
 import { Card, Rate, Space } from "antd";
+import { useHistory, useParams } from "react-router-dom";
+import { useQuery } from 'react-query';
+import axios from 'axios';
 
 const Meta = Card.Meta;
 
 export default function CardItem({ dataProduct }) {
-  const { name, rating, images, price, sold } = dataProduct;
-  console.log('product cart:', dataProduct);
+  console.log('dataProduct:', dataProduct);
+
+  const { _id, name, rating, images, price, sold } = dataProduct;
+
+
+  let historyDetailProduct = useHistory();
+  let { idProduct } = useParams();
+
+  console.log('idProduct:', idProduct);
+
+  const handleLinkDetailProduct = () => {
+    historyDetailProduct.push(`/home/product-detail/${_id}`);
+  }
+
   return (
-    <a href="#" className="">
+    <div onClick={handleLinkDetailProduct} className="">
       <Card
         hoverable
         style={{ width: '100%' }}
@@ -38,6 +53,6 @@ export default function CardItem({ dataProduct }) {
           }
         />
       </Card>
-    </a>
+    </div>
   );
 }
