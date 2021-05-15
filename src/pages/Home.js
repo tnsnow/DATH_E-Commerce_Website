@@ -18,6 +18,7 @@ import ProductDetail from "../Features/ProductDetail";
 import ListProduct from "../Features/ListProduct";
 import Search from "../Features/Search";
 import Profile from "./Profile";
+import Cart from "./Cart";
 
 export default function Home() {
   const fetchListCart = async () => {
@@ -73,9 +74,11 @@ export default function Home() {
           <Route path="/home/product-detail/:id">
             <ProductDetail />
           </Route>
-
           <Route path="/home/profile">
             <Profile />
+          </Route>
+          <Route path="/home/cart">
+            <Cart />
           </Route>
         </Switch>
       </div>
