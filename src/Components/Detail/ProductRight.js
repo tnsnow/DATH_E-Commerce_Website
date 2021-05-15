@@ -20,7 +20,7 @@ function ProductDesc({ data }) {
   return (
     <div className="section-product-detail__right">
       <div className="content-price">
-        <h1>{formatter(price)}</h1>
+        <h1>Giá sản phẩm: {formatter(price)}</h1>
       </div>
 
       <div className="content-desc">

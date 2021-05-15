@@ -5,6 +5,10 @@
     padding: 10px;
     background-color: $color-white;
 
+    &__name {
+        margin: 1.5rem 0;
+    }
+
     &__left {
         .img-list-child {
             &__item {
@@ -31,44 +35,5 @@
         padding: 10px;
         .content-title {
         }
-
-        .content-rating {
-            display: flex;
-
-            &__item {
-                display: flex;
-                &--content {
-                    display: flex;
-                    align-items: center;
-                    height: 100%;
-                    font: {
-                        size: 1.8rem;
-                        weight: 700;
-                    }
-                }
-
-                .content-rating__item--content + .content-rating__item--content {
-                    padding-left: 5px;
-                }
-            }
-
-            .content-rating__item + .content-rating__item {
-                padding-left: 2rem;
-            }
-        }
-
-        .content-desc {
-            &__item {
-                display: flex;
-                font: {
-                    size: 1.8rem;
-                    weight: 600;
-                }
-            }
-        }
-    }
-
-    .img-active + .img-list-child {
-        margin-top: 5px;
     }
 }
