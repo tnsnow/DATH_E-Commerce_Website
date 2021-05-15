@@ -6,10 +6,6 @@ import axios from 'axios';
 
 const Meta = Card.Meta;
 
-<<<<<<< HEAD
-export default function CardItem({ isLoading, product }) {
-  const { name, description, rating, like, images, price, sold, _id } = product;
-=======
 export default function CardItem({ dataProduct }) {
   console.log('dataProduct:', dataProduct);
 
@@ -17,32 +13,21 @@ export default function CardItem({ dataProduct }) {
 
 
   let historyDetailProduct = useHistory();
-  let { idProduct } = useParams();
-
-  console.log('idProduct:', idProduct);
 
   const handleLinkDetailProduct = () => {
     historyDetailProduct.push(`/home/product-detail/${_id}`);
   }
->>>>>>> develop
 
   return (
     <div onClick={handleLinkDetailProduct} className="">
       <Card
-<<<<<<< HEAD
         hoverable
         style={{ width: '100%' }}
         cover={<img alt="" src={images[0]} />}
-=======
-        style={{ width: 200, padding: "0.25rem", margin: "0.5rem" }}
-        loading={isLoading}
-        hoverable={true}
-        cover={isLoading ? "" : <img alt="image-product" src={images[0]} />}
->>>>>>> ken
       >
         <Meta
           style={{ padding: "-20px" }}
-          title={<a href={`/home/product-detail/${_id}`}>{name}</a>}
+          title={name}
           description={
             <div>
               <span style={{ fontSize: "2rem", color: "#1890ff" }}>

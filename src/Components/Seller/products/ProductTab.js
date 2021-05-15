@@ -1,13 +1,13 @@
 import { Table, Space, Tag, Image, Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
-// import numeral from "numeral";
+import numeral from "numeral";
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useQuery, useMutation } from "react-query";
 import { useRecoilValue } from "recoil";
 import userAtom from "../../../recoil/user";
-// import { useNotification, useTruncate } from "../../../hooks";
+import { useNotification, useTruncate } from "../../../hooks";
 
 const dataSourceVar = [
   // name
