@@ -9,7 +9,6 @@ import {
   BellOutlined,
   FacebookOutlined,
   InstagramOutlined,
-  SearchOutlined,
 } from "@ant-design/icons";
 import logo from "../../assets/images/logo/cartya-logo.png";
 import { useCookies } from "react-cookie";
@@ -96,13 +95,6 @@ function Navbar(props) {
           </Col>
           <Col className="gutter-row" span={14}>
             <div className="d-flex align-items-center h-100 section-navbar__bottom--serch">
-              {/* <Search
-                placeholder="input search text"
-                onSearch={onSearch}
-                enterButton
-                className="w-100"
-              />
-               */}
               <AutoComplete
                 style={{ width: "100%" }}
                 backfill={true}
@@ -118,7 +110,6 @@ function Navbar(props) {
                   allowClear
                   enterButton="Search"
                   size="large"
-                  // suffix={<SearchOutlined type={"search"} size={24} />}
                   onSearch={onSearch}
                 />
               </AutoComplete>
@@ -127,7 +118,8 @@ function Navbar(props) {
           <Col className="gutter-row" span={4}>
             <div className="d-flex justify-content-center h-100 section-navbar__bottom--icon">
               <a className="d-flex align-items-center" href="#">
-                <ShoppingCartOutlined />
+                <ShoppingCartOutlined onMouseEnter />
+                <div className="cart-mini">This is items in cart</div>
               </a>
             </div>
           </Col>
