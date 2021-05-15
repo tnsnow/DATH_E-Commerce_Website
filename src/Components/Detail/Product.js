@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 
-import ProductImage from "./ProductImage";
-import ProductDesc from "./ProductDesc";
+import ProductLeft from "./ProductLeft";
+import ProductRight from "./ProductRight";
 
 Product.propTypes = {
   data: PropTypes.object,
@@ -12,13 +12,13 @@ Product.propTypes = {
 function Product({ data }) {
   const { images } = data;
   return (
-    <div className="section-product-detail">
+    <div className="section-product-detail__content">
       <Row gutter={24}>
         <Col span="10">
-          <ProductImage images={images} />
+          <ProductLeft images={images} data={data} />
         </Col>
         <Col span="14">
-          <ProductDesc data={data} />
+          <ProductRight data={data} />
         </Col>
       </Row>
     </div>

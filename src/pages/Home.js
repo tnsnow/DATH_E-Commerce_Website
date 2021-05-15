@@ -47,9 +47,9 @@ export default function Home() {
       </div>
 
       <div className="box-blog">
-        <Switch>
-          <Route exact path="/home">
-            <div className="container">
+        <div className="container">
+          <Switch>
+            <Route exact path="/home">
               <CoverBanner />
               <CategoryLine />
               <Trends />
@@ -65,21 +65,23 @@ export default function Home() {
                 // <ItemsGroup isLoading={isLoading} data={data} />
                 <ListProduct isLoading={isLoading} data={data} />
               )}
-            </div>
-          </Route>
-          <Route path="/home/search/:keyword">
-            <Search />
-          </Route>
-          <Route path="/home/product-detail/:id">
-            <ProductDetail />
-          </Route>
+            </Route>
 
-          <Route path="/home/profile">
-            <Profile />
-          </Route>
-        </Switch>
+            <Route path="/home/search/:keyword">
+              <Search />
+            </Route>
+
+            <Route path="/home/product-detail/:id">
+              <ProductDetail />
+            </Route>
+
+            <Route path="/home/profile">
+              <Profile />
+            </Route>
+          </Switch>
+        </div>
       </div>
-      <div className="">
+      <div className="footer-box">
         <div className="container">
           <Footer />
         </div>

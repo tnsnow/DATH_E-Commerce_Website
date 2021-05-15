@@ -25,7 +25,7 @@ function ProductDetail() {
             console.log(data.data[0]);
             setProduct(data.data[0]);
           }
-        } catch (error) {}
+        } catch (error) { }
       },
     }
   );
@@ -45,10 +45,14 @@ function ProductDetail() {
   if (isError) return <h1>{error}</h1>;
 
   return (
-    <div className="container">
-      {`This is your id ${id}`}
-      {<h1>{product.name}</h1>}
+    <div className="section-product-detail">
       <LinkProduct />
+
+      <div className="section-product-detail__name">
+        {<h1>{product.name}</h1>}
+      </div>
+
+
       <Detail data={product} />
     </div>
   );
