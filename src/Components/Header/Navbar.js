@@ -2,7 +2,16 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 // import PropTypes from "prop-types";
-import { Menu, Input, Space, Row, Col, AutoComplete } from "antd";
+import {
+  Menu,
+  Input,
+  Space,
+  Row,
+  Col,
+  AutoComplete,
+  Popover,
+  Button,
+} from "antd";
 import {
   QuestionCircleOutlined,
   ShoppingCartOutlined,
@@ -12,15 +21,26 @@ import {
 } from "@ant-design/icons";
 import logo from "../../assets/images/logo/cartya-logo.png";
 import { useCookies } from "react-cookie";
+import MiniCartItem from "../../Features/MiniCartItem";
 
 const { Search } = Input;
-
 function Navbar(props) {
   let history = useHistory();
   const [cookies] = useCookies(["accessToken"]);
   const dataSource = ["hi", "hi2", "hi3", "ai", "hi", "hi"];
   const onSearch = (value) => history.push(`/home/search/${value}`);
-
+  const items = [
+    {
+      name: "wdawdhwawudwahduawdakdahdawhda",
+      price: 120000,
+      image: "https://picsum.photos/200",
+    },
+    {
+      name: "Item 2",
+      price: 120000,
+      image: "https://picsum.photos/200",
+    },
+  ];
   return (
     <div id="menuComponent" className="section-navbar">
       <div className="d-flex justify-content-between section-navbar__top">
@@ -118,8 +138,15 @@ function Navbar(props) {
           <Col className="gutter-row" span={4}>
             <div className="d-flex justify-content-center h-100 section-navbar__bottom--icon">
               <a className="d-flex align-items-center" href="#">
-                <ShoppingCartOutlined onMouseEnter />
-                <div className="cart-mini">This is items in cart</div>
+                <Popover
+                  placement="bottomRight"
+                  content={<MiniCartItem items={items} isLoading={false} />}
+                  title="Title"
+                >
+                  <div className="d-flex align-items-center">
+                    <ShoppingCartOutlined />
+                  </div>
+                </Popover>
               </a>
             </div>
           </Col>
