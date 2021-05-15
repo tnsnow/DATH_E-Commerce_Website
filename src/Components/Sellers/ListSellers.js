@@ -39,7 +39,10 @@ function ListSellers(props) {
                         <div className="content-item">
                             <a href="#">
                                 <Card
-                                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                                    cover={
+                                        <img alt="example"
+                                            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                                        />}
                                 >
                                     <Meta title="Giày adidas đen trắng" />
                                     <div className="content-item__price">

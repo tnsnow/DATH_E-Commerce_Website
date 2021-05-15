@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import LinkProduct from "../Components/Link/LinkProduct";
 import Detail from "../Components/Detail/Product";
 import { useParams } from "react-router";
 import { useMutation } from "react-query";
-import axios from "axios";
 import { Skeleton } from "antd";
 
 function ProductDetail() {
