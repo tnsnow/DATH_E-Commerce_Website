@@ -1,13 +1,13 @@
 import { Table, Space, Tag, Image, Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
-import numeral from "numeral";
+// import numeral from "numeral";
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useQuery, useMutation } from "react-query";
 import { useRecoilValue } from "recoil";
 import userAtom from "../../../recoil/user";
-import { useNotification, useTruncate } from "../../../hooks";
+// import { useNotification, useTruncate } from "../../../hooks";
 
 const dataSourceVar = [
   // name
@@ -87,7 +87,7 @@ const columns = [
 ];
 
 export default function ProductTab() {
-  const truncate = useTruncate();
+  // const truncate = useTruncate();
   const notification = useNotification();
   const currentUser = useRecoilValue(userAtom);
   const [cookies] = useCookies(["accessToken"]);
@@ -131,7 +131,7 @@ export default function ProductTab() {
                 key: index + 1,
                 name: {
                   id: item._id,
-                  name: truncate(item.name, 60),
+                  // name: truncate(item.name, 60),
                   image: item.images[0],
                 },
                 categories: item.categories,
