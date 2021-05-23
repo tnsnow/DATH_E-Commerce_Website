@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useHistory } from "react-router-dom";
 // import PropTypes from "prop-types";
 import {
@@ -22,25 +22,69 @@ import {
 import logo from "../../assets/images/logo/cartya-logo.png";
 import { useCookies } from "react-cookie";
 import MiniCartItem from "../../Features/MiniCartItem";
+import { useRecoilState } from "recoil";
+import { currentUser } from "../../recoil/user/atom";
+import { useMutation } from "react-query";
+import axios from "axios";
+import { useTruncate } from "../../hooks";
 
 const { Search } = Input;
 function Navbar(props) {
   let history = useHistory();
-  const [cookies] = useCookies(["accessToken"]);
+  const [cookies, removeCookie] = useCookies(["accessToken"]);
+  // const [user, setUser] = useRecoilState(currentUser);
+  const truncate = useTruncate();
+  const [login, setLogin] = useState(false);
   const dataSource = ["hi", "hi2", "hi3", "ai", "hi", "hi"];
+  const [items, setItems] = useState([]);
+  const fetchItemsInCart = async () => {
+    return axios
+      .get(`http://localhost:4001/products/in-cart`, {
+        headers: {
+          Authorization: `Bearer ${cookies.accessToken}`,
+        },
+      })
+      .catch((err) => err.message);
+  };
+
+  //fetch Data item in cat
+  const { mutate, isLoading } = useMutation(fetchItemsInCart, {
+    onSuccess: (data) => {
+      const { status } = data;
+      if (status === 200) {
+        // console.log({ data });
+        const arr = [];
+        data.data.map((i) => {
+          arr.push({
+            name: truncate(i.product.name, 60),
+            price: i.product.price,
+            image: i.product.images[0],
+          });
+        });
+        setItems(arr);
+      }
+    },
+  });
+  useEffect(() => {
+    // console.log({ user });
+    mutate();
+  }, []);
+  useEffect(() => {
+    // console.log("token", cookies.accessToken);
+    const token = cookies.accessToken;
+    console.log(token);
+    if (token === "undefined") {
+      setLogin(false);
+    } else {
+      setLogin(true);
+    }
+  }, []);
   const onSearch = (value) => history.push(`/home/search/${value}`);
-  const items = [
-    {
-      name: "wdawdhwawudwahduawdakdahdawhda",
-      price: 120000,
-      image: "https://picsum.photos/200",
-    },
-    {
-      name: "Item 2",
-      price: 120000,
-      image: "https://picsum.photos/200",
-    },
-  ];
+  const handleLogout = () => {
+    removeCookie("accessToken");
+    // history.push("/home");
+    window.location.reload();
+  };
   return (
     <div id="menuComponent" className="section-navbar">
       <div className="d-flex justify-content-between section-navbar__top">
@@ -83,22 +127,41 @@ function Navbar(props) {
                   <p className="right-content__item--title">Hỗ Trợ</p>
                 </a>
               </Menu.Item>
-              <Menu.Item
-                className="right-content__item right-content__login"
-                key="login"
-              >
-                <a href="/Login" className="right-content__item--title">
-                  Login
-                </a>
-              </Menu.Item>
-              <Menu.Item
-                className="right-content__item right-content__register"
-                key="register"
-              >
-                <a href="/Register" className="right-content__item--title">
-                  Register
-                </a>
-              </Menu.Item>
+              {login ? (
+                <Menu.Item
+                  className="right-content__item right-content__login"
+                  key="logout"
+                >
+                  <Button type="link" onClick={handleLogout}>
+                    Logout
+                  </Button>
+                </Menu.Item>
+              ) : (
+                <>
+                  <Menu.Item
+                    className="right-content__item right-content__login"
+                    key="login"
+                  >
+                    {/* <a href="/Login" className="right-content__item--title">
+                      Login
+                    </a> */}
+                    <Button href="/login" type="primary">
+                      Login
+                    </Button>
+                  </Menu.Item>
+                  <Menu.Item
+                    className="right-content__item right-content__register"
+                    key="register"
+                  >
+                    <Button href="/register" type="ghost">
+                      Register
+                    </Button>
+                    {/* <a href="/Register" className="right-content__item--title">
+                      Register
+                    </a> */}
+                  </Menu.Item>
+                </>
+              )}
             </Space>
           </Menu>
         </div>
@@ -137,14 +200,14 @@ function Navbar(props) {
           </Col>
           <Col className="gutter-row" span={4}>
             <div className="d-flex justify-content-center h-100 section-navbar__bottom--icon">
-              <a className="d-flex align-items-center" href="#">
+              <a className="d-flex align-items-center" href="/home/cart">
                 <Popover
                   placement="bottomRight"
-                  content={<MiniCartItem items={items} isLoading={false} />}
+                  content={<MiniCartItem items={items} isLoading={isLoading} />}
                   title="Title"
                 >
                   <div className="d-flex align-items-center">
-                    <ShoppingCartOutlined />
+                    <ShoppingCartOutlined onMouseEnter={() => mutate()} />
                   </div>
                 </Popover>
               </a>

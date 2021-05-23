@@ -5,7 +5,7 @@ import { AppstoreOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { useRecoilValue } from "recoil";
 
 // atoms & selectors
-import userAtom from "../recoil/user";
+import { currentUser as userData } from "../recoil/user/atom";
 
 //components
 import Navbar from "../Components/DynamicNavbar/Navbar";
@@ -14,7 +14,7 @@ import Product from "../Components/Seller/products/Product";
 
 export default function Seller() {
   const { Content, Header, Footer, Sider } = Layout;
-  const currentUser = useRecoilValue(userAtom);
+  const currentUser = useRecoilValue(userData);
   const itemsNav = [
     {
       name: currentUser.username ? currentUser.username : "User",

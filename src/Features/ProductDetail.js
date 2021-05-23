@@ -46,8 +46,6 @@ function ProductDetail() {
 
   return (
     <div className="container">
-      {`This is your id ${id}`}
-      {<h1>{product.name}</h1>}
       <LinkProduct />
       <Detail data={product} />
     </div>

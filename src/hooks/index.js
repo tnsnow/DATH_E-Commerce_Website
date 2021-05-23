@@ -37,3 +37,13 @@ export const usePriceFormat = () => {
   };
   return stringFormated;
 };
+// export const useGetAuth = (url) => {
+//   const data = await axios
+//     .get(`http://localhost:4001/${url}`, {
+//       headers: {
+//         Authorization: `Bearer ${cookies.accessToken}`,
+//       },
+//     })
+//     .catch((err) => err);
+//   return data;
+// };

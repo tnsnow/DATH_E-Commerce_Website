@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Divider, Skeleton, Card } from "antd";
 import { Switch, Route } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 
 //components import here
@@ -19,25 +19,22 @@ import ListProduct from "../Features/ListProduct";
 import Search from "../Features/Search";
 import Profile from "./Profile";
 import Cart from "./Cart";
-
+import ProtectedRoute from "../Components/AuthRoute/ProtectedRoute";
 export default function Home() {
   const fetchListCart = async () => {
-    return await axios
-      .get("http://localhost:4001/products")
-      .catch(function (error) {
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          return error.response.data;
-        }
-      });
+    return axios.get("http://localhost:4001/products").catch(function (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        return error.response.data;
+      }
+    });
   };
+
   const { isLoading, isError, data, error } = useQuery(
     "itemCart",
     fetchListCart
   );
-
-  if (isError) return <h1>{error}</h1>;
 
   return (
     <>
@@ -77,9 +74,24 @@ export default function Home() {
           <Route path="/home/profile">
             <Profile />
           </Route>
-          <Route path="/home/cart">
+          <ProtectedRoute
+            child={
+              <Cart
+              // mutateAdd={mutateAddItem}
+              // mutateDelete={mutateDeleteItem}
+              // items={dataSource}
+              // isLoading={{
+              //   cart: isCartLoading,
+              //   add: isAddItemLoading,
+              //   delete: isDeleteLoading,
+              // }}
+              />
+            }
+            path="/home/cart"
+          />
+          {/* <Route path="/home/cart">
             <Cart />
-          </Route>
+          </Route> */}
         </Switch>
       </div>
       <div className="">
