@@ -42,7 +42,7 @@ const openNotification = ({ ...props }) => {
 export default function FormLogin(props) {
   const history = useHistory();
   const [login, setLogin] = useRecoilState(isLogin);
-  const [_, setUser] = useRecoilState(currentUser);
+  const setUserState = useSetRecoilState(currentUser);
   const [cookies, setCookies] = useCookies([]);
   const { mutate, isLoading, isError, error } = useMutation(
     (data) => postLoginUser(data),
@@ -66,9 +66,9 @@ export default function FormLogin(props) {
           setCookies("accessToken", data.accessToken, { path: "/" });
           // set atomUser & loginState
           setLogin(true);
-          setUser(decodeToken(data.accessToken));
+          setUserState({ ...data.user });
           //redirect to previous path in history stack
-          history.goBack();
+          history.push("/home");
         } else {
           openNotification({
             message: "Error",

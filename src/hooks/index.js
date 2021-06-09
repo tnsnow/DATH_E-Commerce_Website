@@ -33,9 +33,27 @@ export const useTruncate = () => {
 
 export const usePriceFormat = () => {
   const stringFormated = (price) => {
-    return "₫ " + numeral(price).format("0,0[.]00");
+    // return "₫ " + numeral(price).format("0,0[.]00");
+    const numberFormat = new Intl.NumberFormat("vn-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+    return numberFormat.format(Number(price));
   };
   return stringFormated;
+};
+
+export const useRandomColor = () => {
+  const result = () => {
+    const letters = "0123456789ABCDEF";
+    // var color = '#';
+    let color = "";
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+  return result;
 };
 // export const useGetAuth = (url) => {
 //   const data = await axios

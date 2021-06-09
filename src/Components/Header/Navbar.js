@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 // import PropTypes from "prop-types";
 import {
@@ -11,6 +11,7 @@ import {
   AutoComplete,
   Popover,
   Button,
+  Badge,
 } from "antd";
 import {
   QuestionCircleOutlined,
@@ -26,17 +27,37 @@ import { useRecoilState } from "recoil";
 import { currentUser } from "../../recoil/user/atom";
 import { useMutation } from "react-query";
 import axios from "axios";
-import { useTruncate } from "../../hooks";
+import { decodeToken } from "react-jwt";
+import { useRandomColor, useTruncate } from "../../hooks";
+import Avatar from "antd/lib/avatar/avatar";
+import { fetchUser } from "../User/functions";
 
 const { Search } = Input;
 function Navbar(props) {
   let history = useHistory();
   const [cookies, removeCookie] = useCookies(["accessToken"]);
-  // const [user, setUser] = useRecoilState(currentUser);
+  const [user, setUser] = useState({});
+  const [userAtom, setUserAtom] = useRecoilState(currentUser);
   const truncate = useTruncate();
   const [login, setLogin] = useState(false);
   const dataSource = ["hi", "hi2", "hi3", "ai", "hi", "hi"];
   const [items, setItems] = useState([]);
+  const token = cookies.accessToken;
+  const renderListOptionProfile = () => (
+    <>
+      <Button size="small" type="link" href="/home/profile">
+        Your Profile
+      </Button>
+      <hr />
+      <Button size="small" type="link" href="/home/profile/orders">
+        Your Orders
+      </Button>
+      <hr />
+      <Button size="small" type="link" onClick={handleLogout}>
+        Logout
+      </Button>
+    </>
+  );
   const fetchItemsInCart = async () => {
     return axios
       .get(`http://localhost:4001/products/in-cart`, {
@@ -65,20 +86,33 @@ function Navbar(props) {
       }
     },
   });
+
+  //fetch user data
+  const { mutate: mutateFetchUser } = useMutation(fetchUser);
+
   useEffect(() => {
-    // console.log({ user });
     mutate();
-  }, []);
+  }, [cookies]);
+
   useEffect(() => {
     // console.log("token", cookies.accessToken);
-    const token = cookies.accessToken;
-    console.log(token);
-    if (token === "undefined") {
-      setLogin(false);
-    } else {
+
+    const userDecoded = decodeToken(token);
+    if (token !== "undefined") {
+      mutateFetchUser(
+        { token },
+        {
+          onSuccess: (data) => {
+            setUser(data?.data);
+          },
+        }
+      );
       setLogin(true);
+      setUserAtom(userDecoded);
+    } else {
+      setLogin(false);
     }
-  }, []);
+  }, [cookies, token]);
   const onSearch = (value) => history.push(`/home/search/${value}`);
   const handleLogout = () => {
     removeCookie("accessToken");
@@ -131,11 +165,7 @@ function Navbar(props) {
                 <Menu.Item
                   className="right-content__item right-content__login"
                   key="logout"
-                >
-                  <Button type="link" onClick={handleLogout}>
-                    Logout
-                  </Button>
-                </Menu.Item>
+                ></Menu.Item>
               ) : (
                 <>
                   <Menu.Item
@@ -168,15 +198,15 @@ function Navbar(props) {
       </div>
 
       <div className="section-navbar__bottom">
-        <Row gutter={48}>
-          <Col className="gutter-row" span={6}>
+        <Row justify="space-between">
+          <Col span={6}>
             <div className="section-navbar__bottom--logo">
               <a href="/">
                 <img className="img-fluid" src={logo} alt="Logo" />
               </a>
             </div>
           </Col>
-          <Col className="gutter-row" span={14}>
+          <Col span={12}>
             <div className="d-flex align-items-center h-100 section-navbar__bottom--serch">
               <AutoComplete
                 style={{ width: "100%" }}
@@ -198,19 +228,44 @@ function Navbar(props) {
               </AutoComplete>
             </div>
           </Col>
-          <Col className="gutter-row" span={4}>
-            <div className="d-flex justify-content-center h-100 section-navbar__bottom--icon">
-              <a className="d-flex align-items-center" href="/home/cart">
+          <Col span={6}>
+            <div className="justify-content-end h-100 d-flex align-items-center">
+              {login ? (
                 <Popover
                   placement="bottomRight"
-                  content={<MiniCartItem items={items} isLoading={isLoading} />}
-                  title="Title"
+                  title={<p>{user.username}</p>}
+                  content={renderListOptionProfile}
                 >
-                  <div className="d-flex align-items-center">
-                    <ShoppingCartOutlined onMouseEnter={() => mutate()} />
-                  </div>
+                  <Avatar
+                    size={36}
+                    style={{ marginRight: 30 }}
+                    alt="Avatar"
+                    src={user.userImage}
+                  />
                 </Popover>
-              </a>
+              ) : (
+                ""
+              )}
+              <div className="d-flex justify-content-center h-100 section-navbar__bottom--icon">
+                <a className="d-flex align-items-center" href="/home/cart">
+                  <Popover
+                    placement="bottomRight"
+                    content={
+                      <MiniCartItem items={items} isLoading={isLoading} />
+                    }
+                    title="Title"
+                  >
+                    <div className="d-flex align-items-center">
+                      <Badge count={items.length}>
+                        <ShoppingCartOutlined
+                          style={{ fontSize: 36, color: "#1890ff" }}
+                          onMouseEnter={() => mutate()}
+                        />
+                      </Badge>
+                    </div>
+                  </Popover>
+                </a>
+              </div>
             </div>
           </Col>
         </Row>

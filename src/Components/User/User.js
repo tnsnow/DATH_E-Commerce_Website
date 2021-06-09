@@ -3,6 +3,7 @@ import { Row } from "antd";
 import { Route, Switch } from "react-router";
 import UserPassword from "./UserPassword";
 import UserProfile from "./UserProfile";
+import UserOrder from "./UserOrder";
 export default function User() {
   return (
     <div className="background-component">
@@ -11,9 +12,6 @@ export default function User() {
         <Switch>
           <Route exact path="/home/profile">
             <UserProfile />
-          </Route>
-          <Route path="/home/profile/password">
-            <UserPassword />
           </Route>
         </Switch>
       </Row>

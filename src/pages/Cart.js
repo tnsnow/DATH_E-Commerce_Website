@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Table, Space, Tag, Image, Button, InputNumber } from "antd";
+import {
+  Table,
+  Space,
+  Tag,
+  Image,
+  Button,
+  InputNumber,
+  Modal,
+  List,
+  Divider,
+  Radio,
+  Input,
+  Spin,
+} from "antd";
 
 import { DeleteOutlined } from "@ant-design/icons";
 import { useNotification, usePriceFormat, useTruncate } from "../hooks";
 import { useMutation, useQuery } from "react-query";
 import { useCookies } from "react-cookie";
 import axios from "axios";
+import Avatar from "antd/lib/avatar/avatar";
+import { useRecoilValue } from "recoil";
+import { currentUser } from "../recoil/user/atom";
+import Text from "antd/lib/typography/Text";
+import { postCreateOrder } from "./functions";
 
 // Cart.propTypes = {
 //   mutateAdd: PropTypes.func,
@@ -19,21 +37,39 @@ export default function Cart() {
   const notificate = useNotification();
   const [cookies] = useCookies(["accessToken"]);
   const formatPrice = usePriceFormat();
+  // const user = useRecoilValue(currentUser);
+  const [user, setUser] = useState({});
+  const userAtom = useRecoilValue(currentUser);
+  const [radioValue, setRadioValue] = useState("cod");
+  const [amount, setAmount] = useState(null);
   const [dataSource, setDataSource] = useState([]);
+  const [isDisable, setIsDisable] = useState(true);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [dataCheckout, setDataCheckout] = useState([]);
+  const [notice, setNotice] = useState("");
+
   const truncate = useTruncate();
-  const columns = [
+  const totalCalc = (arr) => {
+    return arr.reduce((a, b) => b + a, 0);
+  };
+  useEffect(() => {
+    setUser(userAtom);
+  }, [userAtom]);
+  const columns = [ 
     {
       title: "Product",
       dataIndex: "product",
       key: "product",
-      render: ({ name, image }) => (
+      render: ({ name, image, id }) => (
         <div className="image-label" style={{ maxWidth: 400 }}>
           <Image
             alt={name}
             style={{ maxWidth: 70, maxHeight: 70 }}
             src={image}
           />
-          <span>{truncate(name, 50)}</span>
+          <span>
+            <a href={`/home/product-detail/${id}`}>{truncate(name, 50)} </a>
+          </span>
         </div>
       ),
     },
@@ -41,18 +77,19 @@ export default function Cart() {
       title: "Pricing",
       dataIndex: "price",
       key: "price",
+      render: (price) => formatPrice(price),
     },
     {
       title: "Quantity",
       dataIndex: "quantity",
       key: "quantity",
-      // sorter: (a, b) => b.price - a.price,
-      render: (q) => (
+      render: (text, record) => (
+        // console.log({ text, record, index }),
         <InputNumber
-          readOnly={isAddItemLoading || isDeleteLoading}
-          defaultValue={Number(q)}
+          disabled={isAddItemLoading || isAddItemFetching}
+          defaultValue={Number(text)}
           min={0}
-          onStep={(q, value, info) => handleStepChange(q, value, info)}
+          onChange={(value) => handleStepChange(record.idItemCart, value, record)}
         />
       ),
     },
@@ -60,11 +97,16 @@ export default function Cart() {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
+      render: (amount) => formatPrice(amount),
     },
     {
-      title: "Action",
+      title: "Action ",
       key: "action",
-      render: () => <Button type="link">Delete</Button>,
+      render: (text, record) => (
+        <Button onClick={() => handleDeleteItem(record.idItemCart)} type="link">
+          Delete
+        </Button>
+      ),
     },
     ,
   ];
@@ -78,10 +120,10 @@ export default function Cart() {
       })
       .catch((err) => err.response.data);
   };
-  const mutateAddItemInCart = async ({ id, quantity }) => {
+  const mutateItemInCart = async ({ id, quantity }) => {
     return axios
       .post(
-        `http://localhost:4001/products/add-to-cart/${id}`,
+        `http://localhost:4001/products/edit-cart/${id}`,
         {
           quantity,
         },
@@ -93,63 +135,70 @@ export default function Cart() {
       )
       .catch((err) => err.response.data);
   };
-  const mutateDeleteItemInCart = async ({ id, quantity }) => {
+
+  const requestDelete = async ({ id }) => {
     return axios
       .post(
         `http://localhost:4001/products/remove-from-cart/${id}`,
-        {
-          quantity,
-        },
+        {},
         {
           headers: {
             Authorization: `Bearer ${cookies.accessToken}`,
           },
         }
       )
-      .catch((err) => err.response.data);
+      .catch((err) => console.log({ error: err }));
   };
-  const { mutate: mutateAddItem, isLoading: isAddItemLoading } = useMutation(
-    mutateAddItemInCart,
-    {
-      onSuccess: (data) => {
-        if (data.status === 200) {
-          notificate("success", data.data.success);
-        }
-      },
-    }
-  );
-  const { mutate: mutateDeleteItem, isLoading: isDeleteLoading } = useMutation(
-    mutateDeleteItemInCart,
-    {
-      onSuccess: (data) => {
-        if (data.status === 200) {
-          notificate("success", data.data.success);
-        }
-      },
-    }
-  );
+  const {
+    mutate: mutateDelete,
+    isLoading: isDeleteLoading,
+    isFetching: isDeleteFetching,
+  } = useMutation(requestDelete, {
+    onSuccess: () => {
+      refetch();
+    },
+  });
+  const {
+    mutate: mutateItem,
+    isFetching: isAddItemFetching,
+    isLoading: isAddItemLoading,
+  } = useMutation(mutateItemInCart, {
+    onSuccess: (data) => {
+      if (data.status === 200) {
+        notificate("success", data.data.success);
+      } else {
+        notificate("error", data.data.error);
+      }
+    },
+  });
 
   const {
     refetch,
     isLoading: isCartLoading,
+    // isFetching: isCartFetching,
     isError: isCartError,
     error: cartError,
   } = useQuery("fetch-item-cart", fetchItemsInCart, {
+    refetchInterval: 1000,
     onSuccess: (data) => {
-      console.log({ data });
+      // console.log({ data });
       if (data.status === 200) {
         if (!data.data.error) {
           const arr = [];
           data.data.map((item, i) => {
             arr.push({
+              idItemCart: item._id,
+              id: item.product._id,
+              idItem: item._id || null,
               key: i + 1,
               product: {
+                id: item.product._id,
                 image: item.product.images[0],
                 name: item.product.name,
               },
-              price: formatPrice(item.product.price),
+              price: item.product.price,
               quantity: item.quantity,
-              amount: formatPrice(item.amount),
+              amount: item.amount,
             });
           });
           setDataSource(arr);
@@ -157,46 +206,232 @@ export default function Cart() {
       }
     },
   });
+
+  const {
+    mutate: mutateCreateOrder,
+    isLoading: isMutateCreateOrderLoading,
+    isFetching: isMutateCreateOrderFetching,
+  } = useMutation(postCreateOrder, {
+    onError: (err) => {
+      const errorRs = { ...err };
+      notificate("error", errorRs.response.data.error);
+    },
+    onSuccess: (data) => {
+      notificate("success", data.data.success);
+      setIsOpenModal(false);
+      setNotice("");
+      refetch();
+    },
+  });
   if (isCartError) {
     notificate("error", cartError);
   }
-  const handleStepChange = (value, info) => {
-    // console.log({ value, info });
-    const { type } = info;
-    if (type === "up") {
-      // mutateAdd({id here})
+
+  const handleStepChange = (id, value, record) => {
+    // console.log(dataSource[record.key - 1]);
+    // console.log({ id, value, info });
+
+    mutateItem({ id, quantity: value });
+  };
+  const onSelectNoneRow = () => {
+    setAmount(0);
+    setIsDisable(true);
+  };
+  const onSelectRow = (selected, selectedRows, changeRows) => {
+    if (changeRows.length > 0) {
+      const amountArr = changeRows.map((i) => Number(i.amount));
+      const calcAmount = totalCalc(amountArr);
+      setAmount(calcAmount);
+      setIsDisable(false);
+      setDataCheckout([...changeRows]);
     } else {
-      //mutateDelete({id})
+      setAmount(0);
+      setIsDisable(true);
     }
+  };
+  const onSelectAllRow = (selected, selectedRows, changeRows) => {
+    if (selectedRows.length > 0) {
+      const amountArr = selectedRows.map((i) => Number(i.amount));
+      const calcAmount = totalCalc(amountArr);
+      setAmount(calcAmount);
+      setDataCheckout([...changeRows]);
+      setIsDisable(false);
+    } else {
+      setAmount(0);
+      setIsDisable(true);
+    }
+  };
+
+  const handleCheckout = () => {
+    setIsOpenModal(true);
+
+    //TODOS create order
+    const { phone, address } = userAtom;
+    const itemsId = dataCheckout.map((i) => i.id);
+    const data = {
+      phone,
+      address,
+      notice,
+      checkoutPayment: radioValue,
+      cartItemsId: itemsId,
+    };
+    console.log({ dataFinal: data });
+    mutateCreateOrder({ token: cookies.accessToken, data }, {
+      onSuccess : () => {
+        // ?Reset values
+        setAmount(null)
+        setIsDisable(true)
+        setDataCheckout([])
+      }
+    });
+    refetch();
+  };
+  const handleDeleteItem = (id) => {
+    mutateDelete(
+      { id },
+      {
+        onSuccess: () => {
+          refetch();
+        },
+      }
+    );
+  };
+  const onChangeRadio = (e) => {
+    console.log("radio checked", e.target.value);
+    setRadioValue(e.target.value);
   };
   return (
     <div className="container p-3">
       <Table
         pagination={false}
-        loading={isCartLoading}
+        loading={
+          isCartLoading ||
+          isAddItemFetching ||
+          isAddItemLoading ||
+          isDeleteLoading ||
+          isDeleteFetching 
+          
+        }
         rowSelection={{
           type: "checkbox",
-          // onSelect: onSelectRow,
-          // onSelectAll: onSelectAllRow,
+          onSelect: onSelectRow,
+          onSelectAll: onSelectAllRow,
+          onSelectNone: onSelectNoneRow,
         }}
         dataSource={dataSource}
         columns={columns}
       />
-      <div className="container">
-        <div>
-          <div className="fixed-card">
-            <Button
-              // loading={isDeleteLoading}
-              type="primary"
-              size="large"
-              // onClick={onDelete}
-            >
-              <Space align="center">
-                <DeleteOutlined size={24} />
-                <span>Checkout</span>
-              </Space>
-            </Button>
+
+      <Modal
+        okText={"Order"}
+        visible={isOpenModal}
+        closable={false}
+        onCancel={() => setIsOpenModal(false)}
+        onOk={handleCheckout}
+      >
+        <Spin
+          spinning={isMutateCreateOrderFetching || isMutateCreateOrderLoading}
+        >
+          <div>
+            <Space direction="vertical" style={{ width: "100%" }} size="large">
+              <h4>Products</h4>
+              <List
+                itemLayout="horizontal"
+                dataSource={dataCheckout}
+                footer={<h3>Total : {formatPrice(amount)}</h3>}
+                renderItem={(item) => (
+                  <div className="p-3">
+                    <List.Item>
+                      <List.Item.Meta
+                        avatar={<Avatar src={item.product.image} />}
+                        title={
+                          <a
+                            href={`/home/product-detail/${item.id}`}
+                          >{`${truncate(item.product.name, 50)}`}</a>
+                        }
+                        description={`${formatPrice(item.price)} (x${
+                          item.quantity
+                        })`}
+                      />
+                    </List.Item>
+                  </div>
+                )}
+              />
+
+              <h4>Payment methods</h4>
+              <div>
+                <Radio.Group onChange={onChangeRadio} value={radioValue}>
+                  <Radio value={"cod"}>COD</Radio>
+                  <Radio value={"paypal"}>Paypal</Radio>
+                </Radio.Group>
+              </div>
+              {radioValue === "cod" ? (
+                <>
+                  <h4>Delivery Address</h4>
+                  <List
+                    itemLayout="horizontal"
+                    bordered
+                    dataSource={
+                      user
+                        ? [
+                            <>
+                              <Text strong>(+84) {user.phone}</Text> -{" "}
+                              <Text>{user.address}</Text>{" "}
+                            </>,
+                          ]
+                        : []
+                    }
+                    renderItem={(item) => (
+                      <List.Item>
+                        {item}{" "}
+                        <Button
+                          style={{ marginLeft: 8 }}
+                          href="/home/profile"
+                          type="link"
+                        >
+                          Change
+                        </Button>
+                      </List.Item>
+                    )}
+                  />
+                </>
+              ) : (
+                <>
+                  <Button type="primary">Paypal</Button>
+                </>
+              )}
+              <Input
+                value={notice}
+                onChange={(e) => setNotice(e.target.value)}
+                placeholder="Notice"
+                name="notice"
+              />
+            </Space>
           </div>
+        </Spin>
+      </Modal>
+
+      <div className="container p-3">
+        <div className="fixed-card d-flex justify-content-between">
+          <h3 style={{ fontWeight: "normal" }}>
+            Total price :
+            <span style={{ fontSize: 24, fontWeight: 400, color: "#1890ff" }}>
+              {`${Number(amount).toLocaleString()} VND` || 0}
+            </span>
+          </h3>
+          <Button
+            // loading={isDeleteLoading}
+            type="primary"
+            size="large"
+            //
+            disabled={isDisable}
+            onClick={() => setIsOpenModal(true)}
+          >
+            <Space align="center">
+              <DeleteOutlined size={24} />
+              <span>Checkout</span>
+            </Space>
+          </Button>
         </div>
       </div>
     </div>

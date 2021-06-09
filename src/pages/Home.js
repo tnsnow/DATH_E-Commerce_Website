@@ -50,8 +50,8 @@ export default function Home() {
             <div className="container">
               <CoverBanner />
               <CategoryLine />
-              <Trends />
-              <Promotions />
+              {/* <Trends />
+              <Promotions /> */}
               <ListSeller />
               {isLoading ? (
                 <Card
@@ -71,24 +71,11 @@ export default function Home() {
           <Route path="/home/product-detail/:id">
             <ProductDetail />
           </Route>
-          <Route path="/home/profile">
+          <ProtectedRoute child={<Profile />} path="/home/profile" />
+          {/* <Route path="/home/profile">
             <Profile />
-          </Route>
-          <ProtectedRoute
-            child={
-              <Cart
-              // mutateAdd={mutateAddItem}
-              // mutateDelete={mutateDeleteItem}
-              // items={dataSource}
-              // isLoading={{
-              //   cart: isCartLoading,
-              //   add: isAddItemLoading,
-              //   delete: isDeleteLoading,
-              // }}
-              />
-            }
-            path="/home/cart"
-          />
+          </Route> */}
+          <ProtectedRoute child={<Cart />} path="/home/cart" />
           {/* <Route path="/home/cart">
             <Cart />
           </Route> */}

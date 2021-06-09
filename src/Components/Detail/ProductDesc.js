@@ -42,9 +42,9 @@ function ProductDesc({ data }) {
         }
       });
   };
-  const { isLoading, mutate, error, isError } = useMutation(mutateAddToCart, {
+  const { isLoading, mutate, error, isError, isFetching } = useMutation(mutateAddToCart, {
     onSuccess: (data) => {
-      if (data.status === 200 && data.data.success) {
+      if (data.status == 200 && data.data.success) {
         notificate("success", "Added Success ✅");
       }
     },
@@ -58,14 +58,17 @@ function ProductDesc({ data }) {
     }
   };
   const handleBuy = () => {
-    mutate({ id: _id });
-    history.push("/home/cart");
+    mutate({ id: _id }, {
+      onSuccess : () => {
+        history.push("/home/cart");
+      }
+    });
   };
   if (isError) {
-    notificate("error", error);
+    notificate("error", error.response.data.error);
   }
   useEffect(() => {
-    cookies.accessToken === "undefined" ? setIsLogin(true) : setIsLogin(false);
+    cookies.accessToken !== "undefined" ? setIsLogin(true) : setIsLogin(false);
   }, [cookies]);
   return (
     <div className="section-product-detail__content">
@@ -136,7 +139,7 @@ function ProductDesc({ data }) {
             onClick={handleAddToCart}
             type="ghost"
             danger
-            loading={isLoading}
+            loading={isLoading ||isFetching}
             icon={<AppstoreAddOutlined />}
           >
             Thêm vào giỏ hàng

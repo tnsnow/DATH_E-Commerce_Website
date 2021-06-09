@@ -5,6 +5,11 @@ export const currentUser = atom({
   default: {},
 });
 
+export const profileUser = atom({
+  key: "profileUser",
+  default: {},
+});
+
 export const isLogin = atom({
   key: "isLogin",
   default: false,
