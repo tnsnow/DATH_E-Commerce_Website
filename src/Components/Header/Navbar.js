@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 // import PropTypes from "prop-types";
 import {
   Menu,
@@ -49,9 +49,15 @@ function Navbar(props) {
         Your Profile
       </Button>
       <hr />
-      <Button size="small" type="link" href="/home/profile/orders">
+      <Link to={{
+        pathname : "/home/profile/orders",
+        state : {
+          keyTab : "orders"
+        }
+      }} >
+      <Button size="small" type="link">
         Your Orders
-      </Button>
+      </Button></Link>
       <hr />
       <Button size="small" type="link" onClick={handleLogout}>
         Logout

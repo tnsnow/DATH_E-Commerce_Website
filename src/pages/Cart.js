@@ -15,6 +15,7 @@ import {
   Spin,
 } from "antd";
 
+import { PayPalButton } from "react-paypal-button-v2";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useNotification, usePriceFormat, useTruncate } from "../hooks";
 import { useMutation, useQuery } from "react-query";
@@ -55,7 +56,7 @@ export default function Cart() {
   useEffect(() => {
     setUser(userAtom);
   }, [userAtom]);
-  const columns = [ 
+  const columns = [
     {
       title: "Product",
       dataIndex: "product",
@@ -89,7 +90,9 @@ export default function Cart() {
           disabled={isAddItemLoading || isAddItemFetching}
           defaultValue={Number(text)}
           min={0}
-          onChange={(value) => handleStepChange(record.idItemCart, value, record)}
+          onChange={(value) =>
+            handleStepChange(record.idItemCart, value, record)
+          }
         />
       ),
     },
@@ -215,12 +218,16 @@ export default function Cart() {
     onError: (err) => {
       const errorRs = { ...err };
       notificate("error", errorRs.response.data.error);
+      setIsOpenModal(false);
     },
     onSuccess: (data) => {
-      notificate("success", data.data.success);
-      setIsOpenModal(false);
-      setNotice("");
-      refetch();
+      // console.log({ data });
+      if (data.status == 200) {
+        setIsOpenModal(false);
+        setNotice("");
+        refetch();
+        notificate("success", data.data.success);
+      }
     },
   });
   if (isCartError) {
@@ -267,7 +274,7 @@ export default function Cart() {
 
     //TODOS create order
     const { phone, address } = userAtom;
-    const itemsId = dataCheckout.map((i) => i.id);
+    const itemsId = dataCheckout.map((i) => i.idItemCart);
     const data = {
       phone,
       address,
@@ -276,14 +283,17 @@ export default function Cart() {
       cartItemsId: itemsId,
     };
     console.log({ dataFinal: data });
-    mutateCreateOrder({ token: cookies.accessToken, data }, {
-      onSuccess : () => {
-        // ?Reset values
-        setAmount(null)
-        setIsDisable(true)
-        setDataCheckout([])
+    mutateCreateOrder(
+      { token: cookies.accessToken, data },
+      {
+        onSuccess: () => {
+          // ?Reset values
+          setAmount(null);
+          setIsDisable(true);
+          setDataCheckout([]);
+        },
       }
-    });
+    );
     refetch();
   };
   const handleDeleteItem = (id) => {
@@ -300,6 +310,38 @@ export default function Cart() {
     console.log("radio checked", e.target.value);
     setRadioValue(e.target.value);
   };
+  const propsPaypalButton = {
+    createOrder: (data, actions) => {
+      console.log({ data, actions });
+      return actions.order.create({
+        purchase_units: [
+          {
+            amount: {
+              currency_code: "USD",
+              value: formatPrice(amount, "en"),
+            },
+          },
+        ],
+      });
+    },
+    onApprove: (data, actions) => {
+      // Capture the funds from the transaction
+      return actions.order.capture().then(function (details) {
+        console.log({ details });
+        // Show a success message to your buyer
+        // alert("Transaction completed by " + details.payer.name.given_name);
+        notificate("success", "Checkout success ✅");
+
+        // OPTIONAL: Call your server to save the transaction
+        return fetch("http://localhost:4001/paypal/complete", {
+          method: "post",
+          body: {
+            data,
+          },
+        });
+      });
+    },
+  };
   return (
     <div className="container p-3">
       <Table
@@ -309,8 +351,7 @@ export default function Cart() {
           isAddItemFetching ||
           isAddItemLoading ||
           isDeleteLoading ||
-          isDeleteFetching 
-          
+          isDeleteFetching
         }
         rowSelection={{
           type: "checkbox",
@@ -397,7 +438,8 @@ export default function Cart() {
                 </>
               ) : (
                 <>
-                  <Button type="primary">Paypal</Button>
+                  {/* <Button type="primary">Paypal</Button> */}
+                  <PayPalButton {...propsPaypalButton} />
                 </>
               )}
               <Input
@@ -423,7 +465,6 @@ export default function Cart() {
             // loading={isDeleteLoading}
             type="primary"
             size="large"
-            //
             disabled={isDisable}
             onClick={() => setIsOpenModal(true)}
           >

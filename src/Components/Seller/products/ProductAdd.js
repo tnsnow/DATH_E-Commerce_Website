@@ -14,7 +14,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useNotification } from "../../../hooks";
-import ErrorBoundary from "antd/lib/alert/ErrorBoundary";
+import { Editor, EditorState } from "draft-js";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 ProductAdd.propTypes = {
   onGetForm: PropTypes.func,
   optionsCascader: PropTypes.object,
@@ -23,6 +25,7 @@ ProductAdd.propTypes = {
   handleClickParent: PropTypes.func,
   isCreateLoading: PropTypes.bool,
 };
+
 export default function ProductAdd({
   handleClickParent,
   onGetForm,
@@ -31,6 +34,7 @@ export default function ProductAdd({
   isCreateLoading,
 }) {
   const notificate = useNotification();
+  const [edit, setEdit] = useState("");
   const [category, setCategory] = useState({
     parent: { label: "", value: "" },
     child: { label: "", value: "" },
@@ -52,7 +56,6 @@ export default function ProductAdd({
       span: 16,
     },
   };
-
   function getBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -105,14 +108,14 @@ export default function ProductAdd({
   const onFinish = (values) => {
     // console.log("Success:", values);
     const arr = uploads.fileList.map((file) => file.url);
-    onGetForm({ ...values, images: arr, category });
+    onGetForm({ ...values, images: arr, category, desc: edit });
   };
 
   return (
     <div className="common-content">
       <h1 className="header-txt-custom">New product</h1>
       <Divider orientation="left">Product images</Divider>
-      <Form.Item label="Images">
+      <Form.Item labelCol={{ span: 1, offset: 4 }} label=" ">
         <Upload
           action="http://localhost:4001/products//image/upload"
           name="images"
@@ -160,24 +163,6 @@ export default function ProductAdd({
           <Input />
         </Form.Item>
         <Form.Item
-          label="Product's Description"
-          name="desc"
-          rules={[
-            {
-              required: true,
-              message: "Please input Product's Description!",
-            },
-          ]}
-        >
-          <Input.TextArea
-            maxLength={3000}
-            allowClear={true}
-            showCount={({ count, maxLength }) => `${count}/${maxLength}`}
-            autoSize={{ minRows: 2, maxRows: 10 }}
-          />
-        </Form.Item>
-
-        <Form.Item
           label="Product's Brand"
           name="brand"
           rules={[
@@ -189,6 +174,44 @@ export default function ProductAdd({
         >
           <Input />
         </Form.Item>
+        <Form.Item
+          label="Product's Description"
+          name=""
+          rules={[
+            {
+              required: true,
+              message: "Please input Product's Description!",
+            },
+          ]}
+        >
+          {/* <Input.TextArea
+            maxLength={3000}
+            allowClear={true}
+            showCount={({ count, maxLength }) => `${count}/${maxLength}`}
+            autoSize={{ minRows: 2, maxRows: 10 }}
+          /> */}
+          <CKEditor
+            editor={ClassicEditor}
+            data=""
+            onReady={(editor) => {
+              // You can store the "editor" and use when it is needed.
+              console.log("Editor is ready to use!", editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              console.log({ event, editor, data });
+              setEdit(data);
+            }}
+            onBlur={(event, editor) => {
+              console.log("Blur.", editor);
+            }}
+            onFocus={(event, editor) => {
+              console.log("Focus.", editor);
+            }}
+          />
+        </Form.Item>
+        {/* <Divider orientation="left">Edit Test</Divider> */}
+
         <Divider orientation="left">Sale Infomation</Divider>
         <Form.Item
           style={{ width: "100%" }}

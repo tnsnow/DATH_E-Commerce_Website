@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Button, Input, InputNumber, Rate, Space } from "antd";
-import { AppstoreAddOutlined } from "@ant-design/icons";
+import { Button, Input, InputNumber, Rate, Space, Typography } from "antd";
+import {
+  AppstoreAddOutlined,
+  CopyOutlined,
+  FacebookOutlined,
+  HeartOutlined,
+} from "@ant-design/icons";
 import { useNotification, usePriceFormat } from "../../hooks";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router";
 
+const { Text, Link } = Typography;
 ProductDesc.propTypes = {
   data: PropTypes.object,
 };
 
 function ProductDesc({ data }) {
-  const { _id, name, sold, available, rating, price, desc, brand } = data;
+  const { _id, name, sold, available, rating, price, like } = data;
   const [cookies] = useCookies(["accessToken"]);
   const [isLogin, setIsLogin] = useState(false);
   const [quantity, setQuantity] = useState(0);
@@ -42,13 +48,16 @@ function ProductDesc({ data }) {
         }
       });
   };
-  const { isLoading, mutate, error, isError, isFetching } = useMutation(mutateAddToCart, {
-    onSuccess: (data) => {
-      if (data.status == 200 && data.data.success) {
-        notificate("success", "Added Success ✅");
-      }
-    },
-  });
+  const { isLoading, mutate, error, isError, isFetching } = useMutation(
+    mutateAddToCart,
+    {
+      onSuccess: (data) => {
+        if (data.status == 200 && data.data.success) {
+          notificate("success", "Added Success ✅");
+        }
+      },
+    }
+  );
   const handleAddToCart = () => {
     // console.log(data);
     if (isLogin) {
@@ -58,11 +67,14 @@ function ProductDesc({ data }) {
     }
   };
   const handleBuy = () => {
-    mutate({ id: _id }, {
-      onSuccess : () => {
-        history.push("/home/cart");
+    mutate(
+      { id: _id },
+      {
+        onSuccess: () => {
+          history.push("/home/cart");
+        },
       }
-    });
+    );
   };
   if (isError) {
     notificate("error", error.response.data.error);
@@ -72,98 +84,87 @@ function ProductDesc({ data }) {
   }, [cookies]);
   return (
     <div className="section-product-detail__content">
-      <div className="content-title">
-        <h1>{name}</h1>
-      </div>
-
-      <div className="content-rating">
-        <a className="content-rating__item content-rating__star" href="#">
-          <div className="content-rating__item--content content-rating__item--numb">
-            {rating}
-          </div>
-          <div className="content-rating__item--content content-rating__item--icon">
-            {<Rate defaultValue={rating} allowHalf disabled />}
-          </div>
-        </a>
-
-        <div className="content-rating__item content-rating__evaluate">
-          <div className="content-rating__item--content content-rating__item--numb">
-            176
-          </div>
-          <div className="content-rating__item--content content-rating__item--text">
-            Đánh giá
+      <Space size="large" direction="vertical">
+        <div className="content-title">
+          <h1>{name}</h1>
+          <div className="content-rating">
+            <Space size="middle">
+              <Rate defaultValue={rating} allowHalf disabled />
+              <Space
+                size="large"
+                style={{ marginTop: 5, fontSize: 16 }}
+                split={"|"}
+              >
+                <Link target="_blank">100 Reviews</Link>
+                <Text>{available} Available</Text>
+                <Text>{sold} Sold</Text>
+              </Space>
+            </Space>
           </div>
         </div>
 
-        <div className="content-rating__item content-rating__sold">
-          <div className="content-rating__item--content content-rating__item--numb">
-            {sold}
-          </div>
-          <div className="content-rating__item--content content-rating__item--text">
-            Đã bán
-          </div>
+        <div className="content-price">
+          <h1 style={{ fontSize: 32 }}>{formatter(price)}</h1>
         </div>
+        <div style={{ maxWidth: 300 }}>
+          <Space direction="vertical" size="middle">
+            <Space>
+              <h3>Quantity : </h3>
+              <InputNumber
+                style={{ width: 100 }}
+                defaultValue={1}
+                onStep={(value) => setQuantity(value)}
+                min={1}
+                max={99}
+                size="large"
+              />
+              <Text style={{ fontSize: 16 }} type="secondary">
+                {available} available
+              </Text>
+            </Space>
 
-        <div className="content-rating__item content-rating__warehouse">
-          <div className="content-rating__item--content content-rating__item--numb">
-            {available}
-          </div>
-          <div className="content-rating__item--content content-rating__item--text">
-            Số lượng còn
-          </div>
+            <Space size="middle">
+              <Button
+                disabled={available == 0}
+                onClick={handleBuy}
+                size="large"
+                type="primary"
+                danger
+              >
+                Buy now
+              </Button>
+              <Button
+                className={"d-flex align-items-center"}
+                size="large"
+                onClick={handleAddToCart}
+                type="default"
+                danger
+                disabled={available == 0}
+                loading={isLoading || isFetching}
+                icon={<AppstoreAddOutlined />}
+              >
+                Add to cart
+              </Button>
+            </Space>
+          </Space>
         </div>
-      </div>
-
-      <div className="content-price" style={{ margin: 15 }}>
-        <h1 style={{ fontSize: 32 }}>{formatter(price)}</h1>
-      </div>
-      <div style={{ margin: 10, maxWidth: 300 }}>
-        <Space size="large">
-          <h3>So luong : </h3>
-          <InputNumber
-            defaultValue={1}
-            onStep={(value) => setQuantity(value)}
-            min={1}
-            max={99}
-            size="large"
-          />
+        <hr />
+        <Space split={"|"} size={100}>
+          <Space>
+            <Text style={{ fontSize: 16 }} type="secondary">
+              Everyone like this : {like}
+            </Text>
+            <HeartOutlined style={{ fontSize: 24 }} />
+          </Space>
+          <Space>
+            <Text strong style={{ fontSize: 16 }}>
+              Share :
+            </Text>
+            <FacebookOutlined style={{ fontSize: 24 }} />
+            <CopyOutlined style={{ fontSize: 24 }} />
+          </Space>
         </Space>
-      </div>
-      <div className="content-btn">
-        <Space>
-          <Button onClick={handleBuy} size="large" type="primary" danger>
-            Mua ngay
-          </Button>
-          <Button
-            size="large"
-            onClick={handleAddToCart}
-            type="ghost"
-            danger
-            loading={isLoading ||isFetching}
-            icon={<AppstoreAddOutlined />}
-          >
-            Thêm vào giỏ hàng
-          </Button>
-        </Space>
-      </div>
-      {/* <div className="content-desc">
-        <div className="content-desc__item content-desc__description">
-          <div className="content-desc__description--item content-desc__description--left">
-            Mô tả sản phẩm:{" "}
-          </div>
-          <div className="content-desc__description--item content-desc__description--right">
-            {desc}
-          </div>
-        </div>
-        <div className="content-desc__item content-desc__product-branch">
-          <div className="content-desc__description--item content-desc__product-branch--left">
-            Thương hiệu:{" "}
-          </div>
-          <div className="content-desc__description--item content-desc__product-branch--right">
-            {brand}
-          </div>
-        </div>
-      </div> */}
+      </Space>
     </div>
   );
 }

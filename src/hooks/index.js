@@ -32,13 +32,17 @@ export const useTruncate = () => {
 };
 
 export const usePriceFormat = () => {
-  const stringFormated = (price) => {
+  const stringFormated = (price, locale) => {
     // return "₫ " + numeral(price).format("0,0[.]00");
-    const numberFormat = new Intl.NumberFormat("vn-VN", {
-      style: "currency",
-      currency: "VND",
-    });
-    return numberFormat.format(Number(price));
+    if (!locale) {
+      const numberFormat = new Intl.NumberFormat("vn-VN", {
+        style: "currency",
+        currency: "VND",
+      });
+      return numberFormat.format(Number(price));
+    } else if (locale == "en") {
+      return +(Math.round(Number(price) / 23000 + "e+2") + "e-2");
+    }
   };
   return stringFormated;
 };

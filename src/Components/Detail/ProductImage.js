@@ -46,7 +46,7 @@ function ProductImage({ images }) {
         >
           {images
             ? images.map((img, index) => (
-                <div>
+                <div style={{ width: 60, height: 60 }}>
                   <img src={img} alt={index + 1 + img} />
                 </div>
               ))

@@ -2,8 +2,11 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
-import { Divider, Skeleton } from "antd";
+import { Col, Divider, Row, Skeleton } from "antd";
 import ListItem from "../Components/Card/ListItem";
+import FilterCard from "../Components/Filter/FilterCard";
+import FullWidthBanner from "../Components/Header/FullWidthBanner";
+import Title from "antd/lib/typography/Title";
 
 export default function Search() {
   const { keyword } = useParams();
@@ -31,15 +34,28 @@ export default function Search() {
           active
           paragraph={{ rows: 5 }}
         />
-        ;
       </div>
     );
   if (isError) return <h1>{error}</h1>;
   return (
     <div className="container">
-      <Divider orientation="left">Result with keywords "{keyword}"</Divider>
-      {/* Styling data below */}
-      <ListItem listData={data} isLoading={isLoading} />
+      <FullWidthBanner
+        content={
+          <>
+            <Title level={3}>Search all products</Title>
+          </>
+        }
+      />
+      <Row>
+        <Col style={{ padding: 10 }} span={6}>
+          <FilterCard />
+        </Col>
+        <Col span={18}>
+          <Divider orientation="left">Result with keywords "{keyword}"</Divider>
+          {/* Styling data below */}
+          <ListItem listData={data} isLoading={isLoading} />
+        </Col>
+      </Row>
     </div>
   );
 }

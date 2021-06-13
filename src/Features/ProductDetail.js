@@ -43,11 +43,10 @@ function ProductDetail() {
       </div>
     );
   if (isError) return <h1>{error}</h1>;
-
   return (
     <div className="container">
       <LinkProduct />
-      <Detail data={product} />
+      <Detail data={product} isLoading={isLoading} />
     </div>
   );
 }

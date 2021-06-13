@@ -8,6 +8,7 @@ import { useQuery, useMutation } from "react-query";
 import { useRecoilValue } from "recoil";
 import userAtom from "../../../recoil/user";
 import { useNotification, useTruncate } from "../../../hooks";
+import { currentUser } from "../../../recoil/user/atom";
 
 const dataSourceVar = [
   // name
@@ -89,7 +90,7 @@ const columns = [
 export default function ProductTab() {
   // const truncate = useTruncate();
   const notification = useNotification();
-  const currentUser = useRecoilValue(userAtom);
+  const user = useRecoilValue(currentUser);
   const [cookies] = useCookies(["accessToken"]);
   const [isShow, setIsShow] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -118,9 +119,9 @@ export default function ProductTab() {
   };
   const { isLoading, isError, refetch, error } = useQuery(
     "product",
-    () => fetchProduct(currentUser.userId),
+    () => fetchProduct(user.userId),
     {
-      enabled: !!currentUser.userId,
+      enabled: !!user.userId,
       onSuccess: (data) => {
         try {
           // console.log(data);

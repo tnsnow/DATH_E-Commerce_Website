@@ -20,6 +20,7 @@ import Search from "../Features/Search";
 import Profile from "./Profile";
 import Cart from "./Cart";
 import ProtectedRoute from "../Components/AuthRoute/ProtectedRoute";
+import HeaderBanner from "../Components/Header/HeaderBanner";
 export default function Home() {
   const fetchListCart = async () => {
     return axios.get("http://localhost:4001/products").catch(function (error) {
@@ -48,11 +49,12 @@ export default function Home() {
         <Switch>
           <Route exact path="/home">
             <div className="container">
-              <CoverBanner />
-              <CategoryLine />
+              {/* <CoverBanner /> */}
+              {/* <CategoryLine /> */}
+              <HeaderBanner />
               {/* <Trends />
               <Promotions /> */}
-              <ListSeller />
+              {/* <ListSeller /> */}
               {isLoading ? (
                 <Card
                   style={{ width: "300px", padding: "0.25rem" }}

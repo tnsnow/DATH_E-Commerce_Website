@@ -1,56 +1,56 @@
 .section-navbar {
-    // background-color: red;
-    border-bottom: 2px solid $color-black;
-    &__item {
-        .ant-menu-horizontal {
-            border: unset;
-        }
+  // background-color: red;
+  // border-bottom: 2px solid $color-black;
+  &__item {
+    .ant-menu-horizontal {
+      border: unset;
     }
-    &__top {
-        &--left {
-            .left-social {
-                &__title {
-                    padding: 0 1.5rem;
-                }
-                &__content {
-                    .item-icon {
-                        font-size: 2.5rem;
-                        color: $color-black;
-                    }
-                    .left-social__content--item + .left-social__content--item {
-                        margin-left: 1rem;
-                    }
-                }
-            }
+  }
+  &__top {
+    &--left {
+      .left-social {
+        &__title {
+          padding: 0 1.5rem;
         }
-
-        &--right {
-            .right-content__item {
-                &--icon {
-                    font-size: 2rem;
-                }
-                &--title {
-                }
-            }
+        &__content {
+          .item-icon {
+            font-size: 2.5rem;
+            color: $color-black;
+          }
+          .left-social__content--item + .left-social__content--item {
+            margin-left: 1rem;
+          }
         }
+      }
     }
 
-    &__bottom {
-        margin: 2rem 0;
+    &--right {
+      .right-content__item {
         &--icon {
-            font-size: 4rem;
+          font-size: 2rem;
         }
+        &--title {
+        }
+      }
     }
+  }
+
+  &__bottom {
+    margin: 2rem 0;
+    &--icon {
+      font-size: 4rem;
+    }
+  }
 }
 
-.navbar-perfect{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.navbar-perfect {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    .brand{
-        font-size: 24px;
-        color: white;
-    }
+  .brand {
+    font-size: 24px;
+    color: white;
+  }
 }

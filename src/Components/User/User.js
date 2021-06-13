@@ -11,7 +11,13 @@ export default function User() {
       <Row>
         <Switch>
           <Route exact path="/home/profile">
-            <UserProfile />
+            <UserProfile key={'profile'} />
+          </Route>
+          <Route  path="/home/profile/orders">
+            <UserProfile key={'orders'} />
+          </Route>
+          <Route  path="/home/profile/shop">
+            <UserProfile key={'shop'} />
           </Route>
         </Switch>
       </Row>

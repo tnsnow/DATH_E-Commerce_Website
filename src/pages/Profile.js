@@ -1,14 +1,24 @@
 import { Tabs } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import { useRecoilState } from "recoil";
 
 import User from "../Components/User/User";
 import UserOrder from "../Components/User/UserOrder";
 import UserPassword from "../Components/User/UserPassword";
+import UserProfile from "../Components/User/UserProfile";
 import { currentUser } from "../recoil/user/atom";
 const { TabPane } = Tabs;
 export default function Profile() {
   const [user, setUser] = useRecoilState(currentUser);
+  const location = useLocation()
+  const [key, setKey ] = useState('profile')
+  useEffect(() => {
+    console.log({location})
+    if(location.state?.keyTab){
+      setKey(location.state.keyTab)
+    }
+  }, [location])
   return (
     <div className="container">
       <div style={{ border: "none" }} className="section-product-detail">
@@ -17,21 +27,23 @@ export default function Profile() {
           tabBarGutter={30}
           size="large"
           tabPosition="left"
-          defaultActiveKey="0"
+          activeKey={key}
+          // defaultActiveKey={key}
+          onTabClick={(key) => setKey(key)}
         >
           <TabPane
-            key="0"
+            key="profile"
             tab={<IconUser username={user.username} image={user.userImage} />}
           >
-            <User />
+            <UserProfile />
           </TabPane>
-          <TabPane tab="Password" key="1">
+          <TabPane tab="Password" key="password">
             <UserPassword />
           </TabPane>
-          <TabPane tab="Orders" key="2">
+          <TabPane tab="Orders" key="orders">
             <UserOrder />
           </TabPane>
-          <TabPane tab="Shop" key="3">
+          <TabPane tab="Shop" key="shop">
             Content of Tab Pane 3
           </TabPane>
         </Tabs>

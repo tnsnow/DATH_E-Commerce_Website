@@ -11,12 +11,8 @@ ListProduct.propTypes = {
 
 function ListProduct({ isLoading, data }) {
   return (
-    <div className="section-all-products">
-      <div className="section-all-products__title">
-        <h1>Tất cả sản phẩm</h1>
-      </div>
-
-      <ListProducts listData={data} isLoading={isLoading} />
+    <div className="section-all-products mt-3 mb-5">
+      <ListProducts col={4} listData={data} isLoading={isLoading} />
     </div>
   );
 }
