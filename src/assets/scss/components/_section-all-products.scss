@@ -1,17 +1,17 @@
 .section-all-products {
-    &__content {
-        .content-item {
-            a {
-                display: block;
-                .ant-card-cover {
-                    height: 20rem;
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-                }
-            }
+  &__content {
+    .content-item {
+      a {
+        display: block;
+        .ant-card-cover {
+          height: 20rem;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
         }
+      }
     }
+  }
 }
