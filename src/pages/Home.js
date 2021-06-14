@@ -23,13 +23,15 @@ import ProtectedRoute from "../Components/AuthRoute/ProtectedRoute";
 import HeaderBanner from "../Components/Header/HeaderBanner";
 export default function Home() {
   const fetchListCart = async () => {
-    return axios.get("http://localhost:4001/products").catch(function (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        return error.response.data;
-      }
-    });
+    return axios
+      .get(`${process.env.REACT_APP_URL}/products`)
+      .catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          return error.response.data;
+        }
+      });
   };
 
   const { isLoading, isError, data, error } = useQuery(

@@ -333,7 +333,7 @@ export default function Cart() {
         notificate("success", "Checkout success ✅");
 
         // OPTIONAL: Call your server to save the transaction
-        return fetch("http://localhost:4001/paypal/complete", {
+        return fetch(`${process.env.REACT_APP_URL}/paypal/complete`, {
           method: "post",
           body: {
             data,

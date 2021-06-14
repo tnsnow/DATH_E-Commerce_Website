@@ -73,7 +73,7 @@ export default function Product() {
   ///MUTATE ===============
   const mutationCreateProduct = async ({ data }) => {
     return axios
-      .post("http://localhost:4001/products/new/", data, {
+      .post(`${process.env.REACT_APP_URL}/products/new/`, data, {
         headers: {
           Authorization: `Bearer ${cookies.accessToken}`,
         },

@@ -159,7 +159,7 @@ export default function UserProfile() {
               className="rounded-img"
             />
             <Upload
-              action="http://localhost:4001/products/image/upload"
+              action={`${process.env.REACT_APP_URL}/products/image/upload`}
               name="images"
               accept=".jpg,.png,.JPG,.PNG,.JPEG,.jpeg,.svg,.jfif"
               listType="text"
