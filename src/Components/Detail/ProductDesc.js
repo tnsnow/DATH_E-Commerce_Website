@@ -29,7 +29,7 @@ function ProductDesc({ data }) {
   const mutateAddToCart = async ({ id }) => {
     return axios
       .post(
-        `http://localhost:4001/products/add-to-cart/${id}`,
+        `${process.env.REACT_APP_URL}/products/add-to-cart/${id}`,
         {
           quantity,
           amount: Number(price),

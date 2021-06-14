@@ -9,6 +9,7 @@ import { useRecoilValue } from "recoil";
 import userAtom from "../../../recoil/user";
 import { useNotification, useTruncate } from "../../../hooks";
 import { currentUser } from "../../../recoil/user/atom";
+import Paragraph from "antd/lib/typography/Paragraph";
 
 const dataSourceVar = [
   // name
@@ -25,9 +26,12 @@ const columns = [
     dataIndex: "name",
     key: "name",
     render: ({ name, image }) => (
-      <div className="image-label" style={{ width: 250 }}>
-        <Image alt={name} width={56} src={image} />
-        <span>{name}</span>
+      <div style={{ width: 250 }}>
+        <Space>
+          <Image alt={name} width={56} src={image} />
+          <Paragraph ellipsis={{ rows: 2, tooltip: true }}>{name}</Paragraph>
+        </Space>
+        {/* <span>{name}</span> */}
       </div>
     ),
   },
@@ -88,25 +92,25 @@ const columns = [
 ];
 
 export default function ProductTab() {
-  // const truncate = useTruncate();
   const notification = useNotification();
   const user = useRecoilValue(currentUser);
+  // console.log(currentUser);
   const [cookies] = useCookies(["accessToken"]);
   const [isShow, setIsShow] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
   const [dataSource, setDataSource] = useState(dataSourceVar);
   const deleteProductById = ({ id }) => {
     return axios.post(
-      `http://localhost:4001/products/delete/${id}`,
+      `${process.env.REACT_APP_URL}/products/delete/${id}`,
       {},
       {
         headers: { Authorization: `Bearer ${cookies.accessToken}` },
       }
     );
   };
-  const fetchProduct = async (id) => {
+  const fetchProduct = async ({ id }) => {
     return axios
-      .get(`http://localhost:4001/products/seller/${id}`, {
+      .get(`${process.env.REACT_APP_URL}/products/seller/${id}`, {
         headers: { Authorization: `Bearer ${cookies.accessToken}` },
       })
       .catch(function (error) {
@@ -119,9 +123,9 @@ export default function ProductTab() {
   };
   const { isLoading, isError, refetch, error } = useQuery(
     "product",
-    () => fetchProduct(user.userId),
+    () => fetchProduct({ id: user._id }),
     {
-      enabled: !!user.userId,
+      // enabled: !!user.userId,
       onSuccess: (data) => {
         try {
           // console.log(data);
@@ -132,7 +136,7 @@ export default function ProductTab() {
                 key: index + 1,
                 name: {
                   id: item._id,
-                  // name: truncate(item.name, 60),
+                  name: item.name,
                   image: item.images[0],
                 },
                 categories: item.categories,

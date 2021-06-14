@@ -61,7 +61,7 @@ export const useRandomColor = () => {
 };
 // export const useGetAuth = (url) => {
 //   const data = await axios
-//     .get(`http://localhost:4001/${url}`, {
+//     .get(`${process.env.REACT_APP_URL}/${url}`, {
 //       headers: {
 //         Authorization: `Bearer ${cookies.accessToken}`,
 //       },

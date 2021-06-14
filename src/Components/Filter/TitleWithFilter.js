@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Title from "antd/lib/typography/Title";
 import { Button, Checkbox, Select, Space } from "antd";
 import Text from "antd/lib/typography/Text";
+import CustomSortDropdown from "./CustomSortDropdown";
 const { Option } = Select;
 function TitleWithFilter({ text, ...props }) {
   return (
@@ -24,12 +25,16 @@ function TitleWithFilter({ text, ...props }) {
             <Checkbox>Newest</Checkbox>
             <Checkbox>Most like</Checkbox>
             <Checkbox>Best seller</Checkbox>
-            <Select style={{ margin: "0 10px", width: 200 }}>
-              <Option value="jack">Jack</Option>
-              <Option value="jack1">Jack</Option>
-              <Option value="jack2">Jack</Option>
-              <Option value="jack3">Jack</Option>
-            </Select>
+            <CustomSortDropdown
+              defaultRefinement="most_buy"
+              items={[
+                { value: "date_desc", label: "Newest" },
+                { value: "most_buy", label: "Best Seller." },
+                { value: "price_asc", label: "Price asc." },
+                { value: "price_desc", label: "Price desc." },
+                { value: "most_like", label: "Most like." },
+              ]}
+            />
           </Space>
         </div>
       </Space>

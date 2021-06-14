@@ -116,7 +116,7 @@ export default function Cart() {
 
   const fetchItemsInCart = async () => {
     return axios
-      .get(`http://localhost:4001/products/in-cart`, {
+      .get(`${process.env.REACT_APP_URL}/products/in-cart`, {
         headers: {
           Authorization: `Bearer ${cookies.accessToken}`,
         },
@@ -126,7 +126,7 @@ export default function Cart() {
   const mutateItemInCart = async ({ id, quantity }) => {
     return axios
       .post(
-        `http://localhost:4001/products/edit-cart/${id}`,
+        `${process.env.REACT_APP_URL}/products/edit-cart/${id}`,
         {
           quantity,
         },
@@ -142,7 +142,7 @@ export default function Cart() {
   const requestDelete = async ({ id }) => {
     return axios
       .post(
-        `http://localhost:4001/products/remove-from-cart/${id}`,
+        `${process.env.REACT_APP_URL}/products/remove-from-cart/${id}`,
         {},
         {
           headers: {

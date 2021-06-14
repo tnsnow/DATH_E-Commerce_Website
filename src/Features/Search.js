@@ -3,17 +3,21 @@ import axios from "axios";
 import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
 import { Col, Divider, Row, Skeleton } from "antd";
-import ListItem from "../Components/Card/ListItem";
 import FilterCard from "../Components/Filter/FilterCard";
 import FullWidthBanner from "../Components/Header/FullWidthBanner";
 import Title from "antd/lib/typography/Title";
+// import {  } from "react-instantsearch-dom/dist/cjs/widgets/Hits";
+import CustomHitCart from "../Components/Card/CustomHitCard";
+import { Hits } from "react-instantsearch-dom";
+import TitleWithFilter from "../Components/Filter/TitleWithFilter";
+import CustomPagination from "./CustomPagination";
 
-export default function Search() {
+export default function Search(props) {
   const { keyword } = useParams();
   const fetchSearchProduct = ({ keyword, limit, page }) => {
     return axios
       .get(
-        `http://localhost:4001/products/search?search=${keyword}&limit=${limit}&page=${page}`
+        `${process.env.REACT_APP_URL}/products/search?search=${keyword}&limit=${limit}&page=${page}`
       )
       .catch((err) => console.log(err));
   };
@@ -51,9 +55,18 @@ export default function Search() {
           <FilterCard />
         </Col>
         <Col span={18}>
-          <Divider orientation="left">Result with keywords "{keyword}"</Divider>
           {/* Styling data below */}
-          <ListItem listData={data} isLoading={isLoading} />
+          <div className="section-all-products__content">
+            <Row gutter={24}>
+              <TitleWithFilter level={4} text={"All products"} />
+              <Hits hitComponent={CustomHitCart} />
+            </Row>
+          </div>
+          <CustomPagination
+            showFirst={false}
+            showLast={false}
+            defaultRefinement={1}
+          />
         </Col>
       </Row>
     </div>

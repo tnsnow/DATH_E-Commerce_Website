@@ -2,17 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 // import PropTypes from "prop-types";
-import {
-  Menu,
-  Input,
-  Space,
-  Row,
-  Col,
-  AutoComplete,
-  Popover,
-  Button,
-  Badge,
-} from "antd";
+import { Menu, Input, Space, Row, Col, Popover, Button, Badge } from "antd";
 import {
   QuestionCircleOutlined,
   ShoppingCartOutlined,
@@ -28,9 +18,10 @@ import { currentUser } from "../../recoil/user/atom";
 import { useMutation } from "react-query";
 import axios from "axios";
 import { decodeToken } from "react-jwt";
-import { useRandomColor, useTruncate } from "../../hooks";
+import { useNotification, useRandomColor, useTruncate } from "../../hooks";
 import Avatar from "antd/lib/avatar/avatar";
 import { fetchUser } from "../User/functions";
+import CustomSearchBox from "./CustomSearchBox";
 
 const { Search } = Input;
 function Navbar(props) {
@@ -39,6 +30,7 @@ function Navbar(props) {
   const [user, setUser] = useState({});
   const [userAtom, setUserAtom] = useRecoilState(currentUser);
   const truncate = useTruncate();
+  const notificate = useNotification();
   const [login, setLogin] = useState(false);
   const dataSource = ["hi", "hi2", "hi3", "ai", "hi", "hi"];
   const [items, setItems] = useState([]);
@@ -49,15 +41,18 @@ function Navbar(props) {
         Your Profile
       </Button>
       <hr />
-      <Link to={{
-        pathname : "/home/profile/orders",
-        state : {
-          keyTab : "orders"
-        }
-      }} >
-      <Button size="small" type="link">
-        Your Orders
-      </Button></Link>
+      <Link
+        to={{
+          pathname: "/home/profile/orders",
+          state: {
+            keyTab: "orders",
+          },
+        }}
+      >
+        <Button size="small" type="link">
+          Your Orders
+        </Button>
+      </Link>
       <hr />
       <Button size="small" type="link" onClick={handleLogout}>
         Logout
@@ -66,7 +61,7 @@ function Navbar(props) {
   );
   const fetchItemsInCart = async () => {
     return axios
-      .get(`http://localhost:4001/products/in-cart`, {
+      .get(`${process.env.REACT_APP_URL}/products/in-cart`, {
         headers: {
           Authorization: `Bearer ${cookies.accessToken}`,
         },
@@ -77,18 +72,24 @@ function Navbar(props) {
   //fetch Data item in cat
   const { mutate, isLoading } = useMutation(fetchItemsInCart, {
     onSuccess: (data) => {
-      const { status } = data;
-      if (status === 200) {
-        // console.log({ data });
-        const arr = [];
-        data.data.map((i) => {
-          arr.push({
-            name: truncate(i.product.name, 60),
-            price: i.product.price,
-            image: i.product.images[0],
+      try {
+        if (data.data && data.data?.success) {
+          console.log({ data });
+          const arr = [];
+          data.data?.map((i) => {
+            arr.push({
+              name: truncate(i.product.name, 60),
+              price: i.product.price,
+              image: i.product.images[0],
+            });
           });
-        });
-        setItems(arr);
+          setItems(arr);
+        } else if (data.data.error) {
+          notificate("error", data.data?.error);
+        } else {
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
   });
@@ -214,24 +215,12 @@ function Navbar(props) {
           </Col>
           <Col span={12}>
             <div className="d-flex align-items-center h-100 section-navbar__bottom--serch">
-              <AutoComplete
-                style={{ width: "100%" }}
-                backfill={true}
-                dataSource={dataSource}
-                filterOption={(inputValue, option) =>
-                  option.props.children
-                    .toUpperCase()
-                    .indexOf(inputValue.toUpperCase()) !== -1
-                }
-              >
-                <Input.Search
-                  placeholder="input search text"
-                  allowClear
-                  enterButton="Search"
-                  size="large"
-                  onSearch={onSearch}
-                />
-              </AutoComplete>
+              <CustomSearchBox
+                defaultRefinement=""
+                translations={{
+                  placeholder: "Product, brand, and more …",
+                }}
+              />
             </div>
           </Col>
           <Col span={6}>

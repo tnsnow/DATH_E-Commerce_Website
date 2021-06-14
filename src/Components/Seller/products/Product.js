@@ -23,7 +23,7 @@ export default function Product() {
   ///QUERY ===============================
   const fetchCategoryChild = (idParent) => {
     return axios
-      .get(`http://localhost:4001/categories/child/${idParent}`)
+      .get(`${process.env.REACT_APP_URL}/categories/child/${idParent}`)
       .catch(function (error) {
         if (error.response) {
           // The request was made and the server responded with a status code
@@ -38,7 +38,7 @@ export default function Product() {
     "fetchCategory",
     () =>
       axios
-        .get(`http://localhost:4001/categories/parent`)
+        .get(`${process.env.REACT_APP_URL}/categories/parent`)
         .catch(function (error) {
           if (error.response) {
             // The request was made and the server responded with a status code
@@ -89,7 +89,7 @@ export default function Product() {
   const mutationEditProduct = async ({ data, id }) => {
     console.log({ data, id });
     return axios
-      .post(`http://localhost:4001/products/edit/${id}`, data, {
+      .post(`${process.env.REACT_APP_URL}/products/edit/${id}`, data, {
         headers: {
           Authorization: `Bearer ${cookies.accessToken}`,
         },
@@ -186,7 +186,8 @@ export default function Product() {
     // images[] -> image.originFileObj\
     const { name, desc, price, available, category, brand, id, images } =
       values;
-    console.log({ id });
+    console.log({ id, category, desc });
+
     // const arrImg = images.map((image, i) => image);
     const data = {
       name,
@@ -198,9 +199,16 @@ export default function Product() {
       images,
     };
     // console.log({ data });
-    mutateEdit({ data, id });
+    mutateEdit(
+      { data, id },
+      {
+        onSuccess: (data) => {
+          console.log(data);
+          history.push("/seller/products/all");
+        },
+      }
+    );
     // notificate("success", values.name);
-    // history.push("/seller/products/all");
   };
   const handleClickParent = (item) => {
     // console.log(item.value);

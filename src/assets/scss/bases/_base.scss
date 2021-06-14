@@ -206,3 +206,9 @@ ul {
 .font-18 {
   font-size: 18px;
 }
+.ais-Hits-list {
+  // display: flex !important;
+  display: grid;
+  grid-gap: 10px 5px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}

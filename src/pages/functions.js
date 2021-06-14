@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const postCreateOrder = ({ token, data }) => {
   return axios
-    .post(`http://localhost:4001/orders/create`, data, {
+    .post(`${process.env.REACT_APP_URL}/orders/create`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

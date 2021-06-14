@@ -20,7 +20,6 @@ export default function CardItem({ dataProduct }) {
   const handleLinkDetailProduct = () => {
     historyDetailProduct.push(`/home/product-detail/${_id}`);
   };
-
   return (
     <div onClick={handleLinkDetailProduct} className="">
       <Card

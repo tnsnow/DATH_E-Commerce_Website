@@ -16,7 +16,9 @@ import { useParams } from "react-router";
 import { func, object, bool } from "prop-types";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { useNotification } from "../../../hooks";
+import { useNotification, usePriceFormat } from "../../../hooks";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 ProductEdit.propTypes = {
   onGetForm: func,
@@ -35,8 +37,10 @@ export default function ProductEdit({
 }) {
   const { id } = useParams();
   const notification = useNotification();
+  const [edit, setEdit] = useState("<p>no Data</p>");
+  const formatPrice = usePriceFormat();
   const fetchProductId = () => {
-    return axios.get(`http://localhost:4001/products/single/${id}`);
+    return axios.get(`${process.env.REACT_APP_URL}/products/single/${id}`);
   };
 
   const [defaultValue, setDefaultValue] = useState({
@@ -110,11 +114,13 @@ export default function ProductEdit({
   const onFinish = (values) => {
     // console.log("Success:", values);
     const arr = uploads.fileList.map((file) => file.url);
+    console.log(arr);
     onGetForm({
       ...values,
       // images: uploads.fileList,
       images: arr,
       category,
+      desc: edit.replaceAll("&nbsp;", " ").replaceAll("&lt;", "<"),
       id,
     });
   };
@@ -122,9 +128,9 @@ export default function ProductEdit({
     "fetchSingleProduct",
     fetchProductId,
     {
-      enabled: !!id,
-      refetchIntervalInBackground: false,
+      // enabled: !!id,
       refetchOnMount: false,
+      refetchIntervalInBackground: false,
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
         try {
@@ -174,9 +180,10 @@ export default function ProductEdit({
               name: dataProd[0].name,
               brand: dataProd[0].brand,
               price: dataProd[0].price,
-              desc: dataProd[0].desc,
+              // desc: dataProd[0].desc,
               available: dataProd[0].available,
             });
+            setEdit(dataProd[0].desc.replaceAll("&lt;", "<"));
           }
         } catch (error) {
           notification("error", error);
@@ -189,7 +196,7 @@ export default function ProductEdit({
     if (response.public_id) {
       axios
         .post(
-          `http://localhost:4001/products/image/destroy/${response.public_id}`
+          `${process.env.REACT_APP_URL}/products/image/destroy/${response.public_id}`
         )
         .then((res) => {
           console.log(res);
@@ -200,7 +207,9 @@ export default function ProductEdit({
       const public_id = arr[arr.length - 1].split(".")[0];
       // console.log(public_id);
       axios
-        .post(`http://localhost:4001/products/image/destroy/${public_id}`)
+        .post(
+          `${process.env.REACT_APP_URL}/products/image/destroy/${public_id}`
+        )
         .then((res) => {
           console.log(res);
         })
@@ -223,7 +232,7 @@ export default function ProductEdit({
       <div className="common-content">
         <h1 className="header-txt-custom">Product Detail</h1>
         <Divider orientation="left">Product images</Divider>
-        <Form.Item label="Images" name="images">
+        <Form.Item labelCol={{ span: 1, offset: 4 }} label=" " name="images">
           <Upload
             action="http://localhost:4001/products//image/upload"
             name="images"
@@ -274,21 +283,22 @@ export default function ProductEdit({
           >
             <Input />
           </Form.Item>
-          <Form.Item
-            label="Product's Description"
-            name="desc"
-            rules={[
-              {
-                required: true,
-                message: "Please input Product's Description!",
-              },
-            ]}
-          >
-            <Input.TextArea
+          <Form.Item label="Product's Description" name="desc">
+            {/* <Input.TextArea
               maxLength={3000}
               allowClear={true}
               showCount={({ count, maxLength }) => `${count}/${maxLength}`}
               autoSize={{ minRows: 2, maxRows: 10 }}
+            /> */}
+            <CKEditor
+              config={{ fillEmptyBlocks: false, basicEntities: false }}
+              editor={ClassicEditor}
+              data={edit}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                console.log({ event, editor, data });
+                setEdit(data);
+              }}
             />
           </Form.Item>
 
@@ -316,9 +326,10 @@ export default function ProductEdit({
             name="price"
           >
             <InputNumber
-              defaultValue={1000}
+              // defaultValue={1000}
+
               min={1000}
-              formatter={(value) => `${value} ₫`}
+              formatter={(value) => `${formatPrice(value)}`}
             />
           </Form.Item>
           <Form.Item

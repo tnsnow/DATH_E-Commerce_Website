@@ -10,17 +10,24 @@ import { CookiesProvider } from "react-cookie";
 import { QueryClient, QueryClientProvider } from "react-query";
 import ErrorBoundary from "antd/lib/alert/ErrorBoundary";
 import { RecoilRoot } from "recoil";
+import algoliasearch from "algoliasearch/lite";
 
+import { InstantSearch } from "react-instantsearch-dom";
 const queryClient = new QueryClient();
-
+const searchClient = algoliasearch(
+  process.env.REACT_APP_APP_ID,
+  process.env.REACT_APP_API_KEY
+);
 ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
       <RecoilRoot>
         <CookiesProvider>
-          <QueryClientProvider client={queryClient}>
-            <App />
-          </QueryClientProvider>
+          <InstantSearch searchClient={searchClient} indexName="dev_cartya">
+            <QueryClientProvider client={queryClient}>
+              <App />
+            </QueryClientProvider>
+          </InstantSearch>
         </CookiesProvider>
       </RecoilRoot>
     </ErrorBoundary>

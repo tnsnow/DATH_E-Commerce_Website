@@ -13,7 +13,7 @@ import { PlusOutlined, RightOutlined } from "@ant-design/icons";
 import axios from "axios";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useNotification } from "../../../hooks";
+import { useNotification, usePriceFormat } from "../../../hooks";
 import { Editor, EditorState } from "draft-js";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -35,6 +35,7 @@ export default function ProductAdd({
 }) {
   const notificate = useNotification();
   const [edit, setEdit] = useState("");
+  const formatPrice = usePriceFormat();
   const [category, setCategory] = useState({
     parent: { label: "", value: "" },
     child: { label: "", value: "" },
@@ -98,7 +99,7 @@ export default function ProductAdd({
   const handleRemove = ({ response }) => {
     axios
       .post(
-        `http://localhost:4001/products/image/destroy/${response.public_id}`
+        `${process.env.REACT_APP_URL}/products/image/destroy/${response.public_id}`
       )
       .then((res) => {
         console.log(res);
@@ -108,7 +109,12 @@ export default function ProductAdd({
   const onFinish = (values) => {
     // console.log("Success:", values);
     const arr = uploads.fileList.map((file) => file.url);
-    onGetForm({ ...values, images: arr, category, desc: edit });
+    onGetForm({
+      ...values,
+      images: arr,
+      category,
+      desc: edit.replaceAll("&nbsp;", " ").replaceAll("&lt;", "<"),
+    });
   };
 
   return (
@@ -184,15 +190,10 @@ export default function ProductAdd({
             },
           ]}
         >
-          {/* <Input.TextArea
-            maxLength={3000}
-            allowClear={true}
-            showCount={({ count, maxLength }) => `${count}/${maxLength}`}
-            autoSize={{ minRows: 2, maxRows: 10 }}
-          /> */}
           <CKEditor
             editor={ClassicEditor}
             data=""
+            config={{ fillEmptyBlocks: false, basicEntities: false }}
             onReady={(editor) => {
               // You can store the "editor" and use when it is needed.
               console.log("Editor is ready to use!", editor);
@@ -202,15 +203,8 @@ export default function ProductAdd({
               console.log({ event, editor, data });
               setEdit(data);
             }}
-            onBlur={(event, editor) => {
-              console.log("Blur.", editor);
-            }}
-            onFocus={(event, editor) => {
-              console.log("Focus.", editor);
-            }}
           />
         </Form.Item>
-        {/* <Divider orientation="left">Edit Test</Divider> */}
 
         <Divider orientation="left">Sale Infomation</Divider>
         <Form.Item
@@ -228,7 +222,7 @@ export default function ProductAdd({
             style={{ width: "100%" }}
             defaultValue={1000}
             min={1000}
-            formatter={(value) => `${value} ₫`}
+            formatter={(value) => `${formatPrice(value)}`}
           />
         </Form.Item>
         <Form.Item

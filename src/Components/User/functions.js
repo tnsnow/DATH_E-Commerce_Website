@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchUser = async ({ token }) => {
   return axios
-    .get(`http://localhost:4001/users/me`, {
+    .get(`${process.env.REACT_APP_URL}/users/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -12,7 +12,7 @@ export const fetchUser = async ({ token }) => {
 
 export const mutateUpdateUser = async ({ data, token }) => {
   return axios
-    .put(`http://localhost:4001/users/me`, data, {
+    .put(`${process.env.REACT_APP_URL}/users/me`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -22,7 +22,7 @@ export const mutateUpdateUser = async ({ data, token }) => {
 
 export const fetchOrdersUser = async ({ token }) => {
   return axios
-    .get(`http://localhost:4001/orders/me`, {
+    .get(`${process.env.REACT_APP_URL}/orders/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

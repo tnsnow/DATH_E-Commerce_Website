@@ -19,7 +19,7 @@ export default function HeaderBanner() {
                 Best online shopping platform
               </Text>
             </Space>
-            <Button>Get Started</Button>
+            <Button href="/home/search/search">Get Started</Button>
           </>
         }
       />

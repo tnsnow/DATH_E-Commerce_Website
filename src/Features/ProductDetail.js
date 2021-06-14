@@ -12,7 +12,7 @@ function ProductDetail() {
   const [product, setProduct] = useState({});
   const fetchSingleProduct = async ({ id }) => {
     return await axios
-      .get(`http://localhost:4001/products/single/${id}`)
+      .get(`${process.env.REACT_APP_URL}/products/single/${id}`)
       .catch((err) => console.log(err));
   };
   const { isLoading, isError, error, mutate, data } = useMutation(

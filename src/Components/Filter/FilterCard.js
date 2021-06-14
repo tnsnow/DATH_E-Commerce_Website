@@ -1,59 +1,57 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Card, Checkbox, InputNumber, Slider, Space } from "antd";
-import { usePriceFormat } from "../../hooks";
+import CustomFilter from "./CustomFilter";
+import CustomRangeSlider from "../RangeInput/CustomRangeSlider";
+import CustomButtonClearFilter from "../../Features/CustomButtonClearFilter";
+import CustomRatingMenu from "./CustomRatingMenu";
 
+const min = 0;
+const max = 1000000000;
 function FilterCard(props) {
-  const [priceInput, setPriceInput] = useState(1);
-  const priceFormat = usePriceFormat();
-  const onSliderChange = (value) => {
-    setPriceInput(value);
-  };
   return (
     <>
-      <div style={{ padding: 15, width: "100%" }}>
+      <div style={{ padding: "0 15px 0 15px", margin: "0 0 10px 0" }}>
+        <CustomButtonClearFilter />
+      </div>
+      <div style={{ padding: "0px 15px ", width: "100%" }}>
         <div className={"border-card-round"}>
           <Card title="Price" bordered={false} style={{ width: "100%" }}>
-            <Slider
-              min={1}
-              max={999999}
-              onChange={onSliderChange}
-              value={typeof priceInput === "number" ? priceInput : 0}
+            <CustomRangeSlider
+              attribute="price"
+              min={min}
+              max={max}
+              defaultRefinement={{
+                min: min,
+                max: max,
+              }}
             />
-            <Space size={0}>
-              {"1000 -"}
-              <InputNumber
-                min={1}
-                max={999999}
-                formatter={(value) => `${priceFormat(value)}`}
-                style={{ width: 100, margin: "0 16px" }}
-                value={priceInput}
-                onChange={onSliderChange}
-              />{" "}
-            </Space>
-            <Button style={{ marginTop: 15, width: "100%" }} type="primary">
-              Apply
-            </Button>
           </Card>
           <Card title="Categories" bordered={false} style={{ width: "100%" }}>
-            <Space direction="vertical">
-              <Checkbox>Checkbox</Checkbox>
-              <Checkbox>Checkbox</Checkbox>
-              <Checkbox>Checkbox</Checkbox>
-              <Checkbox>Checkbox</Checkbox>
-            </Space>
+            <CustomFilter
+              operator={"and"}
+              attributes={["categories"]}
+              limit={10}
+              showMore
+            />{" "}
           </Card>
-          <Card title="Card title" bordered={false} style={{ width: "100%" }}>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
+          <Card title="Brands" bordered={false} style={{ width: "100%" }}>
+            <CustomFilter
+              operator={"and"}
+              attributes={["brand"]}
+              limit={10}
+              showMore
+            />{" "}
+          </Card>
+          <Card title="Rating" bordered={false} style={{ width: "100%" }}>
+            <CustomRatingMenu
+              max={5}
+              min={0}
+              defaultRefinement={0}
+              attribute="rating"
+            />
           </Card>
         </div>
-      </div>
-      <div style={{ padding: "0 10px" }}>
-        <Button style={{ width: "100%" }} type="ghost">
-          Reset Filter
-        </Button>
       </div>
     </>
   );
