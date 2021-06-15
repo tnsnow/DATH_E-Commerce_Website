@@ -343,7 +343,7 @@ export default function Cart() {
     },
   };
   return (
-    <div className="container p-3">
+    <>
       <Table
         pagination={false}
         loading={
@@ -390,9 +390,8 @@ export default function Cart() {
                             href={`/home/product-detail/${item.id}`}
                           >{`${truncate(item.product.name, 50)}`}</a>
                         }
-                        description={`${formatPrice(item.price)} (x${
-                          item.quantity
-                        })`}
+                        description={`${formatPrice(item.price)} (x${item.quantity
+                          })`}
                       />
                     </List.Item>
                   </div>
@@ -415,11 +414,11 @@ export default function Cart() {
                     dataSource={
                       user
                         ? [
-                            <>
-                              <Text strong>(+84) {user.phone}</Text> -{" "}
-                              <Text>{user.address}</Text>{" "}
-                            </>,
-                          ]
+                          <>
+                            <Text strong>(+84) {user.phone}</Text> -{" "}
+                            <Text>{user.address}</Text>{" "}
+                          </>,
+                        ]
                         : []
                     }
                     renderItem={(item) => (
@@ -475,6 +474,6 @@ export default function Cart() {
           </Button>
         </div>
       </div>
-    </div>
+    </>
   );
 }

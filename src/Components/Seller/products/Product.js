@@ -65,7 +65,7 @@ export default function Product() {
             }
           } else {
           }
-        } catch (error) {}
+        } catch (error) { }
       },
     }
   );

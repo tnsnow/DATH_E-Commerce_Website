@@ -25,7 +25,7 @@ function ProductDetail() {
             console.log(data.data[0]);
             setProduct(data.data[0]);
           }
-        } catch (error) {}
+        } catch (error) { }
       },
     }
   );

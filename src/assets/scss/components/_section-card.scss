@@ -1,44 +1,27 @@
-$gray-ant: #f0f0f0;
 .session-cart {
-  margin-top: 20px;
-  padding: 15px 30px;
-  &:hover {
-    background: #ffffff;
-    box-shadow: 1px 12px 40px rgba(0, 0, 0, 0.25);
-  }
+    margin-top: 20px;
+    padding: 15px 30px;
+    &:hover {
+        background: #ffffff;
+        box-shadow: 1px 12px 40px rgba(0, 0, 0, 0.25);
+    }
 }
 .cart-mini {
-  position: absolute;
-  min-width: 300px;
-  min-height: 200px;
-  background-color: #f8f8f8;
-  border-radius: 10px;
+    position: absolute;
+    min-width: 300px;
+    min-height: 200px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
 }
 .fixed-card {
-  padding: 20px;
-  width: 100%;
-  max-width: 1200px;
-  min-height: 100px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  background-color: #f8f8f8;
-  // box-shadow: 1px 12px 40px rgba(0, 0, 0, 0.25);
-  z-index: 9;
-}
-
-.shop-card {
-  width: 100%;
-  height: fit-content;
-  padding: 15px;
-  //   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-  //   border: 1px solid black;
-}
-.border-card-round {
-  border: 1px solid $gray-ant;
-  border-radius: 3px;
-}
-// ! OVERRIDE ANT CLASS
-.ant-card-body {
-  padding: 10px !important;
+    padding: 20px;
+    width: 100%;
+    max-width: 1110px;
+    min-height: 100px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #f8f8f8;
+// box-shadow: 1px 12px 40px rgba(0, 0, 0, 0.25);
+    z-index: 9;
 }
