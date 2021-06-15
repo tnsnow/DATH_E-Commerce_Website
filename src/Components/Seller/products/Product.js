@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import { Tabs, Button, Space } from "antd";
@@ -66,7 +65,7 @@ export default function Product() {
             }
           } else {
           }
-        } catch (error) {}
+        } catch (error) { }
       },
     }
   );
