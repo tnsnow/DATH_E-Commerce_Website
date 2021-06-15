@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import { Tabs, Button, Space } from "antd";
@@ -10,6 +11,13 @@ import { useMutation, useQuery } from "react-query";
 import { useNotification } from "../../../hooks";
 import ProductEdit from "./ProductEdit";
 
+=======
+import React from "react";
+import { Tabs } from "antd";
+import { Switch, Route } from "react-router-dom";
+import ProductTab from "./ProductTab";
+import ProductAdd from "./ProductAdd";
+>>>>>>> master
 // components import
 
 const { TabPane } = Tabs;
