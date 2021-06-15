@@ -1,7 +1,8 @@
 import React from "react";
 import { Tabs } from "antd";
+import { Switch, Route } from "react-router-dom";
 import ProductTab from "./ProductTab";
-
+import ProductAdd from "./ProductAdd";
 // components import
 
 const { TabPane } = Tabs;
