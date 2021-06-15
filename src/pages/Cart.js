@@ -55,7 +55,7 @@ export default function Cart() {
   useEffect(() => {
     setUser(userAtom);
   }, [userAtom]);
-  const columns = [ 
+  const columns = [
     {
       title: "Product",
       dataIndex: "product",
@@ -277,7 +277,7 @@ export default function Cart() {
     };
     console.log({ dataFinal: data });
     mutateCreateOrder({ token: cookies.accessToken, data }, {
-      onSuccess : () => {
+      onSuccess: () => {
         // ?Reset values
         setAmount(null)
         setIsDisable(true)
@@ -309,8 +309,8 @@ export default function Cart() {
           isAddItemFetching ||
           isAddItemLoading ||
           isDeleteLoading ||
-          isDeleteFetching 
-          
+          isDeleteFetching
+
         }
         rowSelection={{
           type: "checkbox",
@@ -321,20 +321,6 @@ export default function Cart() {
         dataSource={dataSource}
         columns={columns}
       />
-<<<<<<< HEAD
-      <div className="fixed-card">
-        <Button
-          // loading={isDeleteLoading}
-          type="primary"
-          size="large"
-        // onClick={onDelete}
-        >
-          <Space align="center">
-            <DeleteOutlined size={24} />
-            <span>Checkout</span>
-          </Space>
-        </Button>
-=======
 
       <Modal
         okText={"Order"}
@@ -363,9 +349,8 @@ export default function Cart() {
                             href={`/home/product-detail/${item.id}`}
                           >{`${truncate(item.product.name, 50)}`}</a>
                         }
-                        description={`${formatPrice(item.price)} (x${
-                          item.quantity
-                        })`}
+                        description={`${formatPrice(item.price)} (x${item.quantity
+                          })`}
                       />
                     </List.Item>
                   </div>
@@ -388,11 +373,11 @@ export default function Cart() {
                     dataSource={
                       user
                         ? [
-                            <>
-                              <Text strong>(+84) {user.phone}</Text> -{" "}
-                              <Text>{user.address}</Text>{" "}
-                            </>,
-                          ]
+                          <>
+                            <Text strong>(+84) {user.phone}</Text> -{" "}
+                            <Text>{user.address}</Text>{" "}
+                          </>,
+                        ]
                         : []
                     }
                     renderItem={(item) => (
@@ -447,7 +432,6 @@ export default function Cart() {
             </Space>
           </Button>
         </div>
->>>>>>> 9d7a74e5cb328f2e02ea5e0c222a430949cc3a47
       </div>
     </>
   );
