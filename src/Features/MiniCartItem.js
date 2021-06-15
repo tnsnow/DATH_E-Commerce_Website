@@ -25,7 +25,9 @@ export default function MiniCartItem({ items, isLoading }) {
             </Space>
           </div>
         ))}
-        <Button type="primary">Your Cart</Button>
+        <Button href="/home/cart" type="primary">
+          Your Cart
+        </Button>
       </Space>
     </div>
   );

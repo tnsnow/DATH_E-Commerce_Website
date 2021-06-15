@@ -15,10 +15,10 @@ import {
   LockOutlined,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 //atoms & reducers import
-import userAtom from "../../recoil/user/index";
+import { currentUser, isLogin } from "../../recoil/user/atom";
 //api fetching
 const postLoginUser = (data) => {
   return axios
@@ -41,8 +41,8 @@ const openNotification = ({ ...props }) => {
 
 export default function FormLogin(props) {
   const history = useHistory();
-
-  const [_, setUser] = useRecoilState(userAtom);
+  const [login, setLogin] = useRecoilState(isLogin);
+  const setUserState = useSetRecoilState(currentUser);
   const [cookies, setCookies] = useCookies([]);
   const { mutate, isLoading, isError, error } = useMutation(
     (data) => postLoginUser(data),
@@ -64,10 +64,11 @@ export default function FormLogin(props) {
 
           //handle tokens here
           setCookies("accessToken", data.accessToken, { path: "/" });
-          // set atomUser
-          setUser(decodeToken(data.accessToken));
+          // set atomUser & loginState
+          setLogin(true);
+          setUserState({ ...data.user });
           //redirect to previous path in history stack
-          history.goBack();
+          history.push("/home");
         } else {
           openNotification({
             message: "Error",

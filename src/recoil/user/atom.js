@@ -1,7 +1,16 @@
 import { atom } from "recoil";
 
-const currentUser = atom({
+export const currentUser = atom({
   key: "currentUser",
   default: {},
 });
-export default currentUser;
+
+export const profileUser = atom({
+  key: "profileUser",
+  default: {},
+});
+
+export const isLogin = atom({
+  key: "isLogin",
+  default: false,
+});

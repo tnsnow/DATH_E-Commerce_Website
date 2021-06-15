@@ -1,3 +1,6 @@
-import userAtom from "./atom";
+import { currentUser, isLogin } from "./atom";
 
-export default userAtom;
+export default {
+  currentUser,
+  isLogin,
+};

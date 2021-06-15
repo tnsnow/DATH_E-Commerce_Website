@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
-import { Skeleton } from "antd";
+import { Divider, Skeleton } from "antd";
+import ListItem from "../Components/Card/ListItem";
 
 export default function Search() {
   const { keyword } = useParams();
@@ -36,15 +37,9 @@ export default function Search() {
   if (isError) return <h1>{error}</h1>;
   return (
     <div className="container">
-      <h1>Your search term : {keyword}</h1>
+      <Divider orientation="left">Result with keywords "{keyword}"</Divider>
       {/* Styling data below */}
-      {data && data.status == 200
-        ? data.data.map((product, i) => (
-            <div>
-              <h2>{product.name}</h2>
-            </div>
-          ))
-        : null}
+      <ListItem listData={data} isLoading={isLoading} />
     </div>
   );
 }

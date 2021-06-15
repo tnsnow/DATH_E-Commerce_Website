@@ -45,7 +45,11 @@ function ProductDetail() {
   if (isError) return <h1>{error}</h1>;
 
   return (
+<<<<<<< HEAD
     <div className="section-product-detail">
+=======
+    <div className="container">
+>>>>>>> 9d7a74e5cb328f2e02ea5e0c222a430949cc3a47
       <LinkProduct />
 
       <div className="section-product-detail__name">
