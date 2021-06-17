@@ -25,7 +25,7 @@ function ProductDetail() {
             console.log(data.data[0]);
             setProduct(data.data[0]);
           }
-        } catch (error) { }
+        } catch (error) {}
       },
     }
   );
@@ -46,17 +46,7 @@ function ProductDetail() {
   return (
     <div className="container">
       <LinkProduct />
-<<<<<<< HEAD
       <Detail data={product} isLoading={isLoading} />
-=======
-
-      <div className="section-product-detail__name">
-        {<h1>{product.name}</h1>}
-      </div>
-
-
-      <Detail data={product} />
->>>>>>> 84ac07fb5aaf582e501968eb1c7729016e2a5756
     </div>
   );
 }
