@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Space } from "antd";
-
 import ProductImage from "./ProductImage";
 import ProductDesc from "./ProductDesc";
 import Shop from "../Shop/Shop";
