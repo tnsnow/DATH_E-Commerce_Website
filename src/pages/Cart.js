@@ -343,7 +343,7 @@ export default function Cart() {
     },
   };
   return (
-    <div className="container p-3">
+    <>
       <Table
         pagination={false}
         loading={
@@ -362,6 +362,20 @@ export default function Cart() {
         dataSource={dataSource}
         columns={columns}
       />
+<<<<<<< HEAD
+      <div className="fixed-card">
+        <Button
+          // loading={isDeleteLoading}
+          type="primary"
+          size="large"
+        // onClick={onDelete}
+        >
+          <Space align="center">
+            <DeleteOutlined size={24} />
+            <span>Checkout</span>
+          </Space>
+        </Button>
+=======
 
       <Modal
         okText={"Order"}
@@ -474,7 +488,8 @@ export default function Cart() {
             </Space>
           </Button>
         </div>
+>>>>>>> 9d7a74e5cb328f2e02ea5e0c222a430949cc3a47
       </div>
-    </div>
+    </>
   );
 }
