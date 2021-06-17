@@ -17,7 +17,13 @@ function Shop({ seller }) {
       >
         <Space split={<Divider orientation="cemter" type="vertical" />}>
           <Space size={"large"} style={{ padding: "0 30px" }}>
-            <Avatar size={90} shape={"circle"} icon={<UserOutlined />} />
+            <Avatar
+              src={seller.userImage}
+              alt={seller.username}
+              size={90}
+              shape={"circle"}
+              icon={<UserOutlined style={{ fontSize: 30 }} />}
+            />
             <Space size={1} direction={"vertical"}>
               <Text strong className={"font-18"} style={{ color: "white" }}>
                 {seller.username ? seller.username : "@unknow"}

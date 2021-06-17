@@ -8,7 +8,7 @@ import FullWidthBanner from "../Components/Header/FullWidthBanner";
 import Title from "antd/lib/typography/Title";
 // import {  } from "react-instantsearch-dom/dist/cjs/widgets/Hits";
 import CustomHitCart from "../Components/Card/CustomHitCard";
-import { Hits } from "react-instantsearch-dom";
+import { Hits, Stats } from "react-instantsearch-dom";
 import TitleWithFilter from "../Components/Filter/TitleWithFilter";
 import CustomPagination from "./CustomPagination";
 
@@ -46,7 +46,27 @@ export default function Search(props) {
       <FullWidthBanner
         content={
           <>
-            <Title level={3}>Search all products</Title>
+            <Title level={3}>
+              Search all products <br />{" "}
+              {
+                <p style={{ fontSize: 16, fontWeight: "lighter" }}>
+                  <Stats
+                    translations={{
+                      stats(
+                        nbHits,
+                        processingTimeMS,
+                        nbSortedHits,
+                        areHitsSorted
+                      ) {
+                        return nbHits && processingTimeMS
+                          ? `${nbHits.toLocaleString()} results found in ${processingTimeMS.toLocaleString()}ms`
+                          : "";
+                      },
+                    }}
+                  />
+                </p>
+              }
+            </Title>
           </>
         }
       />

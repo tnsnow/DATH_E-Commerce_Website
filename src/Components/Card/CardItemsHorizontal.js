@@ -1,15 +1,13 @@
 import React from "react";
-import { Card, Rate, Space, Tag, Typography } from "antd";
-import { HeartOutlined, EyeOutlined } from "@ant-design/icons";
-import { useHistory, useParams } from "react-router-dom";
-import { useQuery } from "react-query";
-import Paragraph from "antd/lib/typography/Paragraph";
+import PropTypes from "prop-types";
 import { usePriceFormat } from "../../hooks";
-
-const { Text } = Typography;
-const Meta = Card.Meta;
-
-export default function CardItem({ dataProduct }) {
+import { useHistory } from "react-router";
+import { Card, Rate, Space, Tag } from "antd";
+import { EyeOutlined, HeartOutlined } from "@ant-design/icons";
+import Meta from "antd/lib/card/Meta";
+import Paragraph from "antd/lib/typography/Paragraph";
+import Text from "antd/lib/typography/Text";
+function CardItemsHorizontal({ dataProduct }) {
   console.log("dataProduct:", dataProduct);
 
   const { _id, name, rating, images, price, sold, like, available } =
@@ -20,6 +18,7 @@ export default function CardItem({ dataProduct }) {
   const handleLinkDetailProduct = () => {
     historyDetailProduct.push(`/home/product-detail/${_id}`);
   };
+
   return (
     <div onClick={handleLinkDetailProduct} className="">
       <Card
@@ -41,7 +40,7 @@ export default function CardItem({ dataProduct }) {
             available == 0 ? <Tag color="warning">Out of stock</Tag> : null
           }
           description={
-            <Space size={0} direction="vertical" style={{ width: "100%" }}>
+            <Space size={0} direction="vertical">
               <Paragraph ellipsis={{ rows: 3, expandable: false }}>
                 {name}
               </Paragraph>
@@ -67,3 +66,9 @@ export default function CardItem({ dataProduct }) {
     </div>
   );
 }
+
+CardItemsHorizontal.propTypes = {
+  dataProduct: PropTypes.object,
+};
+
+export default CardItemsHorizontal;

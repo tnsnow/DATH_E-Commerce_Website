@@ -22,6 +22,7 @@ import { useNotification, useRandomColor, useTruncate } from "../../hooks";
 import Avatar from "antd/lib/avatar/avatar";
 import { fetchUser } from "../User/functions";
 import CustomSearchBox from "./CustomSearchBox";
+import { PoweredBy } from "react-instantsearch-dom";
 
 const { Search } = Input;
 function Navbar(props) {
@@ -105,18 +106,21 @@ function Navbar(props) {
     // console.log("token", cookies.accessToken);
 
     const userDecoded = decodeToken(token);
-    if (token !== "undefined") {
+    if (token && token !== "undefined") {
       mutateFetchUser(
         { token },
         {
           onSuccess: (data) => {
-            setUser(data?.data);
+            if (data && !data.error) {
+              setUser(data?.data);
+            }
           },
         }
       );
       setLogin(true);
       setUserAtom(userDecoded);
     } else {
+      setUser(null);
       setLogin(false);
     }
   }, [cookies, token]);
@@ -168,7 +172,7 @@ function Navbar(props) {
                   <p className="right-content__item--title">Hỗ Trợ</p>
                 </a>
               </Menu.Item>
-              {login ? (
+              {user ? (
                 <Menu.Item
                   className="right-content__item right-content__login"
                   key="logout"
@@ -221,6 +225,13 @@ function Navbar(props) {
                   placeholder: "Product, brand, and more …",
                 }}
               />
+              <div style={{ margin: "0 10px" }}>
+                <PoweredBy
+                  translations={{
+                    searchBy: " ",
+                  }}
+                />
+              </div>
             </div>
           </Col>
           <Col span={6}>

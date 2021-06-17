@@ -6,13 +6,19 @@ import ListProducts from "../Components/Card/ListItem";
 
 ListProduct.propTypes = {
   isLoading: PropTypes.bool,
+  direction: PropTypes.string,
   data: PropTypes.object,
 };
 
-function ListProduct({ isLoading, data }) {
+function ListProduct({ isLoading, data, direction }) {
   return (
     <div className="section-all-products mt-3 mb-5">
-      <ListProducts col={4} listData={data} isLoading={isLoading} />
+      <ListProducts
+        col={4}
+        listData={data}
+        direction={direction}
+        isLoading={isLoading}
+      />
     </div>
   );
 }

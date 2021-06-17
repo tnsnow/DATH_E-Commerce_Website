@@ -65,7 +65,11 @@ export default function Home() {
                 ></Card>
               ) : (
                 // <ItemsGroup isLoading={isLoading} data={data} />
-                <ListProduct isLoading={isLoading} data={data} />
+                <ListProduct
+                  direction="vertical"
+                  isLoading={isLoading}
+                  data={data}
+                />
               )}
             </div>
           </Route>
