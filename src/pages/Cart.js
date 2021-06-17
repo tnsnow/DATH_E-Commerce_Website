@@ -283,7 +283,6 @@ export default function Cart() {
       cartItemsId: itemsId,
     };
     console.log({ dataFinal: data });
-<<<<<<< HEAD
     mutateCreateOrder(
       { token: cookies.accessToken, data },
       {
@@ -293,14 +292,6 @@ export default function Cart() {
           setIsDisable(true);
           setDataCheckout([]);
         },
-=======
-    mutateCreateOrder({ token: cookies.accessToken, data }, {
-      onSuccess: () => {
-        // ?Reset values
-        setAmount(null)
-        setIsDisable(true)
-        setDataCheckout([])
->>>>>>> 84ac07fb5aaf582e501968eb1c7729016e2a5756
       }
     );
     refetch();
@@ -361,10 +352,6 @@ export default function Cart() {
           isAddItemLoading ||
           isDeleteLoading ||
           isDeleteFetching
-<<<<<<< HEAD
-=======
-
->>>>>>> 84ac07fb5aaf582e501968eb1c7729016e2a5756
         }
         rowSelection={{
           type: "checkbox",
@@ -403,8 +390,9 @@ export default function Cart() {
                             href={`/home/product-detail/${item.id}`}
                           >{`${truncate(item.product.name, 50)}`}</a>
                         }
-                        description={`${formatPrice(item.price)} (x${item.quantity
-                          })`}
+                        description={`${formatPrice(item.price)} (x${
+                          item.quantity
+                        })`}
                       />
                     </List.Item>
                   </div>
@@ -427,11 +415,11 @@ export default function Cart() {
                     dataSource={
                       user
                         ? [
-                          <>
-                            <Text strong>(+84) {user.phone}</Text> -{" "}
-                            <Text>{user.address}</Text>{" "}
-                          </>,
-                        ]
+                            <>
+                              <Text strong>(+84) {user.phone}</Text> -{" "}
+                              <Text>{user.address}</Text>{" "}
+                            </>,
+                          ]
                         : []
                     }
                     renderItem={(item) => (
