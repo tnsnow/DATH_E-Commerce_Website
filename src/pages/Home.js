@@ -75,17 +75,15 @@ export default function Home() {
           <Route path="/home/product-detail/:id">
             <ProductDetail />
           </Route>
-          <ProtectedRoute child={<Profile />} path="/home/profile" />
-          {/* <Route path="/home/profile">
+          <Route path="/home/profile">
             <Profile />
-          </Route> */}
-          <ProtectedRoute child={<Cart />} path="/home/cart" />
-          {/* <Route path="/home/cart">
+          </Route>
+          <Route path="/home/cart">
             <Cart />
-          </Route> */}
+          </Route>
         </Switch>
       </div>
-      <div className="">
+      <div className="footer-box">
         <div className="container">
           <Footer />
         </div>

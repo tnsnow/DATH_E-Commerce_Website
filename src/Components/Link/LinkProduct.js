@@ -6,7 +6,7 @@ LinkProduct.propTypes = {};
 
 function LinkProduct(props) {
     return (
-        <Breadcrumb>
+        <Breadcrumb className="section-product-detail__linkURL">
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>
                 <a href="#">Application Center</a>
