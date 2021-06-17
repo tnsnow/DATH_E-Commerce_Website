@@ -326,18 +326,15 @@ export default function Cart() {
     },
     onApprove: (data, actions) => {
       // Capture the funds from the transaction
+      console.log({ data });
       return actions.order.capture().then(function (details) {
         console.log({ details });
         // Show a success message to your buyer
         // alert("Transaction completed by " + details.payer.name.given_name);
-        notificate("success", "Checkout success ✅");
 
         // OPTIONAL: Call your server to save the transaction
-        return fetch(`${process.env.REACT_APP_URL}/paypal/complete`, {
-          method: "post",
-          body: {
-            data,
-          },
+        return axios.post(`${process.env.REACT_APP_URL}/paypal/complete`, {
+          details,
         });
       });
     },
@@ -439,7 +436,10 @@ export default function Cart() {
               ) : (
                 <>
                   {/* <Button type="primary">Paypal</Button> */}
-                  <PayPalButton {...propsPaypalButton} />
+                  <PayPalButton
+                    onSuccess={() => setRadioValue("paypal")}
+                    {...propsPaypalButton}
+                  />
                 </>
               )}
               <Input

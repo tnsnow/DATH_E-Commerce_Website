@@ -32,7 +32,7 @@ function TitleWithFilter({ text, ...props }) {
                 { value: "most_buy", label: "Best Seller." },
                 { value: "price_asc", label: "Price asc." },
                 { value: "price_desc", label: "Price desc." },
-                { value: "most_like", label: "Most like." },
+                { value: "most_likes", label: "Most like." },
               ]}
             />
           </Space>

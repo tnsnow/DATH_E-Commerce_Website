@@ -39,14 +39,15 @@ function ProductImage({ images }) {
           asNavFor={nav1}
           ref={(slider) => (slider2 = slider)}
           slidesToShow={3}
-          arrows={true}
+          arrows={false}
+          centerMode={true}
           swipeToSlide={true}
           focusOnSelect={true}
           rows={1}
         >
           {images
             ? images.map((img, index) => (
-                <div style={{ width: 60, height: 60 }}>
+                <div className="img-list-child__item">
                   <img src={img} alt={index + 1 + img} />
                 </div>
               ))

@@ -9,13 +9,16 @@ import { useHistory } from "react-router";
 import { usePriceFormat } from "../../hooks";
 import TitleWithFilter from "../Filter/TitleWithFilter";
 import Highlight from "react-instantsearch-dom/dist/cjs/widgets/Highlight";
-
-function HitCard(props) {
-  console.log(props);
-  const { hit } = props;
+import { currentHit } from "../../recoil/product/product";
+import { useSetRecoilState } from "recoil";
+function HitCard({ hit }) {
+  // console.log(props);
+  // const { hit } = props;
+  const setHitState = useSetRecoilState(currentHit);
   let historyDetailProduct = useHistory();
   const format = usePriceFormat();
   const handleLinkDetailProduct = () => {
+    setHitState(hit);
     historyDetailProduct.push(`/home/product-detail/${hit.id}`);
   };
   return (
@@ -45,7 +48,7 @@ function HitCard(props) {
                 ) : null
               }
               description={
-                <Space size={0} direction="vertical">
+                <Space size={0} style={{ width: "100%" }} direction="vertical">
                   <Paragraph ellipsis={{ rows: 3, expandable: false }}>
                     <Highlight attribute="name" tagName="mark" hit={hit} />
                   </Paragraph>

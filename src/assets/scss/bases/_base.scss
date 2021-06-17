@@ -212,3 +212,17 @@ ul {
   grid-gap: 10px 5px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+
+.ant-list-pagination {
+  .ant-pagination-item {
+    margin: 0 2px !important;
+  }
+}
+/* the slides */
+.slick-slide {
+  padding: 0 10px;
+}
+/* the parent */
+.slick-list {
+  padding: 0 -10px;
+}
