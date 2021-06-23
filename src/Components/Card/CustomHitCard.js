@@ -7,17 +7,16 @@ import Paragraph from "antd/lib/typography/Paragraph";
 import Text from "antd/lib/typography/Text";
 import { useHistory } from "react-router";
 import { usePriceFormat } from "../../hooks";
-import TitleWithFilter from "../Filter/TitleWithFilter";
 import Highlight from "react-instantsearch-dom/dist/cjs/widgets/Highlight";
 import { currentHit } from "../../recoil/product/product";
 import { useSetRecoilState } from "recoil";
-function HitCard({ hit }) {
-  // console.log(props);
+export function HitCard({ hit }) {
   // const { hit } = props;
   const setHitState = useSetRecoilState(currentHit);
   let historyDetailProduct = useHistory();
   const format = usePriceFormat();
   const handleLinkDetailProduct = () => {
+    console.log({ hit });
     setHitState(hit);
     historyDetailProduct.push(`/home/product-detail/${hit.id}`);
   };
@@ -29,7 +28,16 @@ function HitCard({ hit }) {
             hoverable
             style={{ width: "100%" }}
             cover={
-              <img alt={hit.name} style={{ padding: 10 }} src={hit.images[0]} />
+              <img
+                alt={hit.name}
+                style={{
+                  padding: 10,
+                  // width: "100%",
+                  // maxHeight: 198,
+                  // margin: "auto",
+                }}
+                src={hit.images[0]}
+              />
             }
             actions={[
               <Space>

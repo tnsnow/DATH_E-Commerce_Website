@@ -15,7 +15,6 @@ ListItem.propTypes = {
 
 function ListItem({ listData, isLoading, col, direction }) {
   if (isLoading) return <></>;
-  console.log({ direction });
 
   const settings = {
     // dots: true,
@@ -31,7 +30,7 @@ function ListItem({ listData, isLoading, col, direction }) {
         <TitleWithFilter level={4} text={"All products"} />
         <>
           {direction !== "horizontal" ? (
-            listData.data?.map((product) => (
+            listData?.data?.map((product) => (
               <Col style={{ padding: "0 5px" }} span={col || 6}>
                 <div className="content-item">
                   <CardItem dataProduct={product} />
@@ -41,7 +40,7 @@ function ListItem({ listData, isLoading, col, direction }) {
           ) : direction == "horizontal" ? (
             <div className="container">
               <Slider {...settings}>
-                {listData.data?.map((product) => (
+                {listData?.data?.map((product) => (
                   <div>
                     <CardItemsHorizontal dataProduct={product} />
                   </div>

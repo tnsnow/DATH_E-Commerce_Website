@@ -5,6 +5,9 @@ import Title from "antd/lib/typography/Title";
 import React from "react";
 import BannerEvent from "../../assets/images/banners/Source/event2.png";
 import BannerEvent2 from "../../assets/images/banners/Source/event1.png";
+import BannerCategories1 from "../../assets/images/banners/Source/categories-1.png";
+import BannerCategories2 from "../../assets/images/banners/Source/categories-2.png";
+import BannerCategories3 from "../../assets/images/banners/Source/categories-3.png";
 import FullWidthBanner from "./FullWidthBanner";
 import CustomTitle from "../Detail/components/CustomTitle";
 export default function HeaderBanner() {
@@ -96,6 +99,33 @@ export default function HeaderBanner() {
                 </Button>
               </div>
             </Space>
+          </div>
+        </Col>
+      </Row>
+      <CustomTitle text={"Find more"} />
+      <Row>
+        <Col span={8} style={{ padding: 10 }}>
+          <div className="content-categories-1">
+            <div className="title">
+              <h3>Food and Films</h3>
+              <p>Show more</p>
+            </div>
+          </div>
+        </Col>
+        <Col span={8} style={{ padding: 10 }}>
+          <div className="content-categories-2">
+            <div className="title">
+              <h3>Technologies</h3>
+              <p>Show more</p>
+            </div>
+          </div>
+        </Col>
+        <Col span={8} style={{ padding: 10 }}>
+          <div className="content-categories-3">
+            <div className="content">
+              <h3>Enjoy together</h3>
+              <h3>Working together !</h3>
+            </div>
           </div>
         </Col>
       </Row>

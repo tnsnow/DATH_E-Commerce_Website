@@ -11,14 +11,14 @@ import { currentUser } from "../recoil/user/atom";
 const { TabPane } = Tabs;
 export default function Profile() {
   const [user, setUser] = useRecoilState(currentUser);
-  const location = useLocation()
-  const [key, setKey ] = useState('profile')
+  const location = useLocation();
+  const [key, setKey] = useState("profile");
   useEffect(() => {
-    console.log({location})
-    if(location.state?.keyTab){
-      setKey(location.state.keyTab)
+    console.log({ location });
+    if (location.state?.keyTab) {
+      setKey(location.state.keyTab);
     }
-  }, [location])
+  }, [location]);
   return (
     <div className="container">
       <div style={{ border: "none" }} className="section-product-detail">

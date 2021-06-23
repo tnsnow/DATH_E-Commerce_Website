@@ -153,3 +153,56 @@ $dark_gray: #292929;
 .slick-dots li.slick-active button:before {
   color: transparent !important;
 }
+.content-categories-1 {
+  @extend .content-banner-3;
+  background-image: url("../../images/banners/Source/categories-1.png");
+  background-size: cover;
+  height: 400px;
+  display: flex;
+  align-items: flex-end;
+  .title {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    padding: 20px 15px;
+    justify-content: space-between;
+    background: rgba(0, 92, 176, 0.2);
+    backdrop-filter: blur(40px);
+    color: $off_white;
+    transition: height 2s;
+    h3 {
+      font-size: 24px;
+      color: $off_white;
+      font-weight: bold;
+    }
+    p {
+      font-size: 16px;
+      font-weight: 400;
+    }
+    &:hover {
+      height: 100px;
+    }
+  }
+}
+
+.content-categories-2 {
+  @extend .content-categories-1;
+  background-image: url("../../images/banners/Source/categories-2.png");
+  .title {
+    color: $dark_blue;
+    h3 {
+      color: $dark_blue;
+    }
+  }
+}
+.content-categories-3 {
+  @extend .content-categories-1;
+  background-image: url("../../images/banners/Source/categories-3.png");
+  .content {
+    h3 {
+      font-size: 28px;
+      font-weight: bold;
+      color: $dark_gray;
+    }
+  }
+}

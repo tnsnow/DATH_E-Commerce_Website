@@ -10,7 +10,7 @@ const { Text } = Typography;
 const Meta = Card.Meta;
 
 export default function CardItem({ dataProduct }) {
-  console.log("dataProduct:", dataProduct);
+  // console.log("dataProduct:", dataProduct);
 
   const { _id, name, rating, images, price, sold, like, available } =
     dataProduct;
@@ -25,7 +25,20 @@ export default function CardItem({ dataProduct }) {
       <Card
         hoverable
         style={{ width: "100%" }}
-        cover={<img alt={name} style={{ padding: 10 }} src={images[0]} />}
+        cover={
+          <div className="img-fluid">
+            <img
+              alt={name}
+              style={{
+                padding: 10,
+                width: "100%",
+                maxHeight: 198,
+                margin: "auto",
+              }}
+              src={images[0]}
+            />
+          </div>
+        }
         actions={[
           <Space>
             <EyeOutlined className="font-16 p-2" />

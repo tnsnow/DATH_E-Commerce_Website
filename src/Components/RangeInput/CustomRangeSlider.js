@@ -4,7 +4,7 @@ import { connectRange } from "react-instantsearch-core";
 import { usePriceFormat } from "../../hooks";
 
 const RangeSlider = ({ min, max, refine, currentRefinement, canRefine }) => {
-  console.log(min, max, refine, currentRefinement, canRefine);
+  // console.log(min, max, refine, currentRefinement, canRefine);
   const [stateMin, setStateMin] = React.useState(min);
   const [stateMax, setStateMax] = React.useState(max);
   const formatPrice = usePriceFormat();

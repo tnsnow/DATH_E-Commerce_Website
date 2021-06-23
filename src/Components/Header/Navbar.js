@@ -62,6 +62,7 @@ function Navbar(props) {
   );
   const fetchItemsInCart = async () => {
     return axios
+
       .get(`${process.env.REACT_APP_URL}/products/in-cart`, {
         headers: {
           Authorization: `Bearer ${cookies.accessToken}`,
@@ -75,7 +76,7 @@ function Navbar(props) {
     onSuccess: (data) => {
       try {
         if (data.data && data.data?.success) {
-          console.log({ data });
+          // console.log({ data });
           const arr = [];
           data.data?.map((i) => {
             arr.push({
@@ -85,9 +86,6 @@ function Navbar(props) {
             });
           });
           setItems(arr);
-        } else if (data.data.error) {
-          notificate("error", data.data?.error);
-        } else {
         }
       } catch (error) {
         console.log(error);
@@ -113,12 +111,12 @@ function Navbar(props) {
           onSuccess: (data) => {
             if (data && !data.error) {
               setUser(data?.data);
+              setUserAtom(data?.data);
             }
           },
         }
       );
       setLogin(true);
-      setUserAtom(userDecoded);
     } else {
       setUser(null);
       setLogin(false);

@@ -8,11 +8,16 @@ import FullWidthBanner from "../Components/Header/FullWidthBanner";
 import Title from "antd/lib/typography/Title";
 // import {  } from "react-instantsearch-dom/dist/cjs/widgets/Hits";
 import CustomHitCart from "../Components/Card/CustomHitCard";
-import { Hits, Stats } from "react-instantsearch-dom";
+import {
+  Hits,
+  Stats,
+} from "react-instantsearch-dom";
 import TitleWithFilter from "../Components/Filter/TitleWithFilter";
 import CustomPagination from "./CustomPagination";
 
+
 export default function Search(props) {
+  
   const { keyword } = useParams();
   const fetchSearchProduct = ({ keyword, limit, page }) => {
     return axios
@@ -30,6 +35,7 @@ export default function Search(props) {
   useEffect(() => {
     mutate({ keyword, limit: 100, page: 1 });
   }, [keyword]);
+
   if (isLoading)
     return (
       <div className="container">
@@ -52,12 +58,7 @@ export default function Search(props) {
                 <p style={{ fontSize: 16, fontWeight: "lighter" }}>
                   <Stats
                     translations={{
-                      stats(
-                        nbHits,
-                        processingTimeMS,
-                        nbSortedHits,
-                        areHitsSorted
-                      ) {
+                      stats(nbHits, processingTimeMS) {
                         return nbHits && processingTimeMS
                           ? `${nbHits.toLocaleString()} results found in ${processingTimeMS.toLocaleString()}ms`
                           : "";
@@ -76,6 +77,7 @@ export default function Search(props) {
         </Col>
         <Col span={18}>
           {/* Styling data below */}
+        
           <div className="section-all-products__content">
             <Row gutter={24}>
               <TitleWithFilter level={4} text={"All products"} />
@@ -89,6 +91,7 @@ export default function Search(props) {
           />
         </Col>
       </Row>
+    
     </div>
   );
 }

@@ -7,7 +7,7 @@ ProductImage.propTypes = {
 };
 
 function ProductImage({ images }) {
-  console.log({ images });
+  // console.log({ images });
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
   let slider1 = [];
@@ -18,6 +18,7 @@ function ProductImage({ images }) {
     slidesToScroll: 1,
     adaptiveHeight: true, //
   };
+
   useEffect(() => {
     setNav1(slider1);
     setNav2(slider2);
