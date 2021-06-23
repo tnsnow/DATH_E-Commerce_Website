@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import CardItem from "./CardItem";
 import TitleWithFilter from "../Filter/TitleWithFilter";
 import Slider from "react-slick";
 import CardItemsHorizontal from "./CardItemsHorizontal";
+import { SlickArrowRight, SlickArrowLeft } from "./CustomArrow";
 // import Product from '../Detail/Product';
 
 ListItem.propTypes = {
@@ -14,16 +15,23 @@ ListItem.propTypes = {
 };
 
 function ListItem({ listData, isLoading, col, direction }) {
+  const [productData] = useState(listData?.data || []);
   if (isLoading) return <></>;
 
   const settings = {
     // dots: true,
+    arrows: true,
     infinite: true,
     slidesPerRow: 1,
     speed: 500,
     slidesToShow: 4,
-    autoPlay: true,
+    centerMode: true,
+    centerPadding: "50px",
+    nextArrow: <SlickArrowRight />,
+    prevArrow: <SlickArrowLeft />,
+    // autoPlay: true,
   };
+
   return (
     <div className="section-all-products__content">
       <Row gutter={24}>
@@ -38,11 +46,11 @@ function ListItem({ listData, isLoading, col, direction }) {
               </Col>
             ))
           ) : direction == "horizontal" ? (
-            <div className="container">
+            <div className="container" style={{ marginTop: 10 }}>
               <Slider {...settings}>
-                {listData?.data?.map((product) => (
-                  <div>
-                    <CardItemsHorizontal dataProduct={product} />
+                {productData.map((prod) => (
+                  <div className="content-item">
+                    <CardItem dataProduct={prod} />
                   </div>
                 ))}
               </Slider>

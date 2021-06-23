@@ -40,7 +40,7 @@ function Product({ data, isLoading }) {
           </Space>
         </Row>{" "}
         <Row gutter={24}>
-          <Col span={18} style={{ padding: 10 }}>
+          <Col span={16} style={{ padding: "10px 5px" }}>
             <CustomTitle text={"Related Products"} />
             <div>
               <Index indexName="most_buy">
@@ -54,6 +54,15 @@ function Product({ data, isLoading }) {
                 />
                 <Hits hitComponent={CustomHitCart} />
               </Index>
+            </div>
+          </Col>
+          <Col span={8} style={{ padding: 10 }}>
+            <CustomTitle text={"Categories"} />
+            <div className="content-categories-2">
+              <div className="title">
+                <h3>Technologies</h3>
+                <p>Show more</p>
+              </div>
             </div>
           </Col>
         </Row>

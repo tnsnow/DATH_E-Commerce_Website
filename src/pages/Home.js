@@ -66,7 +66,7 @@ export default function Home() {
               ) : (
                 // <ItemsGroup isLoading={isLoading} data={data} />
                 <ListProduct
-                  direction="vertical"
+                  direction="horizontal"
                   isLoading={isLoading}
                   data={data}
                 />

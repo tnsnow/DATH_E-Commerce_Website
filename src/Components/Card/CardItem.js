@@ -32,7 +32,7 @@ export default function CardItem({ dataProduct }) {
               style={{
                 padding: 10,
                 width: "100%",
-                maxHeight: 198,
+                // maxHeight: 198,
                 margin: "auto",
               }}
               src={images[0]}
