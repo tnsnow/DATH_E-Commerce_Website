@@ -47,8 +47,8 @@ function Product({ data, isLoading }) {
                 <ExperimentalConfigureRelatedItems
                   hit={currentProduct}
                   matchingPatterns={{
-                    "seller._id": { score: 1 },
-                    categories: { score: 2 },
+                    "seller._id" : {score : 1},
+                    categories: { score: 2},
                     brand: { score: 3 },
                   }}
                 />

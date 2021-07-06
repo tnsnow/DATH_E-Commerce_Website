@@ -4,7 +4,7 @@ import React from "react"; // useState
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { Form, Input, Button, Checkbox, Spin, notification } from "antd";
+import { Form, Input, Button, Checkbox, Spin, notification ,Space, Typography} from "antd";
 import {
   LoadingOutlined,
   CheckCircleOutlined,
@@ -74,13 +74,11 @@ export default function RegisterForm(props) {
 
   return (
     <div
-      className="mt-5 d-flex justify-content-center"
-      style={{ width: props.width }}
     >
       <Form form={form} name="register" onFinish={onFinish} scrollToFirstError>
         <Form.Item
           name="username"
-          label="Username"
+          size="large"
           tooltip="What do you want others to call you?"
           rules={[
             {
@@ -90,11 +88,11 @@ export default function RegisterForm(props) {
             },
           ]}
         >
-          <Input />
+          <Input placeholder="Username"/>
         </Form.Item>
         <Form.Item
           name="email"
-          label="E-mail"
+          size="large"
           rules={[
             {
               type: "email",
@@ -106,12 +104,12 @@ export default function RegisterForm(props) {
             },
           ]}
         >
-          <Input />
+          <Input placeholder="Email"/>
         </Form.Item>
 
         <Form.Item
           name="password"
-          label="Password"
+          size="large"
           rules={[
             {
               required: true,
@@ -120,12 +118,12 @@ export default function RegisterForm(props) {
           ]}
           hasFeedback
         >
-          <Input.Password />
+          <Input.Password placeholder="Password"/>
         </Form.Item>
 
         <Form.Item
           name="confirm"
-          label="Confirm Password"
+          size="large"
           dependencies={["password"]}
           hasFeedback
           rules={[
@@ -145,29 +143,30 @@ export default function RegisterForm(props) {
             }),
           ]}
         >
-          <Input.Password />
+          <Input.Password placeholder="Confirm Password"/>
         </Form.Item>
         <Form.Item
           name="phone"
-          label="Phone Number"
+          size="large"
+          label=""
           rules={[
             { required: false, message: "Please input your phone number!" },
           ]}
         >
-          <Input style={{ width: "100%" }} />
+          <Input placeholder="Phone Number" style={{ width: "100%" }} />
         </Form.Item>
         <Form.Item name="agreement" valuePropName="checked">
+          <Space direction="vertical" size={10} className="w-100">
           <Checkbox>
             I have read the <a href="">agreement</a>
           </Checkbox>
-          <div className="">
-            <a href="/Login">Login</a>
-          </div>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
+         <Button className="w-100" size="large" type="primary" htmlType="submit">
             {isLoading ? <Spin indicator={antLoadingBtn} /> : "Register"}
           </Button>
+          <Typography.Text type="secondary">Already have account ? <a href="/login">Login</a></Typography.Text></Space>
+        </Form.Item>
+        <Form.Item>
+
         </Form.Item>
       </Form>
     </div>

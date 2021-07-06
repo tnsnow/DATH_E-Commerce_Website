@@ -9,7 +9,7 @@ export const TypeTag = ({type ,...props}) =>  {
 //  ["prepare", "shipping", "checkout", "cancel"], 
     switch(type) {
     case 'prepare':
-      return <Tag {...props} icon={<ClockCircleOutlined />} color="warning">
+      return <Tag className="centered" {...props} icon={<ClockCircleOutlined />} color="warning">
         Prepare
       </Tag> 
     case 'shipping':

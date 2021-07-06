@@ -9,21 +9,21 @@ import { Spin } from "antd";
 
 function UserOrder({ ...props }) {
   const notificate = useNotification();
-  const [dataOrders , setDataOrders] = useState([])
+  const [dataOrders, setDataOrders] = useState([]);
   const [cookies] = useCookies(["accessToken"]);
-  const {  isLoading , isFetching } = useQuery(
+  const { error, isError, isLoading, isFetching } = useQuery(
     "fetchOrderUser",
     () => fetchOrdersUser({ token: cookies.accessToken }),
     {
-      onSuccess : (data) => {
-        console.log("DATa" ,data)
-        if(data.status == 200){
-          const arrResult = []
-          data.data?.forEach(el => {
-            arrResult.push(...el.products)
-          })
-          console.log({arrResult})
-          setDataOrders(arrResult)
+      onSuccess: (data) => {
+        // console.log("DATa", data);
+        if (data.status == 200) {
+          const arrResult = [];
+          data.data?.forEach((el) => {
+            arrResult.push(...el.products);
+          });
+          // console.log({ arrResult });
+          setDataOrders(arrResult);
         }
       },
       onError: (error) => {
@@ -32,13 +32,15 @@ function UserOrder({ ...props }) {
       },
     }
   );
-  
-  // if (isLoading || isFetching) return <h1>Loading ...</h1>;
-  return <div>
-    <Spin spinning={isLoading } >
-      <Order data={dataOrders} />
-    </Spin>
-  </div>;
+
+  if (isError) return <div>Error</div>;
+  return (
+    <div>
+      <Spin spinning={isLoading || isFetching}>
+        <Order data={dataOrders} />
+      </Spin>
+    </div>
+  );
 }
 
 UserOrder.propTypes = {};

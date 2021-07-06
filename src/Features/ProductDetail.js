@@ -10,6 +10,7 @@ import { Skeleton } from "antd";
 function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState({});
+  const [ path , setPath ] = useState([])
   const fetchSingleProduct = async ({ id }) => {
     return await axios
       .get(`${process.env.REACT_APP_URL}/products/single/${id}`)
@@ -22,8 +23,9 @@ function ProductDetail() {
         try {
           if (data && data.status == 200) {
             //   Log the data
-            console.log(data.data[0]);
-            setProduct(data.data[0]);
+            // console.log(data.data[0]);
+            setPath(data.data[0].categories || [])
+            setProduct(data.data[0] );
           }
         } catch (error) {}
       },
@@ -45,7 +47,7 @@ function ProductDetail() {
   if (isError) return <h1>{error}</h1>;
   return (
     <div className="container">
-      <LinkProduct />
+      <LinkProduct path = {path} />
       <Detail data={product} isLoading={isLoading} />
     </div>
   );

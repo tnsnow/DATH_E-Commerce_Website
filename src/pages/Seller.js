@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "antd";
 import { Switch, Route } from "react-router-dom";
-import { AppstoreOutlined, ShoppingOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, ShoppingOutlined ,ProfileOutlined } from "@ant-design/icons";
 import { useRecoilValue } from "recoil";
 
 // atoms & selectors
@@ -11,6 +11,7 @@ import { currentUser as userData } from "../recoil/user/atom";
 import Navbar from "../Components/DynamicNavbar/Navbar";
 import Sidebar from "../Components/DynamicNavbar/Sidebar";
 import Product from "../Components/Seller/products/Product";
+import Order from "Components/Seller/orders/Order";
 
 export default function Seller() {
   const { Content, Header, Footer, Sider } = Layout;
@@ -40,10 +41,21 @@ export default function Seller() {
         },
       ],
     },
+    {
+      title: "Orders",
+      url: "/seller/orders",
+      icon: <ProfileOutlined  style={{ color: "gray", fontSize: "16px" }} />,
+      childs: [
+        {
+          title: "All orders",
+          url: "/seller/orders/all",
+        },
+      ],
+    },
   ];
 
   return (
-    <Layout>
+    <Layout >
       <Header style={{ width: "100%" }}>
         <Navbar items={itemsNav} />
       </Header>
@@ -63,6 +75,7 @@ export default function Seller() {
               <Switch>
                 <Route exact path="/seller" component={Main} />
                 <Route path="/seller/products" component={Product} />
+                <Route path="/seller/orders" component={Order} />
               </Switch>
             </div>
           </Content>

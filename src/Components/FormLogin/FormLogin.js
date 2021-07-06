@@ -87,10 +87,10 @@ export default function FormLogin(props) {
   };
 
   return (
-    <div className="mt-5 d-flex justify-content-center section-form__content--form">
+    <div className="">
       <Form
         name="login"
-        className="login-form"
+        className=""
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
@@ -105,6 +105,7 @@ export default function FormLogin(props) {
           ]}
         >
           <Input
+            size="large"
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Email"
           />
@@ -114,12 +115,13 @@ export default function FormLogin(props) {
           rules={[{ required: true, message: "Please input your Password!" }]}
         >
           <Input
+            size="large"
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"
           />
         </Form.Item>
-        <Form.Item>
+        <Form.Item > 
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
@@ -130,15 +132,19 @@ export default function FormLogin(props) {
         </Form.Item>
 
         <Form.Item>
-          <Space size="middle">
+          <Space  size="middle" direction="vertical" className="w-100 text-center">
             <Button
+            size="large"
               type="primary"
               htmlType="submit"
-              className="login-form-button"
+              className="w-100"
             >
-              {isLoading ? <LoadingOutlined /> : "Sign in"}
+              {isLoading ? <LoadingOutlined /> : "Log in"}
             </Button>
-            Or <a href="/register">register now!</a>
+            <div>
+            Or 
+            </div>
+            <a href="/register">register now!</a>
           </Space>
           {isError && <span>{error}</span>}
         </Form.Item>

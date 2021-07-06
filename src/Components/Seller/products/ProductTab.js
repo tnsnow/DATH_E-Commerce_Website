@@ -39,6 +39,7 @@ const columns = [
     title: "Categories",
     dataIndex: "categories",
     key: "categories",
+    width : "150px",
     render: (tags) => (
       <>
         {tags.map((tag) => (
@@ -55,6 +56,7 @@ const columns = [
     title: "Pricing",
     dataIndex: "price",
     key: "price",
+    width : "150px",
     sorter: (a, b) => b.price - a.price,
     render: (price) => "₫ " + numeral(price).format("0,0[.]00"),
   },
@@ -94,7 +96,7 @@ const columns = [
 export default function ProductTab() {
   const notification = useNotification();
   const user = useRecoilValue(currentUser);
-  // console.log(currentUser);
+  console.log({user});
   const [cookies] = useCookies(["accessToken"]);
   const [isShow, setIsShow] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -121,11 +123,12 @@ export default function ProductTab() {
         }
       });
   };
-  const { isLoading, isError, refetch, error } = useQuery(
+  const { isLoading, isError, refetch, error, isFetching } = useQuery(
     "product",
     () => fetchProduct({ id: user._id }),
     {
-      // enabled: !!user.userId,
+      // refetchInterval : 2000,
+      enabled :  !!user._id,
       onSuccess: (data) => {
         try {
           // console.log(data);
@@ -202,7 +205,7 @@ export default function ProductTab() {
           onSelect: onSelectRow,
           onSelectAll: onSelectAllRow,
         }}
-        loading={isLoading || isDeleteLoading}
+        loading={isLoading || isDeleteLoading || isFetching}
         dataSource={dataSource}
         columns={columns}
       />

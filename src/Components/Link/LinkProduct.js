@@ -1,20 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb , Typography } from 'antd';
 
-LinkProduct.propTypes = {};
+LinkProduct.propTypes = {
+    path : PropTypes.array
+};
+const { Text } = Typography
+function LinkProduct({path}) {
 
-function LinkProduct(props) {
     return (
         <Breadcrumb className="section-product-detail__linkURL">
             <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>
-                <a href="#">Application Center</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-                <a href="#">Application List</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>An Application</Breadcrumb.Item>
+            {
+                path?.map(i => <Breadcrumb.Item>
+               <Text type="secondary" >
+                    {i.name}
+                   </Text>
+            </Breadcrumb.Item>)
+            }
         </Breadcrumb>
     );
 }

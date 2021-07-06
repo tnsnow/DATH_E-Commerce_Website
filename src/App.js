@@ -20,7 +20,7 @@ import ProtectedRoute from "./Components/AuthRoute/ProtectedRoute";
 function App() {
   return (
     <Router>
-      <div>
+      <div style={{height : "100%"}}>
         <Switch>
           <Route exact path="/">
             <Redirect

@@ -29,3 +29,17 @@
     }
   }
 }
+
+.full-image-section {
+  height: 100%;
+  background-position: center; 
+  background-image: url("../../images/background_image/background.jpg");
+  background-size: cover;
+  
+}
+
+.form-main{
+  padding : 5rem; 
+  border-radius : 2rem ;
+  width: 50rem;
+}

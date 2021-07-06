@@ -2,12 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import CustomTitle from "./components/CustomTitle";
 import Paragraph from "antd/lib/typography/Paragraph";
-import { useRecoilValue } from "recoil";
-import { currentHit } from "../../recoil/product/product";
 
 function ProductInfo({ data }) {
-  const hitState = useRecoilValue(currentHit);
-  console.log({ hitState });
   return (
     <div>
       <CustomTitle text={"Product Detail"} />

@@ -14,7 +14,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useNotification, usePriceFormat } from "../../../hooks";
-import { Editor, EditorState } from "draft-js";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 ProductAdd.propTypes = {
