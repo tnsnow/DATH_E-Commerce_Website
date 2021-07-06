@@ -22,7 +22,7 @@ const openNotification = ({ ...props }) => {
 };
 
 const postRegisterUser = (data) => {
-  return axios.post("http://localhost:4001/users/register/", data);
+  return axios.post(`${process.env.REACT_APP_URL}/users/register/`, data);
 };
 export default function RegisterForm(props) {
   const history = useHistory();

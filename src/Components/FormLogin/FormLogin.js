@@ -22,7 +22,7 @@ import { currentUser, isLogin } from "../../recoil/user/atom";
 //api fetching
 const postLoginUser = (data) => {
   return axios
-    .post("http://localhost:4001/users/login/", data)
+    .post(`${process.env.REACT_APP_URL}/users/login/`, data)
     .catch(function (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
@@ -121,7 +121,7 @@ export default function FormLogin(props) {
             placeholder="Password"
           />
         </Form.Item>
-        <Form.Item > 
+        <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
@@ -132,18 +132,20 @@ export default function FormLogin(props) {
         </Form.Item>
 
         <Form.Item>
-          <Space  size="middle" direction="vertical" className="w-100 text-center">
+          <Space
+            size="middle"
+            direction="vertical"
+            className="w-100 text-center"
+          >
             <Button
-            size="large"
+              size="large"
               type="primary"
               htmlType="submit"
               className="w-100"
             >
               {isLoading ? <LoadingOutlined /> : "Log in"}
             </Button>
-            <div>
-            Or 
-            </div>
+            <div>Or</div>
             <a href="/register">register now!</a>
           </Space>
           {isError && <span>{error}</span>}
