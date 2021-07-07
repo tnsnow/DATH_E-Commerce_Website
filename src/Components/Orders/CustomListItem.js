@@ -1,7 +1,7 @@
 import { Button, Image, List, Space } from "antd";
 import { LikeOutlined, StarOutlined } from "@ant-design/icons";
 import React from "react";
-import { usePriceFormat, useTruncate } from "../../hooks";
+import { usePriceFormat } from "../../hooks";
 import Text from "antd/lib/typography/Text";
 import moment from "moment";
 import { TypeTag } from "./components/TypeTag";
@@ -9,12 +9,11 @@ import IconText from "./components/IconText";
 import ButtonCustom from "./components/ButtonCustom";
 
 const { Item } = List;
-export default function CustomListItem({ data }) {
+export default function CustomListItem({ data, handleReview }) {
   const priceFormat = usePriceFormat();
   // console.log("Data Item ", dauantity , order , orderStatus, isCheckout , product})
   const { _id, amount, quantity, order, orderStatus, isCheckout, product } =
     data;
-
   return (
     <Item
       style={{ padding: "5px 20px" }}
@@ -47,9 +46,10 @@ export default function CustomListItem({ data }) {
         />,
         <ButtonCustom
           type="ghost"
-          href={`/home/shop/${product.seller._id}`}
+          // href={`/home/shop/${product.seller._id}`}
+          onClick={() => handleReview(product._id)}
           size="middle"
-          text={"Shop"}
+          text={"Review"}
         />,
       ]}
       extra={

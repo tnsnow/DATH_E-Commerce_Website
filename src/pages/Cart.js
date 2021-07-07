@@ -340,7 +340,7 @@ export default function Cart() {
     },
   };
   return (
-    <>
+    <div className="container">
       <Table
         pagination={false}
         loading={
@@ -475,6 +475,6 @@ export default function Cart() {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

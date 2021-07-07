@@ -15,13 +15,12 @@ import CustomTitle from "./components/CustomTitle";
 import ProductDesc from "./ProductDesc";
 import ProductImage from "./ProductImage";
 import ProductInfo from "./ProductInfo";
-import "./style.css";
 Product.propTypes = {
   data: PropTypes.object,
   isLoading: PropTypes.bool,
 };
 
-function Product({ data, isLoading }) {
+function Product({ id, data, isLoading }) {
   const currentProduct = useRecoilValue(currentHit);
   if (isLoading) return "";
   return (
@@ -45,9 +44,7 @@ function Product({ data, isLoading }) {
           <Col span={16} style={{ padding: "10px 5px" }}>
             <CustomTitle text={"Reviews "} />
             <Space direction="vertical" size="large" className="p-3">
-              <CardComment user={{ username: "ken" }} content={"Hello"} />
-              <CardComment user={{ username: "ken" }} content={"Hello"} />
-              <CardComment user={{ username: "ken" }} content={"Hello"} />
+              <CardComment id={id} />
             </Space>
           </Col>
           <Col span={8} style={{ padding: 10 }}>
