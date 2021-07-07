@@ -1,11 +1,11 @@
-.ais-Hits-list {
+.related-products > .ais-Hits-list {
   /* ant-row */
   grid-gap: 0 !important;
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: wrap !important;
 }
-.ais-Hits-item {
+.related-products > .ais-Hits-item {
   /* ant-col-4 */
   display: block !important;
   -ms-flex: 0 0 16.66666667% !important;
