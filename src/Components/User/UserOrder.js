@@ -16,14 +16,18 @@ function UserOrder({ ...props }) {
     () => fetchOrdersUser({ token: cookies.accessToken }),
     {
       onSuccess: (data) => {
-        // console.log("DATa", data);
-        if (data.status == 200) {
-          const arrResult = [];
-          data.data?.forEach((el) => {
-            arrResult.push(...el.products);
-          });
-          // console.log({ arrResult });
-          setDataOrders(arrResult);
+        try {
+          // console.log("DATa", data);
+          if (data.status == 200) {
+            const arrResult = [];
+            data.data?.forEach((el) => {
+              arrResult.push(...el.products);
+            });
+            // console.log({ arrResult });
+            setDataOrders(arrResult);
+          }
+        } catch (error) {
+          console.log(error);
         }
       },
       onError: (error) => {

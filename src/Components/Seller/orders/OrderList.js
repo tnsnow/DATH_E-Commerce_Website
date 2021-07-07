@@ -19,22 +19,6 @@ export default function OrderList() {
   console.log({ seller });
 
   const columns = [
-    // {
-    //   title: "User",
-    //   dataIndex: "user",
-    //   width: "150px",
-    //   key: "user",
-    //   render: ({ username, userImage }) => (
-    //     <div style={{ width: 150 }}>
-    //       <Space>
-    //         <Image alt={username} width={56} src={userImage} />
-    //         <Paragraph ellipsis={{ rows: 2, tooltip: true }}>
-    //           {username}
-    //         </Paragraph>
-    //       </Space>
-    //     </div>
-    //   ),
-    // },
     {
       title: "Product",
       dataIndex: "product",

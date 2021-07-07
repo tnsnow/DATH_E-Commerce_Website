@@ -38,6 +38,10 @@ function Footer(props) {
 
       <div className="footer-section__bottom">
         <p>© 2021 Cartya. Tất cả các quyền được bảo lưu.</p>
+        <p>
+          running in <code>{process.env.NODE_ENV} </code>with server{" "}
+          <code>{process.env.REACT_APP_URL}</code>
+        </p>
       </div>
     </div>
   );

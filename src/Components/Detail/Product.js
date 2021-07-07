@@ -1,4 +1,5 @@
 import { Col, Row, Space } from "antd";
+import CardComment from "Components/Card/CardComment";
 import PropTypes from "prop-types";
 import React from "react";
 import {
@@ -14,6 +15,7 @@ import CustomTitle from "./components/CustomTitle";
 import ProductDesc from "./ProductDesc";
 import ProductImage from "./ProductImage";
 import ProductInfo from "./ProductInfo";
+import "./style.css";
 Product.propTypes = {
   data: PropTypes.object,
   isLoading: PropTypes.bool,
@@ -41,20 +43,12 @@ function Product({ data, isLoading }) {
         </Row>{" "}
         <Row gutter={24}>
           <Col span={16} style={{ padding: "10px 5px" }}>
-            <CustomTitle text={"Related Products"} />
-            <div>
-              <Index indexName="most_buy">
-                <ExperimentalConfigureRelatedItems
-                  hit={currentProduct}
-                  matchingPatterns={{
-                    "seller._id" : {score : 1},
-                    categories: { score: 2},
-                    brand: { score: 3 },
-                  }}
-                />
-                <Hits hitComponent={CustomHitCart} />
-              </Index>
-            </div>
+            <CustomTitle text={"Reviews "} />
+            <Space direction="vertical" size="large" className="p-3">
+              <CardComment user={{ username: "ken" }} content={"Hello"} />
+              <CardComment user={{ username: "ken" }} content={"Hello"} />
+              <CardComment user={{ username: "ken" }} content={"Hello"} />
+            </Space>
           </Col>
           <Col span={8} style={{ padding: 10 }}>
             <CustomTitle text={"Categories"} />
@@ -65,6 +59,25 @@ function Product({ data, isLoading }) {
               </div>
             </div>
           </Col>
+        </Row>
+        <Row>
+          <CustomTitle text={"Related Products"} />
+          <div>
+            {currentProduct && (
+              <div className="related-products">
+                <Index indexName="dev_cartya">
+                  <ExperimentalConfigureRelatedItems
+                    hit={currentProduct}
+                    matchingPatterns={{
+                      categories: { score: 1 },
+                      brand: { score: 2 },
+                    }}
+                  />{" "}
+                  <Hits hitComponent={CustomHitCart} />
+                </Index>
+              </div>
+            )}
+          </div>
         </Row>
       </Space>
     </div>
