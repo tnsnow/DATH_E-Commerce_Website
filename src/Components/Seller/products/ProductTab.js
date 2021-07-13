@@ -39,7 +39,7 @@ const columns = [
     title: "Categories",
     dataIndex: "categories",
     key: "categories",
-    width : "150px",
+    width: "150px",
     render: (tags) => (
       <>
         {tags.map((tag) => (
@@ -56,7 +56,7 @@ const columns = [
     title: "Pricing",
     dataIndex: "price",
     key: "price",
-    width : "150px",
+    width: "150px",
     sorter: (a, b) => b.price - a.price,
     render: (price) => "₫ " + numeral(price).format("0,0[.]00"),
   },
@@ -96,7 +96,7 @@ const columns = [
 export default function ProductTab() {
   const notification = useNotification();
   const user = useRecoilValue(currentUser);
-  console.log({user});
+  console.log({ user });
   const [cookies] = useCookies(["accessToken"]);
   const [isShow, setIsShow] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -127,8 +127,8 @@ export default function ProductTab() {
     "product",
     () => fetchProduct({ id: user._id }),
     {
-      // refetchInterval : 2000,
-      enabled :  !!user._id,
+      refetchInterval: 2000,
+      enabled: !!user._id,
       onSuccess: (data) => {
         try {
           // console.log(data);
@@ -205,7 +205,7 @@ export default function ProductTab() {
           onSelect: onSelectRow,
           onSelectAll: onSelectAllRow,
         }}
-        loading={isLoading || isDeleteLoading || isFetching}
+        loading={isLoading || isDeleteLoading || !!!user._id}
         dataSource={dataSource}
         columns={columns}
       />

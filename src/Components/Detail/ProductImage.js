@@ -39,12 +39,13 @@ function ProductImage({ images }) {
         <Slider
           asNavFor={nav1}
           ref={(slider) => (slider2 = slider)}
-          slidesToShow={3}
-          arrows={false}
-          centerMode={true}
+          slidesToShow={4}
+          arrows={true}
+          // centerMode={true}
           swipeToSlide={true}
           focusOnSelect={true}
           rows={1}
+          adaptiveHeight={true}
         >
           {images
             ? images.map((img, index) => (

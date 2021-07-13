@@ -72,10 +72,10 @@ function Navbar(props) {
   };
 
   //fetch Data item in cat
-  const { mutate, isLoading } = useMutation(fetchItemsInCart, {
+  const { mutate, isFetching } = useMutation(fetchItemsInCart, {
     onSuccess: (data) => {
       try {
-        if (data.data && data.data?.success) {
+        if (data.status == 200) {
           // console.log({ data });
           const arr = [];
           data.data?.map((i) => {
@@ -85,6 +85,7 @@ function Navbar(props) {
               image: i.product.images[0],
             });
           });
+          console.log(arr, data.data);
           setItems(arr);
         }
       } catch (error) {
@@ -255,7 +256,7 @@ function Navbar(props) {
                   <Popover
                     placement="bottomRight"
                     content={
-                      <MiniCartItem items={items} isLoading={isLoading} />
+                      <MiniCartItem items={items} isLoading={isFetching} />
                     }
                     title="Title"
                   >

@@ -19,7 +19,7 @@ ProductDesc.propTypes = {
 };
 
 function ProductDesc({ data }) {
-  const { _id, name, sold, available, rating, price, like } = data;
+  const { _id, name, sold, available, rating, price, like, brand } = data;
   const [cookies] = useCookies(["accessToken"]);
   const [isLogin, setIsLogin] = useState(false);
   const [quantity, setQuantity] = useState(0);
@@ -88,7 +88,7 @@ function ProductDesc({ data }) {
         <div className="content-title">
           <h1>{name}</h1>
           <div className="content-rating">
-            <Space size="middle">
+            <Space size="small" direction="vertical">
               <Rate defaultValue={rating} allowHalf disabled />
               <Space
                 size="large"
@@ -98,6 +98,7 @@ function ProductDesc({ data }) {
                 <Link target="_blank">100 Reviews</Link>
                 <Text>{available} Available</Text>
                 <Text>{sold} Sold</Text>
+                <Text>From : {brand}</Text>
               </Space>
             </Space>
           </div>
