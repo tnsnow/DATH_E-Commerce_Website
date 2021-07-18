@@ -3,6 +3,7 @@ import React from "react";
 import { connectHierarchicalMenu } from "react-instantsearch-core";
 
 const Filter = ({ items, refine }) => {
+  console.log({ items });
   return (
     <Space direction="vertical">
       {items.map((item) => (

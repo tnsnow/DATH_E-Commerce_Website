@@ -16,7 +16,7 @@ export default function OrderList() {
   const [cookies] = useCookies(["accessToken"]);
   const notificate = useNotification();
   const seller = useRecoilValue(currentUser);
-  console.log({ seller });
+  // console.log({ seller });
 
   const columns = [
     {
@@ -85,7 +85,7 @@ export default function OrderList() {
     },
     ,
   ];
-  const { isLoading, isFetching, isError, refetch } = useQuery(
+  const { isLoading, isError, refetch } = useQuery(
     "fetchingOrder",
     () => fetchOrderData({ id: seller._id }),
     {
@@ -104,7 +104,7 @@ export default function OrderList() {
                 });
               });
             });
-            console.log(source);
+            // console.log(source);
             setDataSource(source);
           }
         } catch (error) {
@@ -120,7 +120,7 @@ export default function OrderList() {
       { id, status, token: cookies.accessToken },
       {
         onSuccess: (data) => {
-          console.log(data.data);
+          // console.log(data.data);
           refetch();
         },
       }

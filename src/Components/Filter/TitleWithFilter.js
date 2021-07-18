@@ -4,7 +4,7 @@ import Title from "antd/lib/typography/Title";
 import { Button, Checkbox, Select, Space } from "antd";
 import Text from "antd/lib/typography/Text";
 import CustomSortDropdown from "./CustomSortDropdown";
-const { Option } = Select;
+import CustomHitPerPages from "./CustomHitPerPages";
 function TitleWithFilter({ text, ...props }) {
   return (
     <div
@@ -22,9 +22,15 @@ function TitleWithFilter({ text, ...props }) {
             <Text style={{ fontSize: 14 }} type="secondary">
               Sort by :
             </Text>
-            <Checkbox>Newest</Checkbox>
-            <Checkbox>Most like</Checkbox>
-            <Checkbox>Best seller</Checkbox>
+            <CustomHitPerPages
+              defaultRefinement={8}
+              items={[
+                { value: 8, label: "8 Result" },
+                { value: 16, label: "16 Result" },
+                { value: 50, label: "50 Result" },
+              ]}
+            />
+
             <CustomSortDropdown
               defaultRefinement="most_buy"
               items={[

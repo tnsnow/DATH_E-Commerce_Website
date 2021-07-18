@@ -29,7 +29,7 @@ function FilterCard(props) {
           </Card>
           <Card title="Categories" bordered={false} style={{ width: "100%" }}>
             <CustomFilter
-              operator={"and"}
+              operator={"or"}
               attributes={["categories"]}
               limit={10}
               showMore
@@ -37,7 +37,7 @@ function FilterCard(props) {
           </Card>
           <Card title="Brands" bordered={false} style={{ width: "100%" }}>
             <CustomFilter
-              operator={"and"}
+              operator={"or"}
               attributes={["brand"]}
               limit={10}
               showMore

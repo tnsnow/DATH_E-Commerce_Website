@@ -12,6 +12,9 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router";
+import { useRecoilValue } from "recoil";
+import { currentHit } from "recoil/product/product";
+import { editProduct } from "./apis";
 
 const { Text, Link } = Typography;
 ProductDesc.propTypes = {
@@ -20,12 +23,21 @@ ProductDesc.propTypes = {
 
 function ProductDesc({ data }) {
   const { _id, name, sold, available, rating, price, like, brand } = data;
+  const hit = useRecoilValue(currentHit);
   const [cookies] = useCookies(["accessToken"]);
   const [isLogin, setIsLogin] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const history = useHistory();
   const formatter = usePriceFormat();
   const notificate = useNotification();
+  const sendEvent = (eventName) => {
+    window.aa("convertedObjectIDsAfterSearch", {
+      index: "dev_cartya",
+      eventName,
+      queryID: hit.__queryID,
+      objectIDs: [hit.objectID],
+    });
+  };
   const mutateAddToCart = async ({ id }) => {
     return axios
       .post(
@@ -58,15 +70,18 @@ function ProductDesc({ data }) {
       },
     }
   );
+
   const handleAddToCart = () => {
     // console.log(data);
     if (isLogin) {
       mutate({ id: _id });
+      sendEvent("Product add to cart");
     } else {
       history.push("/login");
     }
   };
   const handleBuy = () => {
+    sendEvent("Product Buy");
     mutate(
       { id: _id },
       {
@@ -76,6 +91,7 @@ function ProductDesc({ data }) {
       }
     );
   };
+  const handleLike = () => {};
   if (isError) {
     notificate("error", error.response.data.error);
   }
@@ -155,7 +171,7 @@ function ProductDesc({ data }) {
             <Text style={{ fontSize: 16 }} type="secondary">
               Everyone like this : {like}
             </Text>
-            <HeartOutlined style={{ fontSize: 24 }} />
+            <HeartOutlined style={{ fontSize: 24 }} onClick={handleLike} />
           </Space>
           <Space>
             <Text strong style={{ fontSize: 16 }}>

@@ -7,17 +7,12 @@ import FilterCard from "../Components/Filter/FilterCard";
 import FullWidthBanner from "../Components/Header/FullWidthBanner";
 import Title from "antd/lib/typography/Title";
 // import {  } from "react-instantsearch-dom/dist/cjs/widgets/Hits";
-import CustomHitCart from "../Components/Card/CustomHitCard";
-import {
-  Hits,
-  Stats,
-} from "react-instantsearch-dom";
+import { Configure, Hits, Stats } from "react-instantsearch-dom";
 import TitleWithFilter from "../Components/Filter/TitleWithFilter";
 import CustomPagination from "./CustomPagination";
-
+import CustomHitInsightCard from "Components/Card/CustomHitInsightCard";
 
 export default function Search(props) {
-  
   const { keyword } = useParams();
   const fetchSearchProduct = ({ keyword, limit, page }) => {
     return axios
@@ -49,6 +44,7 @@ export default function Search(props) {
   if (isError) return <h1>{error}</h1>;
   return (
     <div className="container">
+      <Configure clickAnalytics />
       <FullWidthBanner
         content={
           <>
@@ -77,21 +73,17 @@ export default function Search(props) {
         </Col>
         <Col span={18}>
           {/* Styling data below */}
-        
+
           <div className="section-all-products__content">
             <Row gutter={24}>
               <TitleWithFilter level={4} text={"All products"} />
-              <Hits hitComponent={CustomHitCart} />
+              {/* <Hits hitComponent={CustomHitCart} /> */}
+              <Hits hitComponent={CustomHitInsightCard} />
             </Row>
           </div>
-          <CustomPagination
-            showFirst={false}
-            showLast={false}
-            defaultRefinement={1}
-          />
+          <CustomPagination defaultRefinement={1} />
         </Col>
       </Row>
-    
     </div>
   );
 }

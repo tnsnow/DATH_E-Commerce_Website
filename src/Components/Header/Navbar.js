@@ -21,7 +21,7 @@ import { decodeToken } from "react-jwt";
 import { useNotification, useRandomColor, useTruncate } from "../../hooks";
 import Avatar from "antd/lib/avatar/avatar";
 import { fetchUser } from "../User/functions";
-import CustomSearchBox from "./CustomSearchBox";
+import CustomSearchBox, { CustomCompleteSearch } from "./CustomSearchBox";
 import { PoweredBy } from "react-instantsearch-dom";
 
 const { Search } = Input;
@@ -224,6 +224,7 @@ function Navbar(props) {
                   placeholder: "Product, brand, and more …",
                 }}
               />
+              {/* <CustomCompleteSearch /> */}
               <div style={{ margin: "0 10px" }}>
                 <PoweredBy
                   translations={{
