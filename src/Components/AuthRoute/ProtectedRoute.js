@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useMutation } from "react-query";
 import { fetchUser } from "../User/functions";
 
-export default function ProtectedRoute({ child, ...rest }) {
+export default function ProtectedRoute({ component, ...rest }) {
   const [cookies] = useCookies(["accessToken"]);
   const { isExpired } = useJwt(cookies.accessToken);
   const setCurrentUser = useSetRecoilState(currentUser);
@@ -18,20 +18,22 @@ export default function ProtectedRoute({ child, ...rest }) {
         { token: cookies.accessToken },
         {
           onSuccess: (data) => {
+            console.log(data);
             setCurrentUser(data?.data);
           },
         }
       );
     }
     // cookies.accessToken && setCurrentUser(decodeToken(cookies.accessToken));
-  }, [cookies]);
+  }, []);
 
   return (
     <Route
       {...rest}
-      render={() =>
-        !isExpired ? (
-          child
+      render={() => {
+        console.log({ cookies: cookies.accessToken });
+        return cookies.accessToken ? (
+          component
         ) : (
           <Redirect
             push
@@ -39,8 +41,8 @@ export default function ProtectedRoute({ child, ...rest }) {
               pathname: "/login",
             }}
           />
-        )
-      }
+        );
+      }}
     />
   );
 }

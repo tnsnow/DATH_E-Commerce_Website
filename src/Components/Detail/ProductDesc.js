@@ -82,14 +82,8 @@ function ProductDesc({ data }) {
   };
   const handleBuy = () => {
     sendEvent("Product Buy");
-    mutate(
-      { id: _id },
-      {
-        onSuccess: () => {
-          history.push("/home/cart");
-        },
-      }
-    );
+    history.push("/home/cart");
+    mutate({ id: _id });
   };
   const handleLike = () => {};
   if (isError) {

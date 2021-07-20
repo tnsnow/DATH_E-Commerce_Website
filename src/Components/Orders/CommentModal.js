@@ -73,13 +73,13 @@ export default function CommentModal({
       .catch((err) => notificate("error", err));
   };
   const handleSubmit = () => {
-    if (content == "") {
+    if (content === "") {
       notificate("error", "Content cannot blank");
       return;
     }
     const urls = uploads.fileList?.map((i) => i.url);
     mutate(
-      { token, id, body: { content, media: urls } },
+      { token, id, body: { content, rate, media: urls } },
       {
         onSuccess: (data) => {
           try {

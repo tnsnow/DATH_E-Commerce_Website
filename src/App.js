@@ -20,7 +20,7 @@ import ProtectedRoute from "./Components/AuthRoute/ProtectedRoute";
 function App() {
   return (
     <Router>
-      <div style={{height : "100%"}}>
+      <div style={{ height: "100%" }}>
         <Switch>
           <Route exact path="/">
             <Redirect
@@ -38,7 +38,7 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <ProtectedRoute path="/seller" child={<Seller />} />
+          <ProtectedRoute path="/seller" component={<Seller />} />
           <Route path="*">
             <NotFound404 />
           </Route>

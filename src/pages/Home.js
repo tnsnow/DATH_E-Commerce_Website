@@ -79,12 +79,8 @@ export default function Home() {
           <Route path="/home/product-detail/:id">
             <ProductDetail />
           </Route>
-          <Route path="/home/profile">
-            <Profile />
-          </Route>
-          <Route path="/home/cart">
-            <Cart />
-          </Route>
+          <ProtectedRoute path="/home/profile" component={<Profile />} />
+          <ProtectedRoute path="/home/cart" component={<Cart />} />
         </Switch>
       </div>
       <div className="footer-box">

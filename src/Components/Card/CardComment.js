@@ -1,4 +1,4 @@
-import { Space, Avatar, Typography, List, Image } from "antd";
+import { Space, Avatar, Typography, List, Image, Rate } from "antd";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
 import React, { useState } from "react";
@@ -40,7 +40,12 @@ export default function CardComment({ id }) {
           pageSize: 5,
           hideOnSinglePage: true,
         }}
-        renderItem={({ user: { username, userImage }, content, media }) => (
+        renderItem={({
+          user: { username, userImage },
+          content,
+          rate,
+          media,
+        }) => (
           <>
             <Space direction="vertical" className="w-100 p-3">
               <Space align="start">
@@ -51,8 +56,14 @@ export default function CardComment({ id }) {
                     <Avatar>{username}</Avatar>
                   )}
                 </div>
-                <Space direction="vertical">
+                <Space direction="vertical" size={5}>
                   <Title level={4}>{username}</Title>
+                  <Rate
+                    style={{ fontSize: 14 }}
+                    defaultValue={rate || 0}
+                    disabled
+                    allowHalf
+                  />
                   <Text style={{ fontSize: 16 }} type="secondary">
                     {content}
                   </Text>
